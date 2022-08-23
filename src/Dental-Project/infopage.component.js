@@ -11,26 +11,55 @@ import tooth from './assets/tooth(COPYRIGHT).jpg'
 export const InfoPage = ({ navigation }) => {
   return ( 
     /*HEADER AND NAV*/
-      <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFFFF5"}}>
-        <Text category='h1' style={{ color: '#999', fontSize: 40 }}>Welcome home</Text>
-        <Layout style={styles.container} level='1'>
-          <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Home')} > Home </Button>
-          <Button style ={styles.button} status="success"> Assessment </Button>
-          <Button style ={styles.button} status="warning"> Quizzes </Button>
-          <Button style ={styles.button} status="info"> Account </Button>
-        </Layout>
+      <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
+        <Text category='h1' style={[styles.banner,{fontFamily: 'monospace'}]}>Dentassistant</Text>
+        <View>
+          <Layout style={styles.container} level='1'>
+            <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Home')} > Home </Button>
+            <Button style ={styles.button} status="success"> Assessment </Button>
+            <Button style ={styles.button} status="warning"> Quizzes </Button>
+            <Button style ={styles.button} status="info"> Account </Button>
+          </Layout>
+        </View>
       {/*MAIN PAGE CONTENTS*/}
-        <Text>
+      {/*TOP MARGIN IS TO PREVENT OVERLAP, PROBABLY NOT A FIX*/}
+        <Text style={{textAlign: 'center', marginTop: 50}}>
           Welcome to the Info Page
           Select a topic to start learning
           This is an additional paragraph, lorum ipsum and all that, but I want to make CIRCLES
         </Text>
-        <ScrollView>
-          <View style={styles.infoBubble}>
-            <Text style={{textAlign: 'center', textAlignVertical: 'center', flex: 1}}>
-              Topic 1
+        <ScrollView style={{margin: 10}}>
+
+          <View style={[styles.infoBubble,{alignSelf: 'flex-end', backgroundColor: '#ABEC7E'}]}>
+            <Text style={styles.topicName}>
+              Gum Diseases
             </Text>
           </View>
+
+          <View style={[styles.infoBubble,{backgroundColor: '#98ECFD'}]}>
+            <Text style={styles.topicName}>
+              Plaque
+            </Text>
+          </View>
+
+          <View style={[styles.infoBubble,{backgroundColor: '#FFC17A', alignSelf: 'flex-end'}]}>
+            <Text style={styles.topicName}>
+              Teeth Care
+            </Text>
+          </View>
+
+          <View style={[styles.infoBubble,{backgroundColor: '#FFA187'}]}>
+            <Text style={styles.topicName}>
+              Tongue Health
+            </Text>
+          </View>
+
+          <View style={[styles.infoBubble,{backgroundColor: '#FF4294', alignSelf: 'flex-end'}]}>
+            <Text style={styles.topicName}>
+              Contact Us
+            </Text>
+          </View>
+
         </ScrollView>
       </Layout>
   );
@@ -52,20 +81,32 @@ const styles = StyleSheet.create({
     flex: 0.3,
     margin: 2,
   },
-  footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  footerControl: {
-    marginHorizontal: 2,
-  },
   infoBubble: {
     borderRadius: 100,
-    margin: 100,
-    width: 150,
-    height: 150,
-    backgroundColor: 'red',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: -20,
+    width: 170,
+    height: 170
     // alignContents: 'centre',
+  },
+  topicName: {
+    textAlign: 'center', 
+    textAlignVertical: 'center', 
+    flex: 1,
+    fontSize: 20,
+    color: '#3B3C3F'
+  },
+  alignRight: {
     alignSelf: 'flex-end'
+  },
+  banner: {
+    color: '#3B3C3F', 
+    fontSize: 40, 
+    marginTop: 20, 
+    textAlign: 'center'
   }
 });
+
+
+// {alignSelf: 'flex-end', backgroundColor: '#9CE463'},

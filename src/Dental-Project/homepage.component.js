@@ -7,9 +7,6 @@ import { default as theme } from './custom-theme.json';
 
 import tooth from './assets/tooth(COPYRIGHT).jpg'
 
-//This will not be the home page this page for now will help you start on your way, sample ere are button and a card
-//this code will get cleaned up once you get used to it and moved to its own individual component files
-
 const Header = (props) => (
   <Layout {...props}>
     <Text category='h6'>Smoking</Text>
@@ -36,10 +33,6 @@ const Footer = (props) => (
 );
 
 export const HomeScreen = ({ navigation }) => {
-  // const renderInfo = () => {
-  //   navigation.navigate('Info');
-  // };
-
 
   return (
   <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFFFF5"}}>
@@ -52,7 +45,6 @@ export const HomeScreen = ({ navigation }) => {
     </Layout>
     <Card style={styles.card} header={Header} footer={Footer}>
       <Text>
-         
         Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
         worth it, but guess what you're worth it and failure makes you stronger
       </Text>
