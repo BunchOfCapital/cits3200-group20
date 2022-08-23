@@ -6,7 +6,7 @@ import { Button } from '@ui-kitten/components';
 import { default as theme } from './custom-theme.json';
 import { useFonts } from 'expo-font';
 
-import { AppNavigator } from './navigation.component';
+import { AppNavigator } from './components/navigation.component';
 
 import tooth from './assets/tooth(COPYRIGHT).jpg'
 
