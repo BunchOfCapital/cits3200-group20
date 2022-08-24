@@ -13,14 +13,14 @@ export const InfoPage = ({ navigation }) => {
     /*HEADER AND NAV*/
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
         <Text category='h1' style={[styles.banner,{fontFamily: 'monospace'}]}>Dentassistant</Text>
-        <View>
+        {/* <View>
           <Layout style={styles.container} level='1'>
             <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Home')} > Home </Button>
             <Button style ={styles.button} status="success"> Assessment </Button>
             <Button style ={styles.button} status="warning"> Quizzes </Button>
             <Button style ={styles.button} status="info"> Account </Button>
           </Layout>
-        </View>
+        </View> */}
       {/*MAIN PAGE CONTENTS*/}
       {/*TOP MARGIN IS TO PREVENT OVERLAP, PROBABLY NOT A FIX*/}
         <Text style={{textAlign: 'center', marginTop: 50}}>

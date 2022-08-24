@@ -4,7 +4,6 @@ import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
-
 import tooth from '../assets/tooth(COPYRIGHT).jpg'
 
 const Header = (props) => (
@@ -37,12 +36,12 @@ export const HomeScreen = ({ navigation }) => {
   return (
   <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFFFF5"}}>
     <Text category='h1' style={{ color: '#999', fontSize: 40 }}>Welcome home</Text>
-    <Layout style={styles.container} level='1'>
+    {/* <Layout style={styles.container} level='1'>
       <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Info')} > Info </Button>
       <Button style ={styles.button} status="success"> Assessment </Button>
       <Button style ={styles.button} status="warning"> Quizzes </Button>
       <Button style ={styles.button} status="info"> Account </Button>
-    </Layout>
+    </Layout> */}
     <Card style={styles.card} header={Header} footer={Footer}>
       <Text>
         Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
