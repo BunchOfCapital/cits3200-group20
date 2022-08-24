@@ -8,7 +8,7 @@ import { InfoPage } from './infopage.component';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const TopBar = ({navigation, state}) =>{
+const TopBar = ({navigation}) =>{
   const AwardIcon = (props) => (
     <Icon {...props} name='award'/>
   );
@@ -27,12 +27,16 @@ const TopBar = ({navigation, state}) =>{
     setMenuVisible(!menuVisible);
   };
 
+  const navigateAchievements = () =>{
+    navigation.navigate('Info');
+  }
+
   const renderMenuAction = () => (
     <TopNavigationAction icon={MenuIcon} onPress={toggleMenu}/>
   );
   return(
       <React.Fragment>
-        <TopNavigationAction icon={AwardIcon}/>
+        <TopNavigationAction icon={AwardIcon} onPress = {navigateAchievements}/>
         <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
@@ -64,7 +68,7 @@ const Navbar = ({navigation, state}) =>{
   
 };
   const TabNavigator = () => (
-    <Navigator tabBar={props => <Navbar {...props} />}>
+    <Navigator tabBar={props => <Navbar {...props}  />} screenOptions={{headerShown: false}} topNav = {props =><TopBar{...props}/>}>
       <Screen name='Home' component={HomeScreen}/>
       <Screen name='Info' component={InfoPage}/>
     </Navigator>
@@ -74,7 +78,6 @@ const Navbar = ({navigation, state}) =>{
     <NavigationContainer>
       <Layout style={styles.topNav} level='1'>
       <TopNavigation
-        alignment='Left'
         title='Dental App'
         accessoryRight={TopBar}
       />
@@ -89,8 +92,7 @@ const styles = StyleSheet.create({
     bottom:0
   },
   topNav: {
-    marginTop:30,
-    fontSize:50
+    marginTop:30
   },
   
 })
