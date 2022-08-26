@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon,Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
@@ -8,24 +8,30 @@ import { InfoPage } from './infopage.component';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const TopBar = ({navigation}) =>{
+const TopBar = () =>{
   const AwardIcon = (props) => (
     <Icon {...props} name='award'/>
   );
+
   const LogoutIcon = (props) => (
     <Icon {...props} name='log-out'/>
   );
+
   const MenuIcon = (props) => (
   <Icon {...props} name='more-vertical'/>
-);
+  );
 
   const PersonIcon = (props) => (
     <Icon {...props} name='person-outline'/>
   );
+
   const [menuVisible, setMenuVisible] = React.useState(false);
+
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+
+  const navigation = useNavigation();
 
   const navigateAchievements = () =>{
     navigation.navigate('Info');
@@ -34,9 +40,12 @@ const TopBar = ({navigation}) =>{
   const renderMenuAction = () => (
     <TopNavigationAction icon={MenuIcon} onPress={toggleMenu}/>
   );
+
+
+
   return(
       <React.Fragment>
-        <TopNavigationAction icon={AwardIcon} onPress = {navigateAchievements}/>
+        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements}/>
         <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
@@ -77,11 +86,11 @@ const Navbar = ({navigation, state}) =>{
   export const AppNavigator = () => (
     <NavigationContainer>
       <Layout style={styles.topNav} level='1'>
-      <TopNavigation
-        title='Dental App'
-        accessoryRight={TopBar}
-      />
-    </Layout>
+        <TopNavigation
+          title='Dental App'
+          accessoryRight={TopBar}
+        />
+      </Layout>
       <TabNavigator/>
     </NavigationContainer>
   );

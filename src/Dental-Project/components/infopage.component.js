@@ -12,7 +12,7 @@ export const InfoPage = ({ navigation }) => {
   return ( 
     /*HEADER AND NAV*/
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
-        <Text category='h1' style={[styles.banner,{fontFamily: 'monospace'}]}>Dentassistant</Text>
+        {/*<Text category='h1' style={[styles.banner,{fontFamily: 'monospace'}]}>Dentassistant</Text>*/}
         {/* <View>
           <Layout style={styles.container} level='1'>
             <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Home')} > Home </Button>
@@ -22,11 +22,8 @@ export const InfoPage = ({ navigation }) => {
           </Layout>
         </View> */}
       {/*MAIN PAGE CONTENTS*/}
-      {/*TOP MARGIN IS TO PREVENT OVERLAP, PROBABLY NOT A FIX*/}
-        <Text style={{textAlign: 'center', marginTop: 50}}>
+        <Text style={{textAlign: 'center'}}>
           Welcome to the Info Page
-          Select a topic to start learning
-          This is an additional paragraph, lorum ipsum and all that, but I want to make CIRCLES
         </Text>
         <ScrollView style={{margin: 10}}>
 
