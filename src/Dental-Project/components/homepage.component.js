@@ -6,9 +6,11 @@ import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 import tooth from '../assets/tooth(COPYRIGHT).jpg';
 import cloud from '../assets/cloud.png';
+import wallpaper from '../assets/geometric.jpeg'
 import { Dimensions } from 'react-native';
-import { ImageBackground } from 'react-native';
 
+
+export const HomeScreen = () => {
       const Header = (props) => (
       <Layout {...props}>
         <Text category='h6'>Smoking</Text>
@@ -33,10 +35,12 @@ import { ImageBackground } from 'react-native';
   return (
   <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
     <ImageBackground source={wallpaper} resizeMode="cover" style ={{flex:1}}>    
-    <Layout style={{paddingBottom:30}}>
-     <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, aspectRatio: 2400/757}}>
-      <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
-     </ImageBackground>
+    <Layout style={{paddingBottom:30, backgroundColor: "transparent",alignItems:"center", paddingTop:10}}>
+      <Card style={{backgroundColor: "transparent",alignItems:"center"}}>
+        <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, alignSelf:"center"}}>
+          <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
+        </ImageBackground>
+     </Card>
     </Layout>
     
     <Layout style={{flex:0.2, padding: 5, backgroundColor: "transparent", marginTop:10}}>
