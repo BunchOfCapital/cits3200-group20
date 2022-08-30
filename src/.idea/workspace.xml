@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eab9f06a-6fef-4c91-b60c-76e7793b2027" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.expo/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.expo/settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dental-Project/components/homepage.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/Dental-Project/components/homepage.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dental-Project/components/navBar.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/Dental-Project/components/navBar.component.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

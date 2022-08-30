@@ -1,7 +1,7 @@
 import React from 'react';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
-import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Layout, Text,Card } from '@ui-kitten/components';
+import { Image, StyleSheet, ScrollView, View, SafeAreaView , ImageBackground} from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 import tooth from '../assets/tooth(COPYRIGHT).jpg';
@@ -9,62 +9,69 @@ import cloud from '../assets/cloud.png';
 import { Dimensions } from 'react-native';
 import { ImageBackground } from 'react-native';
 
-const Header = (props) => (
-  <Layout {...props}>
-    <Text category='h6'>Smoking</Text>
-    <Text category='s1'>By Me</Text>
-    {/*<Image source={tooth} style={{ width: 50, height:50, position: 'right'  }} />*/}
-  </Layout>
-);
+      const Header = (props) => (
+      <Layout {...props}>
+        <Text category='h6'>Smoking</Text>
+        <Text category='s1'>Recommended Topic</Text>
+        {/*<Image source={tooth} style={{ width: 50, height:50, position: 'right'  }} />*/}
+      </Layout>
+    );
 
-const Footer = (props) => (
-  <Layout {...props} style={[props.style, styles.footerContainer]}>
-    <Button
-      style={styles.footerControl}
-      size='small'
-      status='basic'>
-      SHARE
-    </Button>
-    <Button
-      style={styles.footerControl}
-      size='small'
-      status = "success">
-      LEARN MORE
-    </Button>
-  </Layout>
-);
+    const Footer = (props) => (
+      <Layout {...props} style={[props.style, styles.footerContainer]}>
+        <Button
+          style={styles.footerControl}
+          size='small'
+          status = "info"
+          onPress={() => navigation.navigate('Info')}>
+          LEARN MORE
+        </Button>
+      </Layout>
+    );
 
-export const HomeScreen = ({ navigation }) => {
 
   return (
-  <Layout style={{flex: 1, alignItems: 'center', backgroundColor: "#FFFFF5"}}>
-    {/* <Text category='h1' style={{ color: '#999', fontSize: 40 }}>Welcome home</Text> */}
-    <View>
+  <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
+    <ImageBackground source={wallpaper} resizeMode="cover" style ={{flex:1}}>    
     <Layout style={{paddingBottom:30}}>
      <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, aspectRatio: 2400/757}}>
       <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
      </ImageBackground>
     </Layout>
+    
+    <Layout style={{flex:0.2, padding: 5, backgroundColor: "transparent", marginTop:10}}>
+      <ScrollView horizontal = {true} showsHorizontalScrollIndicator={false} style={{flex:0.1}}>
+          <Card  style={styles.cardSmall} status='danger'>
+            <Text>Quiz</Text>
+          </Card>
 
-    </View>
-    {/* <Layout style={styles.container} level='1'>
-      <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Info')} > Info </Button>
-      <Button style ={styles.button} status="success"> Assessment </Button>
-      <Button style ={styles.button} status="warning"> Quizzes </Button>
-      <Button style ={styles.button} status="info"> Account </Button>
-    </Layout> */}
-    <Layout>
-      
-    </Layout>
-    <Card style={styles.card} header={Header} footer={Footer}>
-      <Text>
-        Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
-        worth it, but guess what you're worth it and failure makes you stronger
-      </Text>
+          <Card style={styles.cardSmall} status='success'>
+            <Text> Check on your Assessment</Text>
+          </Card>
+
+          <Card style={styles.cardSmall} status='info'>
+            <Text>Your closest dentist</Text>
+          </Card>
+
+          <Card style={styles.cardSmall} status='warning'>
+            <Text>Warning</Text>
+          </Card>
+
+
+        </ScrollView>
+      </Layout>
+    
+    <Layout style ={{flex: 0.4, backgroundColor: "transparent", position:"absolute", bottom:100}}>   
+      <Card style={styles.card} header={Header} footer={Footer} status ='success'>
+        <Text>
+          Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
+          worth it, but guess what you're worth it and failure makes you stronger
+        </Text>
     </Card>
-    <Layout>
-
     </Layout>
+    
+    
+     </ImageBackground>
   </Layout>
   );
 };
@@ -83,8 +90,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   card: {
-    flex: 0.45,
-    
+    borderRadius: 25
+  },
+  cardSmall: {
+    borderRadius: 15
   },
   footerContainer: {
     flexDirection: 'row',

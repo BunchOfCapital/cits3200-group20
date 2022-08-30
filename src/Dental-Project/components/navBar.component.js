@@ -10,7 +10,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 const TopBar = () =>{
   const AwardIcon = (props) => (
-    <Icon {...props} name='award'/>
+    <Icon {...props} name='award' fill ="#D4AF37"/>
   );
 
   const LogoutIcon = (props) => (
@@ -19,7 +19,7 @@ const TopBar = () =>{
 
   const MenuIcon = (props) => (
   <Icon {...props} name='more-vertical'/>
-  );
+);
 
   const PersonIcon = (props) => (
     <Icon {...props} name='person-outline'/>
@@ -46,12 +46,13 @@ const TopBar = () =>{
   return(
       <React.Fragment>
         <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements}/>
-        <OverflowMenu
+        {/* <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
           onBackdropPress={toggleMenu}>
           <MenuItem accessoryLeft={PersonIcon} title='Profile'/>
-        </OverflowMenu>
+        </OverflowMenu> */}
+        <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements}/>
     </React.Fragment>
   );
 };
@@ -86,11 +87,11 @@ const Navbar = ({navigation, state}) =>{
   export const AppNavigator = () => (
     <NavigationContainer>
       <Layout style={styles.topNav} level='1'>
-        <TopNavigation
-          title='Dental App'
-          accessoryRight={TopBar}
-        />
-      </Layout>
+      <TopNavigation
+        title='Dental App'
+        accessoryRight={TopBar}
+      />
+    </Layout>
       <TabNavigator/>
     </NavigationContainer>
   );
