@@ -3,12 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Layout, Text,Card } from '@ui-kitten/components';
 import { Image, StyleSheet, ScrollView, View, SafeAreaView , ImageBackground} from 'react-native';
 import { Button } from '@ui-kitten/components';
-import { default as theme } from '../custom-theme.json';
-import tooth from '../assets/tooth(COPYRIGHT).jpg';
 import cloud from '../assets/cloud.png';
-import wallpaper from '../assets/geometric.jpeg'
+import wallpaper from '../assets/7284061(1).png'
 import { Dimensions } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import {Shadow} from 'react-native-shadow-2';
 
 
 export const HomeScreen = () => {
@@ -37,13 +36,10 @@ export const HomeScreen = () => {
   return (
   <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
     <ImageBackground source={wallpaper} resizeMode="cover" style ={{flex:1}}>    
-    
     <Layout style={{paddingBottom:30, backgroundColor: "transparent",alignItems:"center", paddingTop:10}}>
-      <Card style={{backgroundColor: "transparent",alignItems:"center"}}>
         <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, alignSelf:"center"}}>
           <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
         </ImageBackground>
-     </Card>
     </Layout>
     
     <Layout style={{flex:0.2, padding: 5, backgroundColor: "transparent", marginTop:10}}>
@@ -69,12 +65,17 @@ export const HomeScreen = () => {
       </Layout>
     
     <Layout style ={{flex: 0.4, backgroundColor: "transparent", position:"absolute", bottom:100}}>   
-      <Card style={styles.card} header={Header} footer={Footer} status ='success'>
-        <Text>
-          Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
-          worth it, but guess what you're worth it and failure makes you stronger
-        </Text>
-    </Card>
+    <Shadow  distance={5}
+        startColor={'#00000010'}
+        containerViewStyle={{marginVertical: 20}}
+        radius={8}>
+        <Card style={styles.card} header={Header} footer={Footer} status ='success'>
+          <Text>
+            Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
+            worth it, but guess what you're worth it and failure makes you stronger
+          </Text>
+      </Card>
+    </Shadow>
     </Layout>
     
     
