@@ -8,6 +8,7 @@ import tooth from '../assets/tooth(COPYRIGHT).jpg';
 import cloud from '../assets/cloud.png';
 import wallpaper from '../assets/geometric.jpeg'
 import { Dimensions } from 'react-native';
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 
 export const HomeScreen = () => {
@@ -30,11 +31,13 @@ export const HomeScreen = () => {
         </Button>
       </Layout>
     );
-
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
 
   return (
   <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
     <ImageBackground source={wallpaper} resizeMode="cover" style ={{flex:1}}>    
+    
     <Layout style={{paddingBottom:30, backgroundColor: "transparent",alignItems:"center", paddingTop:10}}>
       <Card style={{backgroundColor: "transparent",alignItems:"center"}}>
         <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, alignSelf:"center"}}>
@@ -76,6 +79,20 @@ export const HomeScreen = () => {
     
     
      </ImageBackground>
+     {/* <View style={styles.videoContainer}>
+      <Video
+        ref={video}
+        style={styles.video}
+        source={{
+          ref: video,
+          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+    </View> */}
   </Layout>
   );
 };
@@ -114,5 +131,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     // alignContents: 'centre',
     alignSelf: 'flex-end'
-  }
+  },
+  videoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 350,
+    height: 220,
+  },
 });
