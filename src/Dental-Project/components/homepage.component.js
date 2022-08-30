@@ -1,13 +1,13 @@
 import React from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
-import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
+import { Image, StyleSheet, ScrollView, View, SafeAreaView, ImageBackground} from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 import tooth from '../assets/tooth(COPYRIGHT).jpg';
 import cloud from '../assets/cloud.png';
-import { Dimensions } from 'react-native';
-import { ImageBackground } from 'react-native';
+
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 const Header = (props) => (
   <Layout {...props}>
@@ -35,25 +35,34 @@ const Footer = (props) => (
 );
 
 export const HomeScreen = ({ navigation }) => {
-
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
   return (
   <Layout style={{flex: 1, alignItems: 'center', backgroundColor: "#FFFFF5"}}>
     {/* <Text category='h1' style={{ color: '#999', fontSize: 40 }}>Welcome home</Text> */}
     <View>
-    <Layout style={{paddingBottom:30}}>
-     <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, aspectRatio: 2400/757}}>
-      <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
-     </ImageBackground>
-    </Layout>
-
+      <Layout style={{paddingBottom:30}}>
+      <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, aspectRatio: 2400/757}}>
+        <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
+      </ImageBackground>
+      </Layout>
     </View>
-    {/* <Layout style={styles.container} level='1'>
-      <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Info')} > Info </Button>
-      <Button style ={styles.button} status="success"> Assessment </Button>
-      <Button style ={styles.button} status="warning"> Quizzes </Button>
-      <Button style ={styles.button} status="info"> Account </Button>
-    </Layout> */}
-    <Layout>
+    <View style={styles.videoContainer}>
+      <Video
+        ref={video}
+        style={styles.video}
+        source={{
+          ref: video,
+          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+    </View>
+  <Layout>
+    
       
     </Layout>
     <Card style={styles.card} header={Header} footer={Footer}>
@@ -62,9 +71,7 @@ export const HomeScreen = ({ navigation }) => {
         worth it, but guess what you're worth it and failure makes you stronger
       </Text>
     </Card>
-    <Layout>
 
-    </Layout>
   </Layout>
   );
 };
@@ -101,5 +108,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     // alignContents: 'centre',
     alignSelf: 'flex-end'
-  }
+  },
+    videoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 350,
+    height: 220,
+  },
 });

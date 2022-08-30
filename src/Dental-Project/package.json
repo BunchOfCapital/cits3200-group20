@@ -30,7 +30,8 @@
     "react-native-svg": "12.3.0",
     "react-native-web": "0.17.7",
     "react-navigation": "^4.4.4",
-    "typeface-quicksand": "^1.1.13"
+    "typeface-quicksand": "^1.1.13",
+    "expo-av": "~11.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
