@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Layout, Text,Card,Button } from '@ui-kitten/components';
-import {Shadow} from 'react-native-shadow-2';
 import { StyleSheet } from 'react-native';
 
 export const DailyInfo = () =>{
@@ -29,17 +28,13 @@ export const DailyInfo = () =>{
       
     
     return(
-    <Shadow  distance={5}
-    startColor={'#00000010'}
-    containerViewStyle={{marginVertical: 20}}
-    radius={8}>
     <Card style={styles.card} header={Header} footer={Footer} status ='success'>
         <Text>
             Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
             worth it, but guess what you're worth it and failure makes you stronger
         </Text>
      </Card>
-    </Shadow>
+   
     )
 }
 

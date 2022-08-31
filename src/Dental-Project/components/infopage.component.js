@@ -5,7 +5,7 @@ import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native'
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 
-import tooth from '../assets/tooth(COPYRIGHT).jpg'
+
 
 
 export const InfoPage = ({ navigation }) => {
