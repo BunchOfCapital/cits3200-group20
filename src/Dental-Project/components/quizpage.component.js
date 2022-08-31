@@ -18,24 +18,70 @@ export const QuizScreen = ({ navigation }) => {
 
                 {/* Main text below */}
                 <ScrollView style={{ margin: 10 }}>
-                    <Pressable style={styles.quizbutton} backgroundColor='#ffbed9'>
-                        <Text>Hygiene Tips</Text>
-                    </Pressable>
-                    <Pressable style={styles.quizbutton} color='#ffbed9'>
-                        <Text>Daily Quiz</Text>
-                    </Pressable>
-                    <Pressable style={styles.quizbutton} color='#ffbed9'>
-                        <Text>Tooth Health</Text>
-                    </Pressable>
-                    <Pressable style={styles.quizbutton} color='#ffbed9'>
-                        <Text>Gum Health</Text>
-                    </Pressable>
+                    <Text>A range of quizzes that can be taken to enhance your knowledge! Awards are earnt for their completion and progression is tracked. </Text>
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} >
+                            <Text style={[styles.buttontext]}>Hygiene Tips</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > This is a basic hygiene knowledge test</Text>
+                    </View>
+
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#bac2ff' }]} >
+                            <Text style={[styles.buttontext]}>Daily Quiz</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > Questions randomly selected from a larger pool</Text>
+                    </View>
+
+
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffeedf' }]} >
+                            <Text style={[styles.buttontext]}>Tooth Health</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > How well do you know your teeth?</Text>
+                    </View>
+
+
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#dae1f7' }]} >
+                            <Text style={[styles.buttontext]}>Gum Health</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > Are your gums sore?</Text>
+                    </View>
+
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#feb3df' }]} >
+                            <Text style={[styles.buttontext]}>Tooth Decay</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > How to prevent tooth decay</Text>
+                    </View>
+
+                    <View style={[styles.quizview]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} >
+                            <Text style={[styles.buttontext]}>How to floss</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > Are you flossing correctly?</Text>
+                    </View>
+
+                    <View style={[styles.quizview, { paddingBottom: 60 }]}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#c7dfff' }]} >
+                            <Text style={[styles.buttontext]}>Brushing Teeth</Text>
+                        </Pressable>
+                        <Text style={[styles.descriptiontext]} > Learn how to brush your teeth correctly with this quiz!</Text>
+                    </View>
 
                 </ScrollView>
             </ImageBackground>
         </Layout >
     );
 };
+
+// TODO: For tomorrow - Change colour of each quiz to a different colour from the background
+//Space out each circle slightly and make them larger
+// Add a brief description horizontally inline with the quiz - must be young kid friendly
+// Send photo to gc for review and changes
+// Work on each quiz plate - should just be a template where a (perhaps .JSON) file can be parsed with the questions
+// Reward/progression system
 
 
 const styles = StyleSheet.create({
@@ -45,6 +91,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         backgroundColor: '#FFFFF5'
     },
+
     quizbutton: {
         borderWidth: 2,
         borderColor: '#000000',
@@ -52,9 +99,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 100,
         height: 100,
-        backgroundColor: '#fff',
         borderRadius: 50,
-    }
+        flexDirection: 'row',
+    },
+
+    buttontext: {
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
+
+    descriptiontext: {
+        paddingTop: 40,
+        flexWrap: 'wrap',
+        flex: 1,
+        paddingLeft: 5,
+    },
+
+    quizview: {
+        paddingTop: 15,
+        paddingBottom: 15,
+        flexDirection: 'row',
+    },
+
+
 
 
 });
