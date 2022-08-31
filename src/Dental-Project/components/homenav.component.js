@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     
       cardSmall: {
         borderRadius: 15,
-        height:200,
-        elevation:5
+        elevation:5,
+        
       },
 })

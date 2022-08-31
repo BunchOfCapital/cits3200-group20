@@ -23,11 +23,11 @@ export const HomeScreen = () => {
         </ImageBackground>
     </Layout>
     
-    <Layout style={{flex:1, padding: 5, backgroundColor: "transparent", marginTop:10}}>
+    <Layout style={{flex:1, padding: 5, backgroundColor: "transparent", maxHeight:"30%"}}>
       <CardNav/>
     </Layout>
     
-    <Layout style ={{flex: 0.4, backgroundColor: "transparent", position:"absolute", bottom:100}}>   
+    <Layout style ={{flex: 1, backgroundColor: "transparent", maxHeight:"30%", alignSelf:"center", bottom:50}}>   
       <DailyInfo/>
     </Layout>
     

@@ -41,7 +41,8 @@ export const DailyInfo = () =>{
 const styles = StyleSheet.create({
     card: {
         borderRadius: 25,
-        elevation: 5
+        elevation: 5,
+        width:"95%"
     },
     footerContainer: {
         flexDirection: 'row',
