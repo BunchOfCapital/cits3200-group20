@@ -1,8 +1,33 @@
 import React from 'react';
-import { ApplicationProvider, Layout, Text, Card } from '@ui-kitten/components';
-import { Image, StyleSheet, ScrollView, View, SafeAreaView, Button, ImageBackground, Pressable } from 'react-native';
+import { Layout, Text, } from '@ui-kitten/components';
+import { StyleSheet, ScrollView, View, ImageBackground, Pressable } from 'react-native';
 import wallpaper from '../assets/7284061(1).png'
 import cloud from '../assets/cloud.png';
+import { HygieneScreen } from './hygienequiz.component';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+
+// Function to navigate to different quizzes
+const Stacked = createNativeStackNavigator();
+
+const MyStack = () => {
+    return (
+        <NavigationContainer>
+            <Stacked.Navigator>
+                <Stacked.Screen name='Hygiene' componenet={HygieneScreen} />
+            </Stacked.Navigator>
+        </NavigationContainer>
+    )
+}
+
+//Bug Testing - Currently the button is being pressed but will not take me to the new quiz page
+// The issue seems to be with the Hygiene page not the button/nav as I can navigate to the info page fine
+const buttonPressed = () => {
+    console.log("Quiz Button Was Pressed!")
+}
+
 
 
 export const QuizScreen = ({ navigation }) => {
@@ -16,11 +41,10 @@ export const QuizScreen = ({ navigation }) => {
                 </Layout>
 
 
-                {/* Main text below */}
                 <ScrollView style={{ margin: 10 }}>
                     <Text>A range of quizzes that can be taken to enhance your knowledge! Awards are earnt for their completion and progression is tracked. </Text>
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('Hygiene')} >
                             <Text style={[styles.buttontext]}>Hygiene Tips</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > This is a basic hygiene knowledge test</Text>
@@ -76,12 +100,6 @@ export const QuizScreen = ({ navigation }) => {
     );
 };
 
-// TODO: For tomorrow - Change colour of each quiz to a different colour from the background
-//Space out each circle slightly and make them larger
-// Add a brief description horizontally inline with the quiz - must be young kid friendly
-// Send photo to gc for review and changes
-// Work on each quiz plate - should just be a template where a (perhaps .JSON) file can be parsed with the questions
-// Reward/progression system
 
 
 const styles = StyleSheet.create({
@@ -120,8 +138,6 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         flexDirection: 'row',
     },
-
-
 
 
 });
