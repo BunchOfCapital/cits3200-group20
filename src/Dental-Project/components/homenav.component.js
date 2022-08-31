@@ -34,7 +34,7 @@ export const CardNav = () =>{
     const navigation = useNavigation();
 
     return(
-        <ScrollView horizontal = {true} showsHorizontalScrollIndicator={false} style={{flex:0.1}}>
+        <ScrollView horizontal = {true} showsHorizontalScrollIndicator={false} style={{padding:3}}>
             <Card header={HeaderQuiz} style={styles.cardSmall} status='danger'>
               {/* <Text style={{alignSelf:"center"}}>Daily Quiz</Text> */}
               <Image source={quizImg} style={{width:200, height:100}}/>
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
       cardSmall: {
         borderRadius: 15,
         elevation:5,
+        height:'90%',
         
       },
 })

@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
 import { Image, StyleSheet, ScrollView, View, SafeAreaView , ImageBackground} from 'react-native';
 import { Button } from '@ui-kitten/components';
-import cloud from '../assets/cloud.png';
+import cloud from '../assets/index.png';
 import wallpaper from '../assets/7284061(1).png'
 import { Dimensions } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
@@ -15,19 +15,19 @@ export const HomeScreen = () => {
     const [status, setStatus] = React.useState({});
 
   return (
-  <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
-    <ImageBackground source={wallpaper} resizeMode="cover" style ={{flex:1}}>    
-    <Layout style={{paddingBottom:30, backgroundColor: "transparent",alignItems:"center", paddingTop:10}}>
-        <ImageBackground source={cloud} resizeMode="cover" style={{width: '100%', height: undefined, alignSelf:"center"}}>
+  <Layout style={{flex: 1, backgroundColor: "#FFFFF5",flexDirection:"column"}}>
+    <ImageBackground source={wallpaper} resizeMode="cover" style ={{position:"absolute", bottom:0, top:0, left:0, right:0}}>    
+    <Layout style={{ backgroundColor: "#fff",alignItems:"center", flexBasis:"auto",borderRadius:25,overflow:"hidden",height:200}}>
+        <ImageBackground source={cloud} resizeMode="cover" style={{width:"100%",height:"100%"}}>
           <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
         </ImageBackground>
     </Layout>
     
-    <Layout style={{flex:1, padding: 5, backgroundColor: "transparent", maxHeight:"30%"}}>
+    <Layout style={{flex:2, padding: 5, backgroundColor: "transparent", maxHeight:"30%"}}>
       <CardNav/>
     </Layout>
     
-    <Layout style ={{flex: 1, backgroundColor: "transparent", maxHeight:"30%", alignSelf:"center", bottom:50}}>   
+    <Layout style ={{flex: 2, backgroundColor: "transparent", maxHeight:"30%", alignSelf:"center"}}>   
       <DailyInfo/>
     </Layout>
     
