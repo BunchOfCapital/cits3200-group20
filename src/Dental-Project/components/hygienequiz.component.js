@@ -4,6 +4,9 @@ import { StyleSheet, ScrollView, View, ImageBackground, Pressable } from 'react-
 import wallpaper from '../assets/7284061(1).png'
 import cloud from '../assets/cloud.png';
 
+
+
+
 export const HygieneScreen = ({ navigation }) => {
     return (
         <Layout style={{ flex: 1, backgroundColor: "#FFFFF5" }}>
