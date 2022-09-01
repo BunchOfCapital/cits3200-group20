@@ -1,56 +1,52 @@
 import React from 'react';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
-import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
+import { Image, StyleSheet, ScrollView, View, SafeAreaView , ImageBackground} from 'react-native';
 import { Button } from '@ui-kitten/components';
-import { default as theme } from '../custom-theme.json';
-import tooth from '../assets/tooth(COPYRIGHT).jpg'
+import cloud from '../assets/index.png';
+import wallpaper from '../assets/7284061(1).png'
+import { Dimensions } from 'react-native';
+import { Video, AVPlaybackStatus } from 'expo-av';
+import { DailyInfo } from './card.component';
+import { CardNav } from './homenav.component';
 
-const Header = (props) => (
-  <Layout {...props}>
-    <Text category='h6'>Smoking</Text>
-    <Text category='s1'>By Me</Text>
-    {/*<Image source={tooth} style={{ width: 50, height:50, position: 'right'  }} />*/}
-  </Layout>
-);
+export const HomeScreen = () => {
 
-const Footer = (props) => (
-  <Layout {...props} style={[props.style, styles.footerContainer]}>
-    <Button
-      style={styles.footerControl}
-      size='small'
-      status='basic'>
-      SHARE
-    </Button>
-    <Button
-      style={styles.footerControl}
-      size='small'
-      status = "success">
-      LEARN MORE
-    </Button>
-  </Layout>
-);
-
-export const HomeScreen = ({ navigation }) => {
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
 
   return (
-  <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFFFF5"}}>
-    <Text category='h1' style={{ color: '#999', fontSize: 40 }}>Welcome home</Text>
-    {/* <Layout style={styles.container} level='1'>
-      <Button style ={styles.button} status="danger" onPress={() => navigation.navigate('Info')} > Info </Button>
-      <Button style ={styles.button} status="success"> Assessment </Button>
-      <Button style ={styles.button} status="warning"> Quizzes </Button>
-      <Button style ={styles.button} status="info"> Account </Button>
-    </Layout> */}
-    <Card style={styles.card} header={Header} footer={Footer}>
-      <Text>
-        Smoking is bad for your health but you do it anyway because you're stressed depressed and you wonder if its
-        worth it, but guess what you're worth it and failure makes you stronger
-      </Text>
-    </Card>
-    <Layout>
-
+  <Layout style={{flex: 1, backgroundColor: "#FFFFF5",flexDirection:"column"}}>
+    <ImageBackground source={wallpaper} resizeMode="cover" style ={{position:"absolute", bottom:0, top:0, left:0, right:0}}>    
+    <Layout style={{ backgroundColor: "#fff",alignItems:"center", flexBasis:"auto",borderRadius:25,overflow:"hidden",height:200, marginVertical:10}}>
+        <ImageBackground source={cloud} resizeMode="cover" style={{width:"100%",height:"100%"}}>
+          <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
+        </ImageBackground>
     </Layout>
+    
+    <Layout style={{flex:2, padding: 5, backgroundColor: "transparent", maxHeight:"30%",marginVertical:5}}>
+      <CardNav/>
+    </Layout>
+    
+    <Layout style ={{flex: 2, backgroundColor: "transparent", maxHeight:"30%", alignSelf:"center"}}>   
+      <DailyInfo/>
+    </Layout>
+    
+    
+     </ImageBackground>
+     {/* <View style={styles.videoContainer}>
+      <Video
+        ref={video}
+        style={styles.video}
+        source={{
+          ref: video,
+          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+    </View> */}
   </Layout>
   );
 };
@@ -63,22 +59,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     backgroundColor: '#FFFFF5'
     },
-  button: {
-    margin: 1,
-    flex: 1,
-    flexDirection: 'row'
-  },
-  card: {
-    flex: 0.3,
-    margin: 2,
-  },
-  footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  footerControl: {
-    marginHorizontal: 2,
-  },
+
   infoBubble: {
     borderRadius: 100,
     margin: 100,
@@ -87,5 +68,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     // alignContents: 'centre',
     alignSelf: 'flex-end'
-  }
+  },
+  videoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 350,
+    height: 220,
+  },
 });

@@ -11,7 +11,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 const TopBar = () => {
   const AwardIcon = (props) => (
-    <Icon {...props} name='award' />
+    <Icon {...props} name='award' fill ="#D4AF37"/>
   );
 
   const LogoutIcon = (props) => (
@@ -19,8 +19,8 @@ const TopBar = () => {
   );
 
   const MenuIcon = (props) => (
-    <Icon {...props} name='more-vertical' />
-  );
+  <Icon {...props} name='more-vertical'/>
+);
 
   const PersonIcon = (props) => (
     <Icon {...props} name='person-outline' />
@@ -44,15 +44,16 @@ const TopBar = () => {
 
 
 
-  return (
-    <React.Fragment>
-      <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} />
-      <OverflowMenu
-        anchor={renderMenuAction}
-        visible={menuVisible}
-        onBackdropPress={toggleMenu}>
-        <MenuItem accessoryLeft={PersonIcon} title='Profile' />
-      </OverflowMenu>
+  return(
+      <React.Fragment>
+        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements}/>
+        {/* <OverflowMenu
+          anchor={renderMenuAction}
+          visible={menuVisible}
+          onBackdropPress={toggleMenu}>
+          <MenuItem accessoryLeft={PersonIcon} title='Profile'/>
+        </OverflowMenu> */}
+        <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements}/>
     </React.Fragment>
   );
 };
@@ -63,8 +64,16 @@ const Navbar = ({ navigation, state }) => {
     <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
   );
 
-  const InfoIcon = (props) => (
-    <Icon {...props} name={state.index == 1 ? 'info' : 'info-outline'} fill={state.index == 0 ? '#D5F1FF' : '#87B2DB'} />
+  export const AppNavigator = () => (
+    <NavigationContainer>
+      <Layout style={styles.topNav} level='1'>
+      <TopNavigation
+        title='Dental App'
+        accessoryRight={TopBar}
+      />
+    </Layout>
+      <TabNavigator/>
+    </NavigationContainer>
   );
 
   const QuizIcon = (props) => (
