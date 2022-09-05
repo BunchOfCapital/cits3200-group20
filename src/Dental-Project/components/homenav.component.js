@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Layout, Text,Card } from '@ui-kitten/components';
 import { Image, StyleSheet, ScrollView} from 'react-native';
+import { QuizGame } from './quizgame.component';
 import quizImg from '../assets/quizImage.jpeg'
 import assessImg from '../assets/AssessmentImg.jpg'
 import closeImg from '../assets/DentistImage.jpg'
@@ -35,7 +36,7 @@ export const CardNav = () =>{
 
     return(
         <ScrollView horizontal = {true} showsHorizontalScrollIndicator={false} style={{padding:3}}>
-            <Card header={HeaderQuiz} style={styles.cardSmall} status='danger'>
+            <Card header={HeaderQuiz} style={styles.cardSmall} status='danger' onPress={() => navigation.navigate('QuizGame')}>
               {/* <Text style={{alignSelf:"center"}}>Daily Quiz</Text> */}
               <Image source={quizImg} style={{width:200, height:100}}/>
             </Card>

@@ -6,6 +6,8 @@ import { StyleSheet } from 'react-native';
 import { HomeScreen } from './homepage.component';
 import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
+import { QuizGame } from './quizgame.component';
+
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -63,18 +65,8 @@ const Navbar = ({ navigation, state }) => {
   const HomeIcon = (props) => (
     <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
   );
-
-  export const AppNavigator = () => (
-    <NavigationContainer>
-      <Layout style={styles.topNav} level='1'>
-      <TopNavigation
-        title='Dental App'
-        accessoryRight={TopBar}
-      />
-    </Layout>
-      <TabNavigator/>
-    </NavigationContainer>
-  );
+  const InfoIcon = (props) => (
+    <Icon {...props} name={state.index == 1 ? 'info' : 'info-outline'} fill={state.index == 0 ? '#D5F1FF' : '#87B2DB'} /> );
 
   const QuizIcon = (props) => (
     <Icon {...props} name={state.index == 3 ? 'quiz' : 'question-mark-circle-outline'} fill={state.index == 0 ? '#F40000' : '#DFF400'} />
@@ -96,6 +88,7 @@ const TabNavigator = () => (
     <Screen name='Home' component={HomeScreen} />
     <Screen name='Info' component={InfoPage} />
     <Screen name='Quiz' component={QuizScreen} />
+    <Screen name ='QuizGame' component ={QuizGame}/>
   </Navigator>
 );
 
