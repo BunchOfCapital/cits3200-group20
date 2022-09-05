@@ -20,7 +20,7 @@ export const DailyInfo = () =>{
             style={styles.footerControl}
             size='small'
             status = "info"
-            onPress={() => navigation.navigate('Info')}>
+            onPress={() => navigation.navigate('QuizGame')}>
             LEARN MORE
           </Button>
         </Layout>

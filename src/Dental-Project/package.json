@@ -32,6 +32,8 @@
     "react-native-svg": "12.3.0",
     "react-native-video": "^5.2.0",
     "react-native-web": "0.17.7",
+    "react-native-webview": "^11.23.1",
+    "react-native-youtube-iframe": "^2.2.2",
     "react-navigation": "^4.4.4",
     "typeface-quicksand": "^1.1.13"
   },

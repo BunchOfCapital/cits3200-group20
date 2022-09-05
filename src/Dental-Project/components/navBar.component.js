@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
@@ -10,6 +11,7 @@ import { QuizGame } from './quizgame.component';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const TopBar = () => {
   const AwardIcon = (props) => (
@@ -87,12 +89,14 @@ const TabNavigator = () => (
   <Navigator tabBar={props => <Navbar {...props} />} screenOptions={{ headerShown: false }} topNav={props => <TopBar{...props} />}>
     <Screen name='Home' component={HomeScreen} />
     <Screen name='Info' component={InfoPage} />
+    <Screen name ='Daily' component ={QuizGame}/>
     <Screen name='Quiz' component={QuizScreen} />
-    <Screen name ='QuizGame' component ={QuizGame}/>
+    
   </Navigator>
 );
 
 export const AppNavigator = () => (
+  
   <NavigationContainer>
     <Layout style={styles.topNav} level='1'>
       <TopNavigation
@@ -110,7 +114,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   topNav: {
-    marginTop: 30
+    marginTop:0
   },
 
 })
