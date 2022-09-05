@@ -167,7 +167,7 @@ export function App() {
           });
         } });
         
-        Alert.alert(['红','绿','蓝'][Math.floor(Math.random()*3)])
+        Alert.alert(['red','green','blue'][Math.floor(Math.random()*3)])
     }
 };
 
