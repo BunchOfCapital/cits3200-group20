@@ -2,13 +2,13 @@ import react, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Layout, View, Alert,Icon } from "@ui-kitten/components";
 import { ImageBackground,StatusBar,Text, StyleSheet, TouchableOpacity,Modal } from "react-native";
-import quizData from "../Data/quizData";
+import quizData, {getDailyQuiz} from "../Data/quizData";
 import wallpaper from "../assets/7284061(1).png"
 import React, {useCallback, useRef } from "react";
 
 export const QuizGame = () =>{
     const nav = useNavigation()
-    const questions = quizData;
+    const [questions, setQuestions] = useState(getDailyQuiz());
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
     const [correctOption,setCorrectOption] = useState(null)
@@ -55,7 +55,6 @@ export const QuizGame = () =>{
                 return null
             }
         }
-
 
         return(
         <Layout style={{ backgroundColor:"transparent"}}>
