@@ -1,11 +1,69 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
-import { Image, StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { Image, StyleSheet, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 
+const ExpandingView = ( props, navigation ) => {
+  const heightAnim = useRef(new Animated.Value(2)).current
+  const isFocused = useIsFocused();
 
+  const opened = useRef(true);
+
+  const _grow = () => {
+    opened.current = true;
+    Animated.timing(
+      heightAnim,
+      {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }
+    ).start();
+  };
+
+  const _shrink = () => {
+    opened.current = false;
+    Animated.timing(
+      heightAnim,
+      {
+        toValue: 0.2,
+        duration: 800,
+        useNativeDriver: true,
+      }
+    ).start();
+  }
+
+  if (isFocused) {_grow()}
+  if (!isFocused) {_shrink()}
+
+  const scaling = heightAnim;
+
+  const swap = () => {
+    {opened.current ? _shrink() : _grow()}
+  }
+  
+
+  return (
+    <Animated.View
+      style = {[
+        styles.infoBubble,
+        {
+          ...props.style,
+          width: 170, 
+        },
+        {
+          transform: [{scaleX: scaling}, {scaleY: scaling}],
+        }
+      ]}> 
+      <TouchableWithoutFeedback onPress={() => swap()}>
+        {props.children}
+      </TouchableWithoutFeedback>
+      </Animated.View>
+    );
+}
 
 
 export const InfoPage = ({ navigation }) => {
@@ -25,13 +83,14 @@ export const InfoPage = ({ navigation }) => {
         <Text style={{textAlign: 'center'}}>
           Welcome to the Info Page
         </Text>
-        <ScrollView style={{margin: 10}}>
-
-          <View style={[styles.infoBubble,{alignSelf: 'flex-end', backgroundColor: '#ABEC7E'}]}>
-            <Text style={styles.topicName}>
-              Gum Diseases
-            </Text>
-          </View>
+        <ScrollView style={{margin: 10, overflow: 'scroll'}} showsVerticalScrollIndicator={false}>
+        <View>
+          <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end'}}>
+              <Text style={styles.topicName}>
+                Gum Diseases
+              </Text>
+          </ExpandingView>
+        </View>
 
           <View style={[styles.infoBubble,{backgroundColor: '#98ECFD'}]}>
             <Text style={styles.topicName}>
@@ -51,7 +110,7 @@ export const InfoPage = ({ navigation }) => {
             </Text>
           </View>
 
-          <View style={[styles.infoBubble,{backgroundColor: '#FF4294', alignSelf: 'flex-end'}]}>
+          <View style={[styles.infoBubble,{backgroundColor: '#FF4294', alignSelf: 'flex-end', marginBottom: 50}]}>
             <Text style={styles.topicName}>
               Contact Us
             </Text>
@@ -79,10 +138,11 @@ const styles = StyleSheet.create({
     margin: 2,
   },
   infoBubble: {
+    position: 'relative',
     borderRadius: 100,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: -20,
+    marginBottom: -30,
     width: 170,
     height: 170
     // alignContents: 'centre',
