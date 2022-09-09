@@ -8,6 +8,7 @@ import { Dimensions } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { DailyInfo } from './card.component';
 import { CardNav } from './homenav.component';
+import userData from '../Data/userData';
 
 export const HomeScreen = () => {
 
@@ -19,7 +20,7 @@ export const HomeScreen = () => {
     <ImageBackground source={wallpaper} resizeMode="cover" style ={{position:"absolute", bottom:0, top:0, left:0, right:0}}>    
     <Layout style={{ backgroundColor: "#fff",alignItems:"center", flexBasis:"auto",borderRadius:25,overflow:"hidden",height:200, marginVertical:10}}>
         <ImageBackground source={cloud} resizeMode="cover" style={{width:"100%",height:"100%"}}>
-          <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back!</Text>
+          <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center', lineHeight:100, color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>Welcome Back {userData.name}!</Text>
         </ImageBackground>
     </Layout>
     
