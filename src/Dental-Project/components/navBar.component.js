@@ -8,7 +8,7 @@ import { HomeScreen } from './homepage.component';
 import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
 import { QuizGame } from './quizgame.component';
-
+import {ProfilePage } from './profile.component';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,7 +39,7 @@ const TopBar = () => {
   const navigation = useNavigation();
 
   const navigateAchievements = () => {
-    navigation.navigate('Info');
+    navigation.navigate('Profile');
   }
 
   const renderMenuAction = () => (
@@ -91,6 +91,7 @@ const TabNavigator = () => (
     <Screen name='Info' component={InfoPage} />
     <Screen name ='Daily' component ={QuizGame}/>
     <Screen name='Quiz' component={QuizScreen} />
+    <Screen name='Profile' component={ProfilePage} />
     
   </Navigator>
 );
