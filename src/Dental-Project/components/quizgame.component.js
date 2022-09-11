@@ -58,19 +58,17 @@ export const QuizGame = () =>{
 
         return(
         <Layout style={{ backgroundColor:"transparent"}}>
-            <Layout style ={{ flexDirection:'row', alignItems:"center", backgroundColor:"transparent",marginVertical:5}}>
-                <Text style={{fontSize:30, opacity:0.6}}>{currentQuestionIndex + 1}</Text>
-                <Text style={{opacity:0.6}}>/{questions.length}</Text>
+            <Layout style ={{  alignItems:"center", backgroundColor:"transparent",marginVertical:5}}>
+                <Text style={{fontSize:30, opacity:0.6, textAlign:"center"}}>{currentQuestionIndex + 1}/{questions.length}</Text>
             </Layout >
             <Text style={{fontSize:30, alignSelf:"center",marginHorizontal:20,marginVertical:5}}>{questions[currentQuestionIndex]?.question}</Text>
 
             <Layout style={{ backgroundColor:"transparent"}}>
             {
                 questions[currentQuestionIndex]?.options.map(option =>(
-                    <TouchableOpacity onPress={()=> validateAns(option)} key ={option} disabled={isOptionsDisabled} style ={{borderWidth:3, 
-                        borderColor:option==correctOption? '#baffc9': option == currentOptionSelected? '#ffb3ba':'#BAE1FF', 
-                        backgroundColor:option==correctOption? '#baffc9': option == currentOptionSelected? '#ffb3ba':'#BAE1FF', borderRadius:5, height:60,flexDirection:"row",
-                    alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:10}}>
+                    <TouchableOpacity onPress={()=> validateAns(option)} key ={option} disabled={isOptionsDisabled} style ={ 
+                            (option==correctOption)?styles.correctButton: (option==currentOptionSelected)? styles.incorrectButton : styles.neutralButton
+                            }>
                         <Text style={{fontSize:20}}>{option}</Text>
                         {
                             option==correctOption?(
@@ -87,7 +85,6 @@ export const QuizGame = () =>{
                 ))
             }
             </Layout>
-            {renderNextButton()}
             
         </Layout>
         )
@@ -123,6 +120,28 @@ const styles = StyleSheet.create({
         fontSize:20,
         color:"#fff",
         marginRight:2
+    },
+    correctButton:{
+        backgroundColor: "#baffc9",
+        borderColor:'#baffc9',
+        borderWidth:3,
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
+        borderRadius:5, height:60,flexDirection:"row",
+    },
+    incorrectButton:{
+        backgroundColor:'#ffb3ba',
+        borderColor:'#ffb3ba',
+        borderWidth:3,
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
+        borderRadius:5, height:60,flexDirection:"row",
+
+    },
+    neutralButton: {
+        backgroundColor:'#BAE1FF',
+        borderColor:'#BAE1FF',
+        borderWidth:3,
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
+        borderRadius:5, height:60,flexDirection:"row",
     }
 
-})
+});
