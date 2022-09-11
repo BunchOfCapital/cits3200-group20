@@ -85,6 +85,7 @@ export const QuizGame = () =>{
                 ))
             }
             </Layout>
+            {renderNextButton()}
             
         </Layout>
         )
