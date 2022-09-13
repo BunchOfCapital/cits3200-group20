@@ -3,5 +3,6 @@ export default userData = {
     isChild: false,
     email: "jim@jimscooldomain.com",
     age: 27,
-    location: "Kalgoorlie"
+    location: "Kalgoorlie",
+    dob: new Date("1998-11-08")
 }
