@@ -5,7 +5,7 @@ import { Camera, CameraType } from 'expo-camera';
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-
+import {CameraPage} from './camera.component';
 
 export default class ToochPage extends Component {
     
