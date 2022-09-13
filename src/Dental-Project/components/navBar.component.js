@@ -7,6 +7,7 @@ import { HomeScreen } from './homepage.component';
 import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
 import Assessment from './Assessment';
+import {CameraPage} from './camera.component';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -108,6 +109,7 @@ const TabNavigator = () => (
     <Screen name='Assessment' component={Assessment} />
     <Screen name='Info' component={InfoPage} />
     <Screen name='Quiz' component={QuizScreen} />
+    <Screen name='Camera' component={CameraPage}/>
   </Navigator>
 );
 

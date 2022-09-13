@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import {CameraPage} from './camera.component';
+import {withNavigation} from 'react-navigation';
 
-export default class ToochPage extends Component {
+class ToochPage extends Component {
     
     constructor (props) {
         super(props)
@@ -85,8 +86,6 @@ export default class ToochPage extends Component {
         this.state = {status:null,page:true}
     }
 
-
-
     render() {
         return this.state.page ? <ImageBackground style={this.style.container} source={require('../assets/toochP.jpg')}>
             <SafeAreaView >
@@ -94,7 +93,7 @@ export default class ToochPage extends Component {
                     <Text style={[this.style.title,,{color:"rgba("+this.titleColor[0]+","+this.titleColor[1]+","+this.titleColor[2]+","+this.titleColor[3]+")"}]}>Welcome to Pearlii's{"\n"}AI-powered Check-Ups</Text>
                     <View style={{alignItems:"center"}}>
                         <Pressable
-                            onPress={() =>{this.setState({page:false})}}
+                          onPress={() => this.props.navigation.navigate('Camera')}
                             style={({ pressed })=>pressed ? [this.style.active,this.style.btn] : [this.style.btn,this.style.noActive]}
                         >
                             <Text style={{fontSize:18,padding:10,fontWeight:"bold",color:"#1C62DC"}}>Start Check-Up</Text>
@@ -122,10 +121,10 @@ export default class ToochPage extends Component {
 
 }
 
+export default withNavigation(ToochPage);
 
 
-
-
+/*
 export function App(props) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -227,3 +226,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+*/

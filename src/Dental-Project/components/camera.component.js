@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Button, Image, Pressable, Platform, Alert, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, Platform, Modal } from 'react-native';
 import { useRef, useState, useCallback, useEffect} from 'react';
 import { useIsFocused } from '@react-navigation/native';
+import { Button, Icon } from '@ui-kitten/components';
 import { Camera } from 'expo-camera';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 
 export const CameraPage = ({navigation}) => {
@@ -100,6 +100,10 @@ export const CameraPage = ({navigation}) => {
         setModalText(assessText[status]);
     };
 
+    const arrowBack = (props) => (
+        <Icon name='arrow-ios-back-outline' {...props} />
+      );
+
     if(photo){
         moveImage();
         setPhoto(undefined);
@@ -109,7 +113,7 @@ export const CameraPage = ({navigation}) => {
         <View style={styles.cameraContainer}>
             {isFocused ? (
             <Camera style={[styles.camera]} ref={cameraRef} onCameraReady={setCameraReady} ratio={previewRatio}>
-                <Button title="Back" onPress={() => navigation.navigate("Assessment")}/>
+                <Button style={styles.button} accessoryLeft={arrowBack} onPress={() => navigation.navigate("Assessment")}></Button>
                 <Pressable style={[styles.cameraTouch]} onPress={takePic}></Pressable>
                 <Modal animationType='slide' transparent={true} visible={modalVisible}>
                     <View style={[styles.modalView, {borderColor:modalColor}]}>
@@ -128,8 +132,7 @@ export default CameraPage;
 
 const styles = StyleSheet.create({
     camera: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'center',
         flex:1,
     },
@@ -188,7 +191,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     button: {
-        width: 100,
-        height: 50,
+        width: 20,
+        height: 20,
+        backgroundColor: 'none',
+        borderWidth: 0,
+        position: 'absolute',
+        top: 5,
+        left: 10,
     }
 });
