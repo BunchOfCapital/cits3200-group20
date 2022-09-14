@@ -36,7 +36,7 @@ export const CardNav = () => {
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ padding: 3 }}>
-      <Card header={HeaderQuiz} style={styles.cardSmall} status='danger' onPress={() => navigation.navigate('Daily')}>
+      <Card header={HeaderQuiz} style={styles.cardSmall} status='danger' onPress={() => navigation.navigate('Quiz')}>
         {/* <Text style={{alignSelf:"center"}}>Daily Quiz</Text> */}
         <Image source={quizImg} style={{ width: 200, height: 100 }} />
       </Card>

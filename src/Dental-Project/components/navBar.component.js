@@ -90,9 +90,9 @@ const Navbar = ({ navigation, state }) => {
 const TabNavigator = () => (
   <Navigator tabBar={props => <Navbar {...props} />} screenOptions={{ headerShown: false }} topNav={props => <TopBar{...props} />}>
     <Screen name='Home' component={HomeScreen} />
-    <Screen name='Info' component={InfoPage} />
+    {/* <Screen name='Info' component={InfoPage} /> */}
     <Screen name='Quiz' component={QuizScreen} />
-    {/* <Screen name='Daily' component={QuizGame} /> */}
+    <Screen name='Daily' component={QuizGame} />
   </Navigator>
 );
 
