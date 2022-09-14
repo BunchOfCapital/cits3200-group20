@@ -1,13 +1,14 @@
 import {Component} from 'react';
-import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableOpacity } from 'react-native';
+import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableOpacity,Button  } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { Camera, CameraType } from 'expo-camera';
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
+import {CameraPage} from './camera.component';
+import {withNavigation} from 'react-navigation';
 
-
-export default class ToochPage extends Component {
+class ToochPage extends Component {
     
     constructor (props) {
         super(props)
@@ -85,16 +86,14 @@ export default class ToochPage extends Component {
         this.state = {status:null,page:true}
     }
 
-
-
     render() {
-        return this.state.page ? <ImageBackground style={this.style.container} source={require('../static/img/toochP.jpg')}>
+        return this.state.page ? <ImageBackground style={this.style.container} source={require('../assets/toochP.jpg')}>
             <SafeAreaView >
                 <ScrollView style={this.style.SCLView}>
                     <Text style={[this.style.title,,{color:"rgba("+this.titleColor[0]+","+this.titleColor[1]+","+this.titleColor[2]+","+this.titleColor[3]+")"}]}>Welcome to Pearlii's{"\n"}AI-powered Check-Ups</Text>
                     <View style={{alignItems:"center"}}>
                         <Pressable
-                            onPress={() =>{this.setState({page:false})}}
+                          onPress={() => this.props.navigation.navigate('Camera')}
                             style={({ pressed })=>pressed ? [this.style.active,this.style.btn] : [this.style.btn,this.style.noActive]}
                         >
                             <Text style={{fontSize:18,padding:10,fontWeight:"bold",color:"#1C62DC"}}>Start Check-Up</Text>
@@ -104,7 +103,7 @@ export default class ToochPage extends Component {
                         <Video
                             style={{width:"100%",height:300,borderColor:"#000",borderStyle:"solid",borderWidth:1,borderRadius:10}}
                             source={{
-                            uri: 'https://r3---sn-npoeens7.googlevideo.com/videoplayback?expire=1661981641&ei=aH8PY-asN8TC1wbvoqCQCA&ip=51.159.70.199&id=o-AN-Bjoha6eiXqXOY7jpJAOFKcOiU24MQMSbj4pUUezC3&itag=22&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=f3sG0RzdAjDrjQ5gE5YVRz8H&ratebypass=yes&dur=397.455&lmt=1634259680901624&fexp=24001373,24007246&c=WEB&rbqsm=fr&txp=5432434&n=ncHtFIkU6wNydw&sparams=expire,ei,ip,id,itag,source,requiressl,vprv,mime,ns,ratebypass,dur,lmt&sig=AOq0QJ8wRQIhAMMWdnqo9yO7q4kLEckWJbUoBvYH_3snE3rypg38mfjvAiBrOKX4NEbb1df-vAyWhMOBJHgb5pD-3gSqAOmaI_XM6w%3D%3D&cms_redirect=yes&mh=_z&mip=206.189.159.126&mm=31&mn=sn-npoeens7&ms=au&mt=1661959531&mv=m&mvi=3&pl=24&lsparams=mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRAIgXLqIauXIKRfUnv-hR-zOtKezRbgZnhbkPzs9rlzOIOgCIHRJgHLgoNdlOlDxWaMW2XyBkLGpck61UTIllnNxbXmI',
+                            uri: 'https://cdn.videvo.net/videvo_files/video/premium/2021-04/large_watermarked/210329_09_Bali_4k_005_preview.mp4',
                             }}
                             resizeMode="contain"
                             isLooping
@@ -117,16 +116,16 @@ export default class ToochPage extends Component {
                 </ScrollView>
             </SafeAreaView>
         </ImageBackground>
-        : <App></App>;
+        : <App parent={this}></App>;
     }
 
 }
 
+export default withNavigation(ToochPage);
 
 
-
-
-export function App() {
+/*
+export function App(props) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -171,6 +170,10 @@ export function App() {
     }
 };
 
+const back = ()=>{
+  props.parent.setState({page:true});
+}
+
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type} ref={(e)=>Cref = e}>
@@ -183,7 +186,11 @@ export function App() {
           <TouchableOpacity
               style={{backgroundColor:"#ddd",borderRadius:20,padding:5}}
               onPress={takePicture}
-          ><Image source={require('../static/img/c.png')}></Image></TouchableOpacity>
+          ><Image source={require('../assets/c.png')}></Image></TouchableOpacity>
+          <TouchableOpacity
+              style={{backgroundColor:"#ddd",borderRadius:20,padding:5,position:"absolute",right:10,top:20}}
+              onPress={back}
+          ><Image source={require('../assets/back.png')}></Image></TouchableOpacity>
         </View>
       </Camera>
     </View>
@@ -219,3 +226,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+*/

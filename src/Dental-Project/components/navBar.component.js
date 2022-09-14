@@ -9,6 +9,8 @@ import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
 import { QuizGame } from './quizgame.component';
 import { ProfilePage } from './profile.component';
+import Assessment from './Assessment';
+import {CameraPage} from './camera.component';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -68,19 +70,37 @@ const Navbar = ({ navigation, state }) => {
   const HomeIcon = (props) => (
     <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
   );
+
   const InfoIcon = (props) => (
-    <Icon {...props} name={state.index == 1 ? 'info' : 'info-outline'} fill={state.index == 0 ? '#D5F1FF' : '#87B2DB'} /> );
+    <Icon {...props} name={state.index == 0 ? 'info' : 'info-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
+  );
+
+  const AssessmentIcon = (props) => (
+    <Icon {...props} name={state.index == 0 ? 'video' : 'video-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
+  );
+
+   const AppNavigator = () => (
+    <NavigationContainer>
+      <Layout style={styles.topNav} level='1'>
+      <TopNavigation
+        title='Dental App'
+        accessoryRight={TopBar}
+      />
+    </Layout>
+      <TabNavigator/>
+    </NavigationContainer>
+  );
 
   const QuizIcon = (props) => (
     <Icon {...props} name={state.index == 3 ? 'quiz' : 'question-mark-circle-outline'} fill={state.index == 0 ? '#F40000' : '#DFF400'} />
-  );
-  
+  )
   return (
     <BottomNavigation
       style={styles.bottomNavigation}
       selectedIndex={state.index}
       onSelect={index => navigation.navigate(state.routeNames[index])}>
       <BottomNavigationTab icon={HomeIcon} />
+      <BottomNavigationTab icon={AssessmentIcon} />
       <BottomNavigationTab icon={InfoIcon} />
       <BottomNavigationTab icon={QuizIcon} />
     </BottomNavigation>
@@ -90,11 +110,13 @@ const Navbar = ({ navigation, state }) => {
 const TabNavigator = () => (
   <Navigator tabBar={props => <Navbar {...props} />} screenOptions={{ headerShown: false }} topNav={props => <TopBar{...props} />}>
     <Screen name='Home' component={HomeScreen} />
+    <Screen name='Assessment' component={Assessment} />
     <Screen name='Info' component={InfoPage} />
     <Screen name ='Daily' component ={QuizGame}/>
     <Screen name='Quiz' component={QuizScreen} />
     <Screen name = 'Profile' component={ProfilePage}/>
     
+    <Screen name='Camera' component={CameraPage}/>
   </Navigator>
 );
 
