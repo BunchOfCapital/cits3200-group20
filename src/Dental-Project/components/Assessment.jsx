@@ -90,7 +90,7 @@ class ToochPage extends Component {
         return this.state.page ? <ImageBackground style={this.style.container} source={require('../assets/toochP.jpg')}>
             <SafeAreaView >
                 <ScrollView style={this.style.SCLView}>
-                    <Text style={[this.style.title,,{color:"rgba("+this.titleColor[0]+","+this.titleColor[1]+","+this.titleColor[2]+","+this.titleColor[3]+")"}]}>Welcome to Pearlii's{"\n"}AI-powered Check-Ups</Text>
+                    <Text style={[this.style.title,,{color:"rgba("+this.titleColor[0]+","+this.titleColor[1]+","+this.titleColor[2]+","+this.titleColor[3]+")"}]}>Welcome to our{"\n"}AI-powered Check-Ups</Text>
                     <View style={{alignItems:"center"}}>
                         <Pressable
                           onPress={() => this.props.navigation.navigate('Camera')}

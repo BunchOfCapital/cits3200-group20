@@ -10,7 +10,7 @@ import { QuizScreen } from './quizpage.component';
 import { QuizGame } from './quizgame.component';
 import { ProfilePage } from './profile.component';
 import Assessment from './Assessment';
-import {CameraPage} from './camera.component';
+import { CameraPage } from './camera.component';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -71,29 +71,22 @@ const Navbar = ({ navigation, state }) => {
     <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
   );
 
-  const InfoIcon = (props) => (
-    <Icon {...props} name={state.index == 0 ? 'info' : 'info-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
-  );
-
   const AssessmentIcon = (props) => (
-    <Icon {...props} name={state.index == 0 ? 'video' : 'video-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 1 ? 'video' : 'video-outline'} fill={state.index == 1 ? '#5DB782' : '#CBFFD1'} />
   );
 
-   const AppNavigator = () => (
-    <NavigationContainer>
-      <Layout style={styles.topNav} level='1'>
-      <TopNavigation
-        title='Dental App'
-        accessoryRight={TopBar}
-      />
-    </Layout>
-      <TabNavigator/>
-    </NavigationContainer>
+  const InfoIcon = (props) => (
+    <Icon {...props} name={state.index == 2 ? 'info' : 'info-outline'} fill={state.index == 2 ? '#5DB782' : '#CBFFD1'} />
   );
 
   const QuizIcon = (props) => (
-    <Icon {...props} name={state.index == 3 ? 'quiz' : 'question-mark-circle-outline'} fill={state.index == 0 ? '#F40000' : '#DFF400'} />
-  )
+    <Icon {...props} name={state.index == 3 ? 'question-mark-circle' : 'question-mark-circle-outline'} fill={state.index == 3 ? '#F40000' : '#DFF400'} />
+  );
+
+  const QuizIcon2 = (props) => (
+    <Icon {...props} name={state.index == 4 ? 'menu' : 'menu-outline'} fill={state.index == 4 ? '#F40000' : '#DFF400'} />
+  );
+
   return (
     <BottomNavigation
       style={styles.bottomNavigation}
@@ -103,6 +96,7 @@ const Navbar = ({ navigation, state }) => {
       <BottomNavigationTab icon={AssessmentIcon} />
       <BottomNavigationTab icon={InfoIcon} />
       <BottomNavigationTab icon={QuizIcon} />
+      <BottomNavigationTab icon={QuizIcon2} />
     </BottomNavigation>
   );
 
