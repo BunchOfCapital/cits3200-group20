@@ -33,7 +33,7 @@ export default quizdata = {
             correct_option: "Alcohol"
         }
     ],
-    HygieneQuiz: [
+    Hygiene: [
         {
             question: "How long should you brush your teeth for",
             options: ["2 minutes", "1 hour", "10 seconds", "10 minutes"],
@@ -48,6 +48,13 @@ export default quizdata = {
             question: "How often should you floss?",
             options: ["Once a month", "Every day", "2-3 Time a week", "Never"],
             correct_option: "2 -3 Times a week"
+        }
+    ],
+    BrushingTeeth: [
+        {
+            question: "Test Question for brushing teeth",
+            options: ["1", "2", "3", "4"],
+            correct_option: "3"
         }
     ]
 
@@ -80,6 +87,18 @@ export function getDailyQuiz() {
         quizzes.splice(Math.floor(Math.random() * quizzes.length), 1);
     }
     quizzes = shuffleArray(quizzes);
-
+    console.log("Should only print once")
+    console.log("Inside DailyQuiz")
+    console.log(quizzes);
     return quizzes;
+}
+
+export function getQuiz(name) {
+    let quizzes = [];
+    quizzes.push(quizdata[name]);
+    console.log("Inside getQuiz Function")
+    console.log(name);
+    console.log(quizzes);
+    return quizzes;
+
 }

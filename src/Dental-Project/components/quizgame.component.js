@@ -2,13 +2,20 @@ import react, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Layout, View, Alert, Icon } from "@ui-kitten/components";
 import { ImageBackground, StatusBar, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
-import quizData, { getDailyQuiz } from "../Data/quizData";
+import quizData, { getDailyQuiz, getQuiz } from "../Data/quizData";
 import wallpaper from "../assets/7284061(1).png"
 import React, { useCallback, useRef } from "react";
 
-export const QuizGame = () => {
+export const QuizGame = ({ route }) => {
     const nav = useNavigation()
-    const [questions, setQuestions] = useState(getDailyQuiz());
+    const { QuizName } = route.params;
+    var [questions, setQuestions] = useState(getDailyQuiz());
+    if (QuizName != 'DailyQuiz') {
+        [questions, setQuestions] = useState(getQuiz(QuizName));
+    }
+    console.log(QuizName)
+
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
     const [correctOption, setCorrectOption] = useState(null)

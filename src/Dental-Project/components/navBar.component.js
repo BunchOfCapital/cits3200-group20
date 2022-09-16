@@ -106,7 +106,7 @@ const TabNavigator = () => (
     <Screen name='Home' component={HomeScreen} />
     <Screen name='Assessment' component={Assessment} />
     <Screen name='Info' component={InfoPage} />
-    <Screen name='Daily' component={QuizGame} />
+    <Screen name='Daily' component={QuizGame} initialParams={{ QuizName: 'DailyQuiz' }} />
     <Screen name='Quiz' component={QuizScreen} />
     <Screen name='Profile' component={ProfilePage} />
 
