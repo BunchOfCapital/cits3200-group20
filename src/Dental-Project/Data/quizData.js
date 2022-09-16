@@ -31,6 +31,11 @@ export default quizdata = {
             question: "How does t. Please include citations in your answer.",
             options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
             correct_option: "Alcohol"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
         }
     ],
     Hygiene: [
@@ -48,13 +53,39 @@ export default quizdata = {
             question: "How often should you floss?",
             options: ["Once a month", "Every day", "2-3 Time a week", "Never"],
             correct_option: "2 -3 Times a week"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
         }
+
     ],
     BrushingTeeth: [
         {
             question: "Test Question for brushing teeth",
             options: ["1", "2", "3", "4"],
             correct_option: "3"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
+        },
+        {
+            question: "Best drink in the world?",
+            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
+            correct_option: "Alcohol"
         }
     ]
 

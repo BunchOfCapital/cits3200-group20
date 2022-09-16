@@ -9,8 +9,11 @@ import React, { useCallback, useRef } from "react";
 export const QuizGame = ({ route }) => {
     const nav = useNavigation()
     const { QuizName } = route.params;
-    var [questions, setQuestions] = useState(getDailyQuiz());
-    if (QuizName != 'DailyQuiz') {
+    var [questions, setQuestions] = useState([]);
+    if (QuizName == 'DailyQuiz') {
+        [questions, setQuestions] = useState(getDailyQuiz());
+    }
+    else {
         [questions, setQuestions] = useState(getQuiz(QuizName));
     }
     console.log(QuizName)
