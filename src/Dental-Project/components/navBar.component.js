@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 
 const TopBar = () => {
   const AwardIcon = (props) => (
-    <Icon {...props} name='award' fill ="#D4AF37"/>
+    <Icon {...props} name='award' fill="#D4AF37" />
   );
 
   const LogoutIcon = (props) => (
@@ -26,8 +26,8 @@ const TopBar = () => {
   );
 
   const MenuIcon = (props) => (
-  <Icon {...props} name='more-vertical'/>
-);
+    <Icon {...props} name='more-vertical' />
+  );
 
   const PersonIcon = (props) => (
     <Icon {...props} name='person-outline' />
@@ -51,16 +51,16 @@ const TopBar = () => {
 
 
 
-  return(
-      <React.Fragment>
-        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements}/>
-        {/* <OverflowMenu
+  return (
+    <React.Fragment>
+      <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} />
+      {/* <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
           onBackdropPress={toggleMenu}>
           <MenuItem accessoryLeft={PersonIcon} title='Profile'/>
         </OverflowMenu> */}
-        <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements}/>
+      <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements} />
     </React.Fragment>
   );
 };
@@ -106,16 +106,17 @@ const TabNavigator = () => (
     <Screen name='Home' component={HomeScreen} />
     <Screen name='Assessment' component={Assessment} />
     <Screen name='Info' component={InfoPage} />
-    <Screen name ='Daily' component ={QuizGame}/>
+    <Screen name='Daily' component={QuizGame} />
     <Screen name='Quiz' component={QuizScreen} />
-    <Screen name = 'Profile' component={ProfilePage}/>
-    
-    <Screen name='Camera' component={CameraPage}/>
+    <Screen name='Profile' component={ProfilePage} />
+
+    <Screen name='Camera' component={CameraPage} />
+
   </Navigator>
 );
 
 export const AppNavigator = () => (
-  
+
   <NavigationContainer>
     <Layout style={styles.topNav} level='1'>
       <TopNavigation
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   topNav: {
-    marginTop:10
+    marginTop: 10
   },
 
 })

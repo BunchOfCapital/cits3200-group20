@@ -5,7 +5,6 @@ import wallpaper from '../assets/7284061(1).png'
 import cloud from '../assets/cloud.png';
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { HygieneScreen } from './hygienequiz.component';
 
 
 const buttonPressed = () => {
@@ -29,7 +28,7 @@ export const QuizScreen = () => {
                 <ScrollView style={{ margin: 10 }}>
                     <Text>A range of quizzes that can be taken to enhance your knowledge! Awards are earnt for their completion and progression is tracked. </Text>
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('HygieneScreen')} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('Daily')} >
                             <Text style={[styles.buttontext]}>Hygiene Tips</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > This is a basic hygiene knowledge test</Text>
