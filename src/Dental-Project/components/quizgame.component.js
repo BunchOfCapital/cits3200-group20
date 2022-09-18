@@ -1,14 +1,15 @@
 import react, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Layout, View, Alert,Icon } from "@ui-kitten/components";
-import { ImageBackground,StatusBar,Text, StyleSheet, TouchableOpacity,Modal } from "react-native";
+import { Image, ImageBackground,StatusBar,Text, StyleSheet, TouchableOpacity,Modal } from "react-native";
 import quizData, {getDailyQuiz} from "../Data/quizData";
 import wallpaper from "../assets/7284061(1).png"
+import profileIcon from "../assets/profileIcon.png"
 import React, {useCallback, useRef } from "react";
 
 export const QuizGame = () =>{
+    const [questions, setQuestions] = useState(quizData.memeQuiz);
     const nav = useNavigation()
-    const [questions, setQuestions] = useState(getDailyQuiz());
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
     const [correctOption,setCorrectOption] = useState(null)
@@ -43,6 +44,39 @@ export const QuizGame = () =>{
         }
     }
 
+    const renderOptions = () => {
+        let options = questions[currentQuestionIndex]?.options;
+        let topRow = [options[0], options[1]];
+        let bottomRow = [options[2], options[3]];
+        const optionMap = (option) =>(
+                            <TouchableOpacity onPress={()=> validateAns(option)} key ={option} disabled={isOptionsDisabled} style ={ 
+                                    (option==correctOption)?styles.correctButton: (option==currentOptionSelected)? styles.incorrectButton : styles.neutralButton
+                                    }>
+                                <Text style={{fontSize:20, textAlign:"center"}}>{"\t" + option}</Text>
+                                {
+                                    option==correctOption?(
+                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#baffc9",justifyContent:'center', alignContent:'center'}}>
+                                            <Icon name="checkmark-outline" fill ="#fff"/>
+                                        </Layout>
+                                    ):option == currentOptionSelected?(
+                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#ffb3ba",justifyContent:'center', alignContent:'center'}}>
+                                            <Icon name="close-outline" fill ="#fff"/>
+                                        </Layout>
+                                    ):(null)
+                                }
+                            </TouchableOpacity>
+                        )
+        return (
+            <Layout style={{ backgroundColor:"transparent",  flex: 2, flexDirection:"row"}}>
+                <Layout style={{flex:  1}}>
+                    {topRow.map(optionMap)}
+                </Layout>
+                <Layout style={{flex:  1}}>
+                    {bottomRow.map(optionMap)}
+                </Layout>
+            </Layout>)
+    }
+
     const renderQuestion = () =>{
         const renderNextButton = () =>{
             if(showNextButton){
@@ -62,29 +96,10 @@ export const QuizGame = () =>{
                 <Text style={{fontSize:30, opacity:0.6, textAlign:"center"}}>{currentQuestionIndex + 1}/{questions.length}</Text>
             </Layout >
             <Text style={{fontSize:30, alignSelf:"center",marginHorizontal:20,marginVertical:5}}>{questions[currentQuestionIndex]?.question}</Text>
-
-            <Layout style={{ backgroundColor:"transparent"}}>
-            {
-                questions[currentQuestionIndex]?.options.map(option =>(
-                    <TouchableOpacity onPress={()=> validateAns(option)} key ={option} disabled={isOptionsDisabled} style ={ 
-                            (option==correctOption)?styles.correctButton: (option==currentOptionSelected)? styles.incorrectButton : styles.neutralButton
-                            }>
-                        <Text style={{fontSize:20}}>{option}</Text>
-                        {
-                            option==correctOption?(
-                                <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#baffc9",justifyContent:'center', alignContent:'center'}}>
-                                    <Icon name="checkmark-outline" fill ="#fff"/>
-                                </Layout>
-                            ):option == currentOptionSelected?(
-                                <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#ffb3ba",justifyContent:'center', alignContent:'center'}}>
-                                    <Icon name="close-outline" fill ="#fff"/>
-                                </Layout>
-                            ):(null)
-                        }
-                    </TouchableOpacity>
-                ))
-            }
+            <Layout style={{alignItems:"center"}}>
+                <Image source={profileIcon} style={{width:150, height:150, marginBottom:40}}></Image>
             </Layout>
+            {renderOptions()}
             {renderNextButton()}
             
         </Layout>
@@ -116,6 +131,8 @@ return(
 )
 }
 
+const buttonHeight = 70;
+const buttonMarginX = 10;
 const styles = StyleSheet.create({
     quizheader:{
         fontSize:20,
@@ -126,23 +143,23 @@ const styles = StyleSheet.create({
         backgroundColor: "#baffc9",
         borderColor:'#baffc9',
         borderWidth:3,
-        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
-        borderRadius:5, height:60,flexDirection:"row",
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
+        borderRadius:5, height:buttonHeight,flexDirection:"row",
     },
     incorrectButton:{
         backgroundColor:'#ffb3ba',
         borderColor:'#ffb3ba',
         borderWidth:3,
-        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
-        borderRadius:5, height:60,flexDirection:"row",
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
+        borderRadius:5, height:buttonHeight,flexDirection:"row",
 
     },
     neutralButton: {
         backgroundColor:'#BAE1FF',
         borderColor:'#BAE1FF',
         borderWidth:3,
-        alignItems:"center",justifyContent:"space-between",marginHorizontal:20, marginVertical:7,
-        borderRadius:5, height:60,flexDirection:"row",
+        alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
+        borderRadius:5, height:buttonHeight,flexDirection:"row",
     }
 
 });
