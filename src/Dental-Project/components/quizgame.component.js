@@ -17,6 +17,7 @@ export const QuizGame = ({ route }) => {
         [questions, setQuestions] = useState(getQuiz(QuizName));
     }
     console.log(QuizName)
+    console.log(questions)
 
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)

@@ -126,7 +126,8 @@ export function getDailyQuiz() {
 
 export function getQuiz(name) {
     let quizzes = [];
-    quizzes.push(quizdata[name]);
+    // quizzes.push(quizdata[name]);
+    quizzes.push(...quizdata[name])
     console.log("Inside getQuiz Function")
     console.log(name);
     console.log(quizzes);
