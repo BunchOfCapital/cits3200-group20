@@ -1,43 +1,4 @@
 export default quizdata = {
-    memeQuiz: [
-        {
-            question: "What is the best movie of all time?",
-            options: ["Shrek 2", "Titanic", "Top Gun", "That one anime you love so much"],
-            correct_option: "Shrek 2"
-        },
-        {
-            question: "What is the best Anime of all time?",
-            options: ["One Piece", "Cory in the house", "JOJO", "Naruto"],
-            correct_option: "Cory in the house"
-        },
-        {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        }
-    ],
-    cavityQuiz: [
-        {
-            question: "What is a cavity?",
-            options: ["Shrek 2", "Titanic", "Top Gun", "That one anime you love so much"],
-            correct_option: "Shrek 2"
-        },
-        {
-            question: "How can a cavity affect your health?",
-            options: ["One Piece", "Cory in the house", "JOJO", "Naruto"],
-            correct_option: "Cory in the house"
-        },
-        {
-            question: "How does t. Please include citations in your answer.",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        },
-        {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        }
-    ],
     Hygiene: [
         {
             question: "How long should you brush your teeth for",
@@ -53,13 +14,7 @@ export default quizdata = {
             question: "How often should you floss?",
             options: ["Once a month", "Every day", "2-3 Time a week", "Never"],
             correct_option: "2 -3 Times a week"
-        },
-        {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
         }
-
     ],
     BrushingTeeth: [
         {
@@ -67,25 +22,33 @@ export default quizdata = {
             options: ["1", "2", "3", "4"],
             correct_option: "3"
         },
+    ],
+    ToothHealth: [
         {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        },
+            question: "Test question for ToothHealth",
+            options: ["1", "3", "63", "4"],
+            correct_option: "63"
+        }
+    ],
+    GumHealth: [
         {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        },
+            question: "Test question for GumHealth",
+            options: ["21", "32", "73", "24"],
+            correct_option: "24"
+        }
+    ],
+    ToothDecay: [
         {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
-        },
+            question: "Test question for ToothDecay",
+            options: ["11", "33", "3", "52"],
+            correct_option: "11"
+        }
+    ],
+    HowToFloss: [
         {
-            question: "Best drink in the world?",
-            options: ["Coke", "Sprite", "Gatorate", "Alcohol"],
-            correct_option: "Alcohol"
+            question: "Test question for HowToFloss",
+            options: ["111", "43", "33", "1"],
+            correct_option: "111"
         }
     ]
 
@@ -118,19 +81,12 @@ export function getDailyQuiz() {
         quizzes.splice(Math.floor(Math.random() * quizzes.length), 1);
     }
     quizzes = shuffleArray(quizzes);
-    console.log("Should only print once")
-    console.log("Inside DailyQuiz")
-    console.log(quizzes);
     return quizzes;
 }
 
 export function getQuiz(name) {
     let quizzes = [];
-    // quizzes.push(quizdata[name]);
     quizzes.push(...quizdata[name])
-    console.log("Inside getQuiz Function")
-    console.log(name);
-    console.log(quizzes);
     return quizzes;
 
 }

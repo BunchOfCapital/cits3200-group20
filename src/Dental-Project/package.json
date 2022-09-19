@@ -39,7 +39,8 @@
     "react-native-youtube-iframe": "^2.2.2",
     "react-navigation": "^4.4.4",
     "typeface-quicksand": "^1.1.13",
-    "expo-camera": "~12.2.0"
+    "expo-camera": "~12.2.0",
+    "expo-updates": "~0.13.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

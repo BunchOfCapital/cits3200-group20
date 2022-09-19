@@ -7,11 +7,6 @@ import cloud from '../assets/cloud.png';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 
-const buttonPressed = () => {
-    console.log("Quiz Button Was Pressed!")
-}
-
-
 
 export const QuizScreen = () => {
     const navigation = useNavigation();
@@ -65,7 +60,7 @@ export const QuizScreen = () => {
                     </View>
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'HowtoFloss' })}>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'HowToFloss' })}>
                             <Text style={[styles.buttontext]}>How to floss</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > Are you flossing correctly?</Text>

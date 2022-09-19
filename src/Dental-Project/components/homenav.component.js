@@ -28,7 +28,7 @@ export const CardNav = () => {
   const HeaderClosestD = (props) => (
     <Layout {...props}>
       {/* <Image source={quizImg} style={{width:200, height:100}}/> */}
-      <Text style={{ alignSelf: "center" }}>closest dentist</Text>
+      <Text style={{ alignSelf: "center" }}>Closest Dentist</Text>
     </Layout>
   );
 
