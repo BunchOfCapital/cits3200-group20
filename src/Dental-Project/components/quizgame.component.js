@@ -15,7 +15,7 @@ export const QuizGame = () =>{
     const [correctOption,setCorrectOption] = useState(null)
     const [isOptionsDisabled,setIsOptionsDisabled] = useState(false)
     const [score,setScore] = useState(0)
-    const [showNextButton,setShowNextButton] = useState(false)
+    const [isNextDisabled,setIsNextDisabled] = useState(true)
     const [showModal,setShowModal] = useState(false)
     const [quizDone,setQuizDone] = useState(false)
 
@@ -28,7 +28,7 @@ export const QuizGame = () =>{
         if(selectedOption==correct_option){
             setScore(score+1)
         }
-        setShowNextButton(true)
+        setIsNextDisabled(false)
     }
 
     const handleNext = () =>{
@@ -40,7 +40,7 @@ export const QuizGame = () =>{
             setcurrentOptionSelected(null)
             setCorrectOption(null)
             setIsOptionsDisabled(false)
-            setShowNextButton(false)
+            setIsNextDisabled(true)
         }
     }
 
@@ -78,22 +78,18 @@ export const QuizGame = () =>{
     }
 
     const renderNextButton = () =>{
-        if(showNextButton){
-            return(
-                <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
-                    <Text style={{fontSize:20, textAlign:"center"}}>Next</Text>
-                </TouchableOpacity>
-            )
-        }else{
-            return null
-        }
+        return(
+            <TouchableOpacity onPress={handleNext} disabled={isNextDisabled} style={!isNextDisabled? styles.nextButton: styles.disabledNextButton}>
+                <Text style={{fontSize:20, textAlign:"center", color: isNextDisabled? "gray":"black"}}>Next</Text>
+            </TouchableOpacity>
+        )
     }
     const renderQuestion = () =>{
 
         return(
         <Layout style={{ backgroundColor:"transparent"}}>
             <Layout style ={{  alignItems:"center", backgroundColor:"transparent",marginVertical:5}}>
-                <Text style={{fontSize:30, opacity:0.6, textAlign:"center"}}>{currentQuestionIndex + 1}/{questions.length}</Text>
+                {/* <Text style={{fontSize:30, opacity:0.6, textAlign:"center"}}>{currentQuestionIndex + 1}/{questions.length}</Text> */}
             </Layout >
             <Text style={{fontSize:30, alignSelf:"center",marginHorizontal:20,marginVertical:5}}>{questions[currentQuestionIndex]?.question}</Text>
             <Layout style={{alignItems:"center"}}>
@@ -165,6 +161,11 @@ const styles = StyleSheet.create({
     },
     nextButton: {
        width:300,backgroundColor:'#E6D1F2',
+       padding:20,borderRadius: 5,alignSelf:"center",
+       position:"absolute", bottom:60
+    },
+    disabledNextButton: {
+       width:300,backgroundColor:'#dcccdc',
        padding:20,borderRadius: 5,alignSelf:"center",
        position:"absolute", bottom:60
     }
