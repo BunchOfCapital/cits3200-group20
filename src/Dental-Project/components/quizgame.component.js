@@ -68,27 +68,27 @@ export const QuizGame = () =>{
                         )
         return (
             <Layout style={{ backgroundColor:"transparent",  flex: 2, flexDirection:"row"}}>
-                <Layout style={{flex:  1}}>
+                <Layout style={{flex:  1, backgroundColor:"transparent"}}>
                     {topRow.map(optionMap)}
                 </Layout>
-                <Layout style={{flex:  1}}>
+                <Layout style={{flex:  1, backgroundColor:"transparent"}}>
                     {bottomRow.map(optionMap)}
                 </Layout>
             </Layout>)
     }
 
-    const renderQuestion = () =>{
-        const renderNextButton = () =>{
-            if(showNextButton){
-                return(
-                    <TouchableOpacity onPress={handleNext} style={{marginTop:20, width:300,backgroundColor:'#E6D1F2',padding:20,borderRadius: 5,alignSelf:"center"}}>
-                        <Text style={{fontSize:20, textAlign:"center"}}>Next</Text>
-                    </TouchableOpacity>
-                )
-            }else{
-                return null
-            }
+    const renderNextButton = () =>{
+        if(showNextButton){
+            return(
+                <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
+                    <Text style={{fontSize:20, textAlign:"center"}}>Next</Text>
+                </TouchableOpacity>
+            )
+        }else{
+            return null
         }
+    }
+    const renderQuestion = () =>{
 
         return(
         <Layout style={{ backgroundColor:"transparent"}}>
@@ -99,8 +99,6 @@ export const QuizGame = () =>{
             <Layout style={{alignItems:"center"}}>
                 <Image source={profileIcon} style={{width:150, height:150, marginBottom:40}}></Image>
             </Layout>
-            {renderOptions()}
-            {renderNextButton()}
             
         </Layout>
         )
@@ -109,6 +107,10 @@ export const QuizGame = () =>{
 return(
     <Layout style={{flex: 1, backgroundColor: "#FFFFF5",alignItems:"center"}}>
         {renderQuestion()}
+        <Layout style={{position:"absolute", alignSelf:"center", bottom:130, left:0, right:0, backgroundColor:"transparent"}}>
+            {renderOptions()}
+        </Layout>
+            {renderNextButton()}
         <Modal animationType="slide" transparent ={true} visible ={showModal}>
             <Layout style={{flex:1,backgroundColor:'#C1E8E0',alignItems:"center",justifyContent:"center"}}>
                 <Layout style={{backgroundColor:'#F5D6CB',width:'90%',borderRadius:10,padding:20,alignItems:"center"}}>
@@ -160,6 +162,11 @@ const styles = StyleSheet.create({
         borderWidth:3,
         alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
         borderRadius:5, height:buttonHeight,flexDirection:"row",
+    },
+    nextButton: {
+       width:300,backgroundColor:'#E6D1F2',
+       padding:20,borderRadius: 5,alignSelf:"center",
+       position:"absolute", bottom:60
     }
 
 });
