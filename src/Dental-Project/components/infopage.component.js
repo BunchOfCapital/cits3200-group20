@@ -120,7 +120,6 @@ export const InfoPage = ({ navigation }) => {
   const [topics, topicNum] = useState(getInfoData());
 
   let topic1 = topics[0]['name'];
-  alert(topic1);
 
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
@@ -134,7 +133,7 @@ export const InfoPage = ({ navigation }) => {
           <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight }}>
               <TouchableWithoutFeedback onPress={() => {setMod1(true); swapsides();}}>
                   <Text style={styles.topicName}>
-                    Gum Diseases
+                    {topics[0]['name']}
                   </Text>
               </TouchableWithoutFeedback >
           </ExpandingView>
@@ -149,11 +148,15 @@ export const InfoPage = ({ navigation }) => {
                   swapsides();
                 }}> 
                   <View style={[styles.modalBody, {borderColor: '#ABEC7E', backgroundColor: '#F5FEE6'}]}>
-                    <Text style={styles.topicTitle}> GUM DISEASES </Text>
-                      <Text> INFORMATION GOES HERE </Text>
-                      <Pressable onPress={() => {setMod1(!mod1); swapsides();}}>
-                        <Text style={styles.textStyle}>Hide Modal</Text>
-                      </Pressable>
+                    <Text style={styles.topicTitle}> {topics[0]['name']} </Text>
+                    <Text style={styles.modalText}> {topics[0]['content']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style={styles.modalText}> {topics[0]['content2']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style= {styles.modalText}> {topics[0]['content3']} </Text>
+                    <Pressable onPress={() => {setMod1(!mod1); swapsides();}}>
+                      <Text style={styles.backButton}>Back</Text>
+                    </Pressable>
                   </View>
               </Modal>
             </View>
@@ -178,10 +181,10 @@ export const InfoPage = ({ navigation }) => {
                 }}> 
                   <View style={[styles.modalBody, {borderColor: '#98ECFD', backgroundColor: '#DAF6FE'}]}>
                     <Text style={styles.topicTitle}> PLAQUE </Text>
-                      <Text> INFORMATION GOES HERE </Text>
-                      <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
-                        <Text style={styles.textStyle}>Hide Modal</Text>
-                      </Pressable>
+                    <Text style={styles.modalText}> INFORMATION GOES HERE </Text>
+                    <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
+                       <Text style={styles.backButton}>Back</Text>
+                    </Pressable>
                   </View>
               </Modal>
             </View>
@@ -206,10 +209,10 @@ export const InfoPage = ({ navigation }) => {
                 }}> 
                   <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
                     <Text style={styles.topicTitle}> TOOTH CARE </Text>
-                      <Text> INFORMATION GOES HERE </Text>
-                      <Pressable onPress={() => {setMod3(!mod3); swapsides();}}>
-                        <Text style={styles.textStyle}>Hide Modal</Text>
-                      </Pressable>
+                    <Text> INFORMATION GOES HERE </Text>
+                    <Pressable onPress={() => {setMod3(!mod3); swapsides();}}>
+                       <Text style={styles.backButton}>Back</Text>
+                    </Pressable>
                   </View>
               </Modal>
             </View>
@@ -234,10 +237,10 @@ export const InfoPage = ({ navigation }) => {
                   }}> 
                     <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
                       <Text style={styles.topicTitle}> TONGUE HEALTH </Text>
-                        <Text> INFORMATION GOES HERE </Text>
-                        <Pressable onPress={() => {setMod4(!mod4); swapsides();}}>
-                          <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
+                      <Text> INFORMATION GOES HERE </Text>
+                      <Pressable onPress={() => {setMod4(!mod4); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
                     </View>
                 </Modal>
               </View>
@@ -262,10 +265,10 @@ export const InfoPage = ({ navigation }) => {
                   }}> 
                     <View style={[styles.modalBody, {borderColor: '#FF4294', backgroundColor: '#FFE8D7'}]}>
                       <Text style={styles.topicTitle}> CONTACT US </Text>
-                        <Text> INFORMATION GOES HERE </Text>
-                        <Pressable onPress={() => {setMod5(!mod5); swapsides();}}>
-                          <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
+                      <Text> INFORMATION GOES HERE </Text>
+                      <Pressable onPress={() => {setMod5(!mod5); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
                     </View>
                 </Modal>
               </View>
@@ -324,20 +327,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     width: '80%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
 
   },
   modalText: {
     textAlign: 'center',
-    flex: 1,
   },
   topicTitle: {
     fontSize: 25,
     color: '#3B3C3F',
-    flex: 1,
+    marginBottom: 5,
     flexDirection: 'row',
     fontFamily: 'sans-serif-light',
     fontWeight: 'bold'
+  },
+  linebreakImage: {
+    height: '7%', 
+    width: '40%',
+    justifyContent: 'space-around',
+    resizeMode: 'contain'
+  },
+  backButton: {
+    justifyContent: 'flex-end',
+    backgroundColor: '#FF47A6',
+    borderRadius: 20,
+    textAlign: 'center',
+    paddingLeft: 5,
+    paddingRight: 5,
+    margin: 5
   }
 });
 
