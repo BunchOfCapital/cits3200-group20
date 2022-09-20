@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Text } from '@ui-kitten/components';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { StyleSheet } from 'react-native';
 import { HomeScreen } from './homepage.component';
 import { InfoPage } from './infopage.component';
@@ -11,7 +13,6 @@ import { QuizGame } from './quizgame.component';
 import { ProfilePage } from './profile.component';
 import Assessment from './Assessment';
 import { CameraPage } from './camera.component';
-
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,11 +50,32 @@ const TopBar = () => {
     <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
   );
 
+  const [fontsLoaded] = useFonts({
+    'Sassoon-Primary': require('../assets/fonts/Sassoon-Primary.otf'),
+  });
 
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+  
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return(
       <React.Fragment>
-        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements}/>
+        <Text style={styles.title}>Dental App</Text>
+        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} onLayout={onLayoutRootView}/>
         {/* <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
@@ -115,12 +137,12 @@ const TabNavigator = () => (
 );
 
 export const AppNavigator = () => (
-  
+
   <NavigationContainer>
     <Layout style={styles.topNav} level='1'>
       <TopNavigation
-        title='Dental App'
         accessoryRight={TopBar}
+        style={[{fontSize: 24}]}
       />
     </Layout>
     <TabNavigator />
@@ -133,7 +155,12 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   topNav: {
-    marginTop:10
+    marginTop: "8%"
   },
-
+  title: {
+    fontFamily: "Sassoon-Primary",
+    fontSize: 24,
+    position: 'absolute',
+    right: '270%',
+  }
 })
