@@ -180,8 +180,11 @@ export const InfoPage = ({ navigation }) => {
                   swapsides();
                 }}> 
                   <View style={[styles.modalBody, {borderColor: '#98ECFD', backgroundColor: '#DAF6FE'}]}>
-                    <Text style={styles.topicTitle}> PLAQUE </Text>
-                    <Text style={styles.modalText}> INFORMATION GOES HERE </Text>
+                    <Text style={styles.topicTitle}> {topics[1]['name']} </Text>
+                    <Text style={styles.modalText}> {topics[1]['content']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style={styles.modalText}> {topics[1]['content2']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
                     <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
                        <Text style={styles.backButton}>Back</Text>
                     </Pressable>
