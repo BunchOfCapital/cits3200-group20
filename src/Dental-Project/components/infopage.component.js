@@ -1,13 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { useIsFocused } from '@react-navigation/native';
 import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
+import YoutubePlayer from "react-native-youtube-iframe";
 
 import infoData, {getInfoData} from "../Data/infoData";
 
+// ANIMATION ON PAGE FOCUS TO GROW TOPIC SQUARES
 const ExpandingView = ( props, navigation ) => {
   const sizeAnim = useRef(new Animated.Value(2)).current;
   const isFocused = useIsFocused();
@@ -66,11 +68,9 @@ export const InfoPage = ({ navigation }) => {
   const slideAnimLeft = useRef(new Animated.Value(0)).current;
 
   const onscreen = useRef(true);
-
   const {height, width} = useWindowDimensions();
 
-  
-
+// ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
   const _slideoff = () => {
   onscreen.current = false;
   Animated.parallel([
@@ -90,7 +90,6 @@ export const InfoPage = ({ navigation }) => {
     })
     ]).start();
   };
-
 
   const _slideback = () => {
     onscreen.current = true;
@@ -112,14 +111,17 @@ export const InfoPage = ({ navigation }) => {
       ]).start();
     };
 
-
   const swapsides = () => {
     {onscreen.current ? _slideoff() : _slideback()}
   }
 
+  // IMPORT INFO TEXT INTO ARRAY
   const [topics, topicNum] = useState(getInfoData());
 
-  let topic1 = topics[0]['name'];
+  // VARIABLES TO SUPPORT VIDEO PLAYER
+  const [playing, setPlaying] = useState(false);
+  const onStateChange = useCallback((state) => {    if (state === "ended") {      setPlaying(false);      Alert.alert("video has finished playing!");    }  }, []);
+  const togglePlaying = useCallback(() => {    setPlaying((prev) => !prev);  }, []);
 
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
@@ -165,7 +167,7 @@ export const InfoPage = ({ navigation }) => {
           <ExpandingView style={{backgroundColor: '#98ECFD', translateX: slideAnimLeft}}>
             <TouchableWithoutFeedback onPress={() => {setMod2(true); swapsides();}}>
               <Text style={styles.topicName}>
-                Plaque
+                {topics[1]['name']}
               </Text>
             </TouchableWithoutFeedback>
           </ExpandingView>
@@ -185,6 +187,17 @@ export const InfoPage = ({ navigation }) => {
                     <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
                     <Text style={styles.modalText}> {topics[1]['content2']} </Text>
                     <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <View style={{backgroundColor: '#99E3FF'}}>
+                      <YoutubePlayer 
+                        height={140} 
+                        width={250}  
+                        play={true} 
+                        videoId={"zGoBFU1q4g0"} 
+                        webViewProps={{
+                          allowsInlineMediaPlayback: false,
+                          allowsFullscreenVideo: true,
+                          androidLayerType: 'hardware'}}/>
+                    </View>
                     <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
                        <Text style={styles.backButton}>Back</Text>
                     </Pressable>
