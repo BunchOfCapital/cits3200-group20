@@ -6,6 +6,8 @@ import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, V
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 
+import infoData, {getInfoData} from "../Data/infoData";
+
 const ExpandingView = ( props, navigation ) => {
   const sizeAnim = useRef(new Animated.Value(2)).current;
   const isFocused = useIsFocused();
@@ -115,7 +117,10 @@ export const InfoPage = ({ navigation }) => {
     {onscreen.current ? _slideoff() : _slideback()}
   }
 
+  const [topics, topicNum] = useState(getInfoData());
 
+  let topic1 = topics[0]['name'];
+  alert(topic1);
 
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
