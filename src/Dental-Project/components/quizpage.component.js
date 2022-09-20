@@ -4,6 +4,9 @@ import { StyleSheet, ScrollView, View, ImageBackground, Pressable } from 'react-
 import wallpaper from '../assets/7284061(1).png'
 import cloud from '../assets/cloud.png';
 
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { HygieneScreen } from './hygienequiz.component';
+
 
 const buttonPressed = () => {
     console.log("Quiz Button Was Pressed!")
@@ -11,7 +14,8 @@ const buttonPressed = () => {
 
 
 
-export const QuizScreen = ({ navigation }) => {
+export const QuizScreen = () => {
+    const navigation = useNavigation();
     return (
         <Layout style={{ flex: 1, backgroundColor: "#FFFFF5" }}>
             <ImageBackground source={wallpaper} resizeMode="cover" style={{ flex: 1 }}>
