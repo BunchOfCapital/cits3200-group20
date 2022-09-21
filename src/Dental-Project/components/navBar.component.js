@@ -9,7 +9,7 @@ import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
 import { QuizGame } from './quizgame.component';
 import { ProfilePage } from './profile.component';
-import Assessment from './booking';
+import Assessment from './Assessment';
 import { CameraPage } from './camera.component';
 
 
