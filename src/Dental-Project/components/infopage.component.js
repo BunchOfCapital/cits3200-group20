@@ -1,24 +1,20 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal } from 'react-native';
+import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
+import YoutubePlayer from "react-native-youtube-iframe";
 
+import infoData, {getInfoData} from "../Data/infoData";
+
+// ANIMATION ON PAGE FOCUS TO GROW TOPIC SQUARES
 const ExpandingView = ( props, navigation ) => {
   const sizeAnim = useRef(new Animated.Value(2)).current;
-  const locationAnim = useRef(new Animated.Value(0)).current;
   const isFocused = useIsFocused();
 
-  const xmov = useRef(30);
-  const sizeval = useRef(3);
-
-  const opened = useRef(true);
-  const alignment = useRef(-20);
-
   const _grow = () => {
-    opened.current = true;
     Animated.timing(
       sizeAnim,
       {
@@ -30,7 +26,6 @@ const ExpandingView = ( props, navigation ) => {
   };
 
   const _shrink = () => {
-    opened.current = false;
     Animated.timing(
       sizeAnim,
       {
@@ -41,43 +36,8 @@ const ExpandingView = ( props, navigation ) => {
     ).start();
   }
 
-  const _expand = () => {
-    if (opened.current) {
-      opened.current = false;
-      xmov.current = -30;
-      sizeval.current = 3;
-    } else {
-      opened.current = true;
-      xmov.current = 30;
-      sizeval.current = 1;
-    }
-    
-    Animated.sequence( [
-      Animated.timing(
-        locationAnim, {
-          toValue: xmov.current,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-      Animated.timing(
-        sizeAnim, {
-          toValue: sizeval.current,
-          duration: 800,
-          useNativeDriver: true,
-        })
-      ]).start();
-  }
-
-
   if (isFocused) {_grow()}
   if (!isFocused) {_shrink()}
-
-  const scalingY = sizeAnim;
-  const scalingX = sizeAnim;
-
-  const swap = () => {
-    {opened.current ? _expand() : _grow() }
-  }
 
   return (
     <Animated.View
@@ -88,125 +48,246 @@ const ExpandingView = ( props, navigation ) => {
           width: 170,
         },
         {
-          transform: [ {scaleY: scalingY}, {scaleX: scalingX}, {translateX: locationAnim}],
+          transform: [ {scaleY: sizeAnim}, {scaleX: sizeAnim}],
         }
       ]}> 
-      <TouchableWithoutFeedback onPress={() => _expand()}>
         {props.children}
-      </TouchableWithoutFeedback>
       </Animated.View>
     );
 }
 
 
 export const InfoPage = ({ navigation }) => {
-  const [modal1Visible, setModal1Visible] = useState(false);
-  const slideAnim = useRef(new Animated.Value(0)).current;
+  const [mod1, setMod1] = useState(false);
+  const [mod2, setMod2] = useState(false);
+  const [mod3, setMod3] = useState(false);
+  const [mod4, setMod4] = useState(false);
+  const [mod5, setMod5] = useState(false);
+
+  const slideAnimRight = useRef(new Animated.Value(0)).current;
+  const slideAnimLeft = useRef(new Animated.Value(0)).current;
+
   const onscreen = useRef(true);
+  const {height, width} = useWindowDimensions();
 
-  const Slide = (props) => {
-
-    const _slideright = () => {
-    onscreen.current = false;
+// ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
+  const _slideoff = () => {
+  onscreen.current = false;
+  Animated.parallel([
     Animated.timing(
-      slideAnim,
-      {
-        toValue: 200,
-        duration: 20,
-        useNativeDriver: true,
-      }
-      ).start();
-    };
-
-    const _slideleft = () => {
-      onscreen.current = true;
-      Animated.timing(
-        slideAnim,
-        {
-          toValue: -200,
-          duration: 20,
-          useNativeDriver: true,
-        }
-      ).start();
-      };
-
-    const swapsides = () => {
-      {onscreen.current ? _slideright() : _slideleft()}
-    }
-
-    return (
-      <Animated.View
-        style = {[
-          {
-            ...props.style,
-          },
-          {
-            transform: [{translateX: slideAnim}],
-          }]}> 
-          {props.children}
-      </Animated.View>
-    );
+    slideAnimRight,
+    {
+      toValue: width*2,
+      duration: 250,
+      useNativeDriver: true,
+    }),
+    Animated.timing(
+    slideAnimLeft,
+    {
+      toValue: width*-2,
+      duration: 250,
+      useNativeDriver: true,
+    })
+    ]).start();
   };
 
+  const _slideback = () => {
+    onscreen.current = true;
+    Animated.parallel([
+      Animated.timing(
+      slideAnimRight,
+      {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(
+        slideAnimLeft,
+        {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        })
+      ]).start();
+    };
 
+  const swapsides = () => {
+    {onscreen.current ? _slideoff() : _slideback()}
+  }
+
+  // IMPORT INFO TEXT INTO ARRAY
+  const [topics, topicNum] = useState(getInfoData());
+
+  // VARIABLES TO SUPPORT VIDEO PLAYER
+  const [playing, setPlaying] = useState(false);
+  const onStateChange = useCallback((state) => {    if (state === "ended") {      setPlaying(false);      Alert.alert("video has finished playing!");    }  }, []);
+  const togglePlaying = useCallback(() => {    setPlaying((prev) => !prev);  }, []);
 
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
+      {/*PAGE HEADER*/}
         <Text style={{textAlign: 'center'}}>
           Welcome to the Info Page
         </Text>
+      {/*MAIN BODY*/}
         <ScrollView style={{margin: 10, overflow: 'scroll'}} showsVerticalScrollIndicator={false}>
-          <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={() => {setModal1Visible(true);}}>
+        {/*TOPIC 1*/}
+          <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight }}>
+              <TouchableWithoutFeedback onPress={() => {setMod1(true); swapsides();}}>
                   <Text style={styles.topicName}>
-                    Gum Diseases
+                    {topics[0]['name']}
                   </Text>
               </TouchableWithoutFeedback >
           </ExpandingView>
-
-          <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modal1Visible}
-              onRequestClose={ () => {
-                setModal1Visible(!modal1Visible)
-              }}> 
-                <View style={[styles.modalBody, {borderColor: '#ABEC7E', backgroundColor: '#F5FEE6'}]}>
-                  <Text style={styles.topicTitle}> GUM DISEASES </Text>
-                  {/*<ScrollView showsVerticalScrollIndicator={false}>*/}
-                    <Text> INFORMATION GOES HERE </Text>
-                    <Pressable onPress={() => setModal1Visible(!modal1Visible)}>
-                      <Text style={styles.textStyle}>Hide Modal</Text>
+        {/*MODAL 1*/}
+            <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={mod1}
+                onRequestClose={ () => {
+                  setMod1(!mod1);
+                  swapsides();
+                }}> 
+                  <View style={[styles.modalBody, {borderColor: '#ABEC7E', backgroundColor: '#F5FEE6'}]}>
+                    <Text style={styles.topicTitle}> {topics[0]['name']} </Text>
+                    <Text style={styles.modalText}> {topics[0]['content']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style={styles.modalText}> {topics[0]['content2']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style= {styles.modalText}> {topics[0]['content3']} </Text>
+                    <Pressable onPress={() => {setMod1(!mod1); swapsides();}}>
+                      <Text style={styles.backButton}>Back</Text>
                     </Pressable>
-                  {/*</ScrollView>*/}
-                </View>
-            </Modal>
-          </View>
+                  </View>
+              </Modal>
+            </View>
 
-          <ExpandingView style={{backgroundColor: '#98ECFD'}}>
-            <Text style={styles.topicName}>
-              Plaque
-            </Text>
+        {/*TOPIC 2*/}
+          <ExpandingView style={{backgroundColor: '#98ECFD', translateX: slideAnimLeft}}>
+            <TouchableWithoutFeedback onPress={() => {setMod2(true); swapsides();}}>
+              <Text style={styles.topicName}>
+                {topics[1]['name']}
+              </Text>
+            </TouchableWithoutFeedback>
           </ExpandingView>
+        {/*MODAL 2*/}
+            <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={mod2}
+                onRequestClose={ () => {
+                  setMod2(!mod2);
+                  swapsides();
+                }}> 
+                  <View style={[styles.modalBody, {borderColor: '#98ECFD', backgroundColor: '#DAF6FE'}]}>
+                    <Text style={styles.topicTitle}> {topics[1]['name']} </Text>
+                    <Text style={styles.modalText}> {topics[1]['content']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style={styles.modalText}> {topics[1]['content2']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <View style={{backgroundColor: '#99E3FF'}}>
+                      <YoutubePlayer 
+                        height={140} 
+                        width={250}  
+                        play={true} 
+                        videoId={"zGoBFU1q4g0"} 
+                        webViewProps={{
+                          allowsInlineMediaPlayback: false,
+                          allowsFullscreenVideo: true,
+                          androidLayerType: 'hardware'}}/>
+                    </View>
+                    <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
+                       <Text style={styles.backButton}>Back</Text>
+                    </Pressable>
+                  </View>
+              </Modal>
+            </View>
 
-          <ExpandingView style={{backgroundColor: '#FFC17A', alignSelf: 'flex-end'}}>
-            <Text style={styles.topicName}>
-              Teeth Care
-            </Text>
+        {/*TOPIC 3*/}
+          <ExpandingView style={{backgroundColor: '#FFC17A', alignSelf: 'flex-end', translateX: slideAnimRight}}>
+            <TouchableWithoutFeedback onPress={() => {setMod3(true); swapsides();}}>
+              <Text style={styles.topicName}>
+                Teeth Care
+              </Text>
+            </TouchableWithoutFeedback>
           </ExpandingView>
+        {/*MODAL 3*/}
+            <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={mod3}
+                onRequestClose={ () => {
+                  setMod3(!mod3);
+                  swapsides();
+                }}> 
+                  <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
+                    <Text style={styles.topicTitle}> TOOTH CARE </Text>
+                    <Text> INFORMATION GOES HERE </Text>
+                    <Pressable onPress={() => {setMod3(!mod3); swapsides();}}>
+                       <Text style={styles.backButton}>Back</Text>
+                    </Pressable>
+                  </View>
+              </Modal>
+            </View>
 
-          <ExpandingView style={{backgroundColor: '#FFA187'}}>
-            <Text style={styles.topicName}>
-              Tongue Health
-            </Text>
+        {/*TOPIC 4*/}
+          <ExpandingView style={{backgroundColor: '#FFA187', translateX: slideAnimLeft}}>
+            <TouchableWithoutFeedback onPress={() => {setMod4(true); swapsides();}}>
+              <Text style={styles.topicName}>
+                Tongue Health
+              </Text>
+            </TouchableWithoutFeedback>
           </ExpandingView>
+        {/*MODAL 4*/}
+            <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={mod4}
+                  onRequestClose={ () => {
+                    setMod4(!mod4);
+                    swapsides();
+                  }}> 
+                    <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
+                      <Text style={styles.topicTitle}> TONGUE HEALTH </Text>
+                      <Text> INFORMATION GOES HERE </Text>
+                      <Pressable onPress={() => {setMod4(!mod4); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
+                    </View>
+                </Modal>
+              </View>
 
-          <ExpandingView style={{backgroundColor: '#FF4294', alignSelf: 'flex-end', marginBottom: 50}}>
-            <Text style={styles.topicName}>
-              Contact Us
-            </Text>
+        {/*TOPIC 5*/}
+          <ExpandingView style={{backgroundColor: '#FF4294', alignSelf: 'flex-end', marginBottom: 50, translateX: slideAnimRight}}>
+            <TouchableWithoutFeedback onPress={() => {setMod5(true); swapsides();}}>
+              <Text style={styles.topicName}>
+                Contact Us
+              </Text>
+            </TouchableWithoutFeedback>
           </ExpandingView>
+        {/*MODAL 5*/}
+            <View style={[styles.centeredContent, {backgroundColor: '#6690FF', margin: -30}]}>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={mod5}
+                  onRequestClose={ () => {
+                    setMod5(!mod5);
+                    swapsides();
+                  }}> 
+                    <View style={[styles.modalBody, {borderColor: '#FF4294', backgroundColor: '#FFE8D7'}]}>
+                      <Text style={styles.topicTitle}> CONTACT US </Text>
+                      <Text> INFORMATION GOES HERE </Text>
+                      <Pressable onPress={() => {setMod5(!mod5); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
+                    </View>
+                </Modal>
+              </View>
 
         </ScrollView>
       </Layout>
@@ -262,19 +343,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     width: '80%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
 
   },
   modalText: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   topicTitle: {
     fontSize: 25,
     color: '#3B3C3F',
-    flex: 1,
+    marginBottom: 5,
     flexDirection: 'row',
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif-light',
     fontWeight: 'bold'
+  },
+  linebreakImage: {
+    height: '7%', 
+    width: '40%',
+    justifyContent: 'space-around',
+    resizeMode: 'contain'
+  },
+  backButton: {
+    justifyContent: 'flex-end',
+    backgroundColor: '#FF47A6',
+    borderRadius: 20,
+    textAlign: 'center',
+    paddingLeft: 5,
+    paddingRight: 5,
+    margin: 5
   }
 });
 
