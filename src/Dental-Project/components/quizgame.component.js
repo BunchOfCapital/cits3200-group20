@@ -4,7 +4,9 @@ import { Button, Layout, View, Alert,Icon } from "@ui-kitten/components";
 import { Image, ImageBackground,StatusBar,Text, StyleSheet, TouchableOpacity,Modal } from "react-native";
 import quizData, {getDailyQuiz} from "../Data/quizData";
 import wallpaper from "../assets/7284061(1).png"
-import profileIcon from "../assets/profileIcon.png"
+import happy from "../assets/happy.png"
+import neutral from "../assets/neutral.png"
+import fallflat from "../assets/fallflat.png"
 import React, {useCallback, useRef } from "react";
 
 export const QuizGame = () =>{
@@ -89,12 +91,8 @@ export const QuizGame = () =>{
         return(
         <Layout style={{ backgroundColor:"transparent"}}>
             <Layout style ={{  alignItems:"center", backgroundColor:"transparent",marginVertical:5}}>
-                {/* <Text style={{fontSize:30, opacity:0.6, textAlign:"center"}}>{currentQuestionIndex + 1}/{questions.length}</Text> */}
             </Layout >
             <Text style={{fontSize:30, alignSelf:"center",marginHorizontal:20,marginVertical:5}}>{questions[currentQuestionIndex]?.question}</Text>
-            <Layout style={{alignItems:"center"}}>
-                <Image source={profileIcon} style={{width:150, height:150, marginBottom:40}}></Image>
-            </Layout>
             
         </Layout>
         )
@@ -103,7 +101,11 @@ export const QuizGame = () =>{
 return(
     <Layout style={{flex: 1, backgroundColor: "#FFFFF5",alignItems:"center"}}>
         {renderQuestion()}
-        <Layout style={{position:"absolute", alignSelf:"center", bottom:130, left:0, right:0, backgroundColor:"transparent"}}>
+        <Layout style={{position:"absolute", bottom:"55%", flexDirection:"row", alignContent:"space-between"}}>
+            <Image source={isOptionsDisabled ? (currentOptionSelected==correctOption?happy:fallflat):neutral} style={{width:150,height:150}}></Image>
+            <Text style={{fontSize:30, opacity:0.6, textAlign:"center", marginTop:50, marginLeft:10}}>{currentQuestionIndex + 1}/{questions.length}</Text>
+        </Layout>
+        <Layout style={{position:"absolute", alignSelf:"center", bottom:160, left:0, right:0, height:"25%", backgroundColor:"transparent"}}>
             {renderOptions()}
         </Layout>
             {renderNextButton()}
@@ -129,7 +131,7 @@ return(
 )
 }
 
-const buttonHeight = 70;
+const buttonHeight = "50%";
 const buttonMarginX = 10;
 const styles = StyleSheet.create({
     quizheader:{
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     disabledNextButton: {
        width:300,backgroundColor:'#dcccdc',
        padding:20,borderRadius: 5,alignSelf:"center",
-       position:"absolute", bottom:60
+       position:"absolute", bottom:60, height:"10%"
     }
 
 });
