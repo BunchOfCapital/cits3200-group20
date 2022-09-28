@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal } from 'react-native';
+import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal, Linking } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -131,6 +131,7 @@ export const InfoPage = ({ navigation }) => {
         </Text>
       {/*MAIN BODY*/}
         <ScrollView style={{margin: 10, overflow: 'scroll'}} showsVerticalScrollIndicator={false}>
+
         {/*TOPIC 1*/}
           <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight }}>
               <TouchableWithoutFeedback onPress={() => {setMod1(true); swapsides();}}>
@@ -156,9 +157,16 @@ export const InfoPage = ({ navigation }) => {
                     <Text style={styles.modalText}> {topics[0]['content2']} </Text>
                     <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
                     <Text style= {styles.modalText}> {topics[0]['content3']} </Text>
-                    <Pressable onPress={() => {setMod1(!mod1); swapsides();}}>
-                      <Text style={styles.backButton}>Back</Text>
-                    </Pressable>
+
+                    <View style={{flexDirection: 'row'}}>
+                      <Pressable onPress={() => Linking.openURL('https://www.cdc.gov/oralhealth/conditions/index.html')}>
+                        <Text style={styles.backButton}>More</Text>
+                      </Pressable>
+                      <Pressable onPress={() => {setMod1(!mod1); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
+                    </View>
+
                   </View>
               </Modal>
             </View>
@@ -198,9 +206,16 @@ export const InfoPage = ({ navigation }) => {
                           allowsFullscreenVideo: true,
                           androidLayerType: 'hardware'}}/>
                     </View>
-                    <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
-                       <Text style={styles.backButton}>Back</Text>
-                    </Pressable>
+
+                    <View style={{flexDirection: 'row'}}>
+                      <Pressable onPress={() => Linking.openURL('https://www.mayoclinic.org/diseases-conditions/cavities/symptoms-causes/syc-20352892')}>
+                        <Text style={styles.backButton}>More</Text>
+                      </Pressable>
+                      <Pressable onPress={() => {setMod2(!mod2); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
+                    </View>
+
                   </View>
               </Modal>
             </View>
@@ -209,7 +224,7 @@ export const InfoPage = ({ navigation }) => {
           <ExpandingView style={{backgroundColor: '#FFC17A', alignSelf: 'flex-end', translateX: slideAnimRight}}>
             <TouchableWithoutFeedback onPress={() => {setMod3(true); swapsides();}}>
               <Text style={styles.topicName}>
-                Teeth Care
+                {topics[2]['name']}
               </Text>
             </TouchableWithoutFeedback>
           </ExpandingView>
@@ -224,11 +239,22 @@ export const InfoPage = ({ navigation }) => {
                   swapsides();
                 }}> 
                   <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
-                    <Text style={styles.topicTitle}> TOOTH CARE </Text>
-                    <Text> INFORMATION GOES HERE </Text>
-                    <Pressable onPress={() => {setMod3(!mod3); swapsides();}}>
-                       <Text style={styles.backButton}>Back</Text>
-                    </Pressable>
+                    <Text style={styles.topicTitle}> {topics[2]['name']} </Text>
+                    <Text style={styles.modalText}> {topics[2]['content']} </Text>
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Image source={require('../assets/tooth_diagram.png')} style={{height: 150, width: 150}} />
+                    <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                    <Text style={styles.modalText}> {topics[2]['content2']} </Text>
+
+                    <View style={{flexDirection: 'row'}}>
+                      <Pressable onPress={() => Linking.openURL('https://my.clevelandclinic.org/health/diseases/10953-plaque')}>
+                        <Text style={styles.backButton}>More</Text>
+                      </Pressable>
+                      <Pressable onPress={() => {setMod3(!mod3); swapsides();}}>
+                         <Text style={styles.backButton}>Back</Text>
+                      </Pressable>
+                    </View>
+
                   </View>
               </Modal>
             </View>
@@ -237,7 +263,7 @@ export const InfoPage = ({ navigation }) => {
           <ExpandingView style={{backgroundColor: '#FFA187', translateX: slideAnimLeft}}>
             <TouchableWithoutFeedback onPress={() => {setMod4(true); swapsides();}}>
               <Text style={styles.topicName}>
-                Tongue Health
+                {topics[3]['name']}
               </Text>
             </TouchableWithoutFeedback>
           </ExpandingView>
@@ -251,12 +277,24 @@ export const InfoPage = ({ navigation }) => {
                     setMod4(!mod4);
                     swapsides();
                   }}> 
-                    <View style={[styles.modalBody, {borderColor: '#FFC17A', backgroundColor: '#FFFAD9'}]}>
-                      <Text style={styles.topicTitle}> TONGUE HEALTH </Text>
-                      <Text> INFORMATION GOES HERE </Text>
-                      <Pressable onPress={() => {setMod4(!mod4); swapsides();}}>
-                         <Text style={styles.backButton}>Back</Text>
-                      </Pressable>
+                    <View style={[styles.modalBody, {borderColor: '#FF7F6B', backgroundColor: '#FFE6D7'}]}>
+                      <Text style={styles.topicTitle}> {topics[3]['name']} </Text>
+
+                      <Text style={styles.modalText}> {topics[3]['content']} </Text>                    
+                      <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                      <Text style={styles.modalText}> {topics[3]['content2']} </Text>
+                      <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                      <Image source={require('../assets/gingivitis_diagram.png')} style={{height: 150, width: 190}} />
+
+                      <View style={{flexDirection: 'row'}}>
+                        <Pressable onPress={() => Linking.openURL('https://www.mayoclinic.org/diseases-conditions/gingivitis/symptoms-causes/syc-20354453')}>
+                          <Text style={styles.backButton}>More</Text>
+                        </Pressable>
+                        <Pressable onPress={() => {setMod4(!mod4); swapsides();}}>
+                           <Text style={styles.backButton}>Back</Text>
+                        </Pressable>
+                      </View>
+
                     </View>
                 </Modal>
               </View>
@@ -265,7 +303,7 @@ export const InfoPage = ({ navigation }) => {
           <ExpandingView style={{backgroundColor: '#FF4294', alignSelf: 'flex-end', marginBottom: 50, translateX: slideAnimRight}}>
             <TouchableWithoutFeedback onPress={() => {setMod5(true); swapsides();}}>
               <Text style={styles.topicName}>
-                Contact Us
+                {topics[4]['name']}
               </Text>
             </TouchableWithoutFeedback>
           </ExpandingView>
@@ -280,11 +318,16 @@ export const InfoPage = ({ navigation }) => {
                     swapsides();
                   }}> 
                     <View style={[styles.modalBody, {borderColor: '#FF4294', backgroundColor: '#FFE8D7'}]}>
-                      <Text style={styles.topicTitle}> CONTACT US </Text>
-                      <Text> INFORMATION GOES HERE </Text>
+                      <Text style={styles.topicTitle}> {topics[4]['name']} </Text>
+
+                      <Text style={[styles.modalText, {textAlign: 'center'}]}> {topics[4]['content']} </Text>
+                      <Image source={require('../assets/tooth_lineart.png')} style={styles.linebreakImage} />
+                      <Text style={[styles.modalText, {textAlign: 'center'}]}> {topics[4]['content2']} </Text>
+
                       <Pressable onPress={() => {setMod5(!mod5); swapsides();}}>
                          <Text style={styles.backButton}>Back</Text>
                       </Pressable>
+
                     </View>
                 </Modal>
               </View>
@@ -336,18 +379,18 @@ const styles = StyleSheet.create({
   modalBody: {
     flex: 1,
     textAlign: 'center',
-    margin: '10%',
+    margin: '5%',
     padding: 10,
     borderWidth: 3,
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 10,
-    width: '80%',
+    width: '90%',
     justifyContent: 'space-between',
 
   },
   modalText: {
-    textAlign: 'center',
+    textAlign: 'justify',
   },
   topicTitle: {
     fontSize: 25,
