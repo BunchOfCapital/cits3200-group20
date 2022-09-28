@@ -6,7 +6,8 @@ import * as Font from 'expo-font';
 
 let customFonts = {
   'futura-medium-bt': require('../assets/fonts/futura-medium-bt.ttf'),
-  'Futura-Heavy-font': require('../assets/fonts/Futura-Heavy-font.ttf')
+  'Futura-Heavy-font': require('../assets/fonts/Futura-Heavy-font.ttf'),
+  'Futura-Book-font' : require('../assets/fonts/Futura-Book-font.ttf')
 }
 
 class ToochPage extends React.Component {
