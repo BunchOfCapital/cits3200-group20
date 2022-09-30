@@ -5,7 +5,12 @@ import { default as theme } from './custom-theme.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useFonts } from 'expo-font';
 
+import { initializeApp } from 'firebase/app';
+// import { getDatabase } from "firebase/database";
+
+
 import { AppNavigator } from './components/navBar.component';
+
 // import { AppNavigator } from './components/navigation.component';
 
 
@@ -14,6 +19,20 @@ import { AppNavigator } from './components/navBar.component';
 //     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
 //   });
 // }
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHd4DA8b9fyCgtTIML3E3KGFpZxmPzAB4",
+  authDomain: "dental-screening-db.firebaseapp.com",
+  databaseURL: "https://dental-screening-db-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dental-screening-db",
+  storageBucket: "dental-screening-db.appspot.com",
+  messagingSenderId: "887300631897",
+  appId: "1:887300631897:web:cf8210aa92c684fca83048"
+};
+
+
+const app = initializeApp(firebaseConfig);
+// const database = getDatabase(app);
 
 
 export default () => (
