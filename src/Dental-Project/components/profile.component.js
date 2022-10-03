@@ -7,6 +7,10 @@ import profIcon from '../assets/profileIcon.png'
 import profBanner from '../assets/profileBanner.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+
 
 export const ProfilePage = () =>{
     const [name,setName] = React.useState(userData.name)
@@ -31,6 +35,30 @@ export const ProfilePage = () =>{
         userData.name = name;
         userData.location = location;
         userData.email = email;
+
+        // const password = "password";
+
+        // const auth = getAuth();
+        // createUserWithEmailAndPassword(auth, email, password)
+        //   .then((userCredential) => {
+        //     // Signed in 
+        //     const user = userCredential.user;
+        //     // ...
+        //       })
+        //       .catch((error) => {
+        //         const errorCode = error.code;
+        //         const errorMessage = error.message;
+        //         // ..
+        //       });
+
+        const database = getDatabase();
+        set(ref(database, "users/" + "2"), {
+            address: email,
+            username: name,
+            age: calAge,
+            locations: userData.location
+        });
+        alert("Changes have been saved");
     }
 
     const edittingMode = () =>{
@@ -54,10 +82,10 @@ export const ProfilePage = () =>{
         }else{
             return(
             <Layout style={{flexDirection:'row',marginTop:40}}>
-                 <Button style= {{justifyContent:'center', width: 150, alignSelf:'center', marginHorizontal:30}}status='danger' onPress={confirmEdit}>
+                 <Button style= {{justifyContent:'center', width: 150, alignSelf:'center', marginHorizontal:30}}status='danger' onPress={() => cancelEditMode()}>
                      Exit
                 </Button>
-                 <Button style= {{justifyContent:'center', width: 150, alignSelf:'center', marginHorizontal:10}}status='success' onPress={cancelEditMode}>
+                 <Button style= {{justifyContent:'center', width: 150, alignSelf:'center', marginHorizontal:10}}status='success' onPress={() => confirmEdit()}>
                      Confirm
                 </Button>
             </Layout>

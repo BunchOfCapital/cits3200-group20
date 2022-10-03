@@ -6,8 +6,9 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useFonts } from 'expo-font';
 import {auth} from './firebase'
 
+import * as firebase from "firebase/app";
 import { initializeApp } from 'firebase/app';
-// import { getDatabase } from "firebase/database";
+import { getDatabase } from "firebase/database";
 
 
 import { AppNavigator } from './components/navBar.component';
@@ -33,8 +34,13 @@ const firebaseConfig = {
 };
 
 
+<<<<<<< HEAD
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 // const database = getDatabase(app);
+=======
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+>>>>>>> c425a21d8e2d47e5f9528279291c2002e72bfbb9
 
 
 export default () => (
