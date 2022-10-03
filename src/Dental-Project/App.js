@@ -5,8 +5,9 @@ import { default as theme } from './custom-theme.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useFonts } from 'expo-font';
 
+import * as firebase from "firebase/app";
 import { initializeApp } from 'firebase/app';
-// import { getDatabase } from "firebase/database";
+import { getDatabase } from "firebase/database";
 
 
 import { AppNavigator } from './components/navBar.component';
@@ -32,7 +33,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-// const database = getDatabase(app);
+const database = getDatabase(app);
 
 
 export default () => (
