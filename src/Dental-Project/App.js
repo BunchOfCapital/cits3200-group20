@@ -4,12 +4,14 @@ import { ApplicationProvider, IconRegistry, Layout, Text } from '@ui-kitten/comp
 import { default as theme } from './custom-theme.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useFonts } from 'expo-font';
+import {auth} from './firebase'
 
 import { initializeApp } from 'firebase/app';
 // import { getDatabase } from "firebase/database";
 
 
 import { AppNavigator } from './components/navBar.component';
+import { processColor } from 'react-native-reanimated';
 
 // import { AppNavigator } from './components/navigation.component';
 
@@ -21,17 +23,17 @@ import { AppNavigator } from './components/navBar.component';
 // }
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBHd4DA8b9fyCgtTIML3E3KGFpZxmPzAB4",
-  authDomain: "dental-screening-db.firebaseapp.com",
-  databaseURL: "https://dental-screening-db-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "dental-screening-db",
-  storageBucket: "dental-screening-db.appspot.com",
-  messagingSenderId: "887300631897",
-  appId: "1:887300631897:web:cf8210aa92c684fca83048"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 // const database = getDatabase(app);
 
 
@@ -41,5 +43,6 @@ export default () => (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <AppNavigator />
     </ApplicationProvider>
+    
   </>
 );

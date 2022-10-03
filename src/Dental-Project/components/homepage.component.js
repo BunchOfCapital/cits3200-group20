@@ -6,11 +6,13 @@ import wallpaper from '../assets/7284061(1).png'
 import { DailyInfo } from './card.component';
 import { CardNav } from './homenav.component';
 import userData from '../Data/userData';
+import {auth} from './firebase'
 
 export const HomeScreen = () => {
 
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
+    console.log(auth)
 
   return (
   <Layout style={{flex: 1, backgroundColor: "#FFFFF5",flexDirection:"column"}}>
