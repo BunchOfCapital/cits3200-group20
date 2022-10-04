@@ -103,7 +103,7 @@ class ToochPage extends Component {
                         <Video
                             style={{width:"100%",height:300,borderColor:"#000",borderStyle:"solid",borderWidth:1,borderRadius:10}}
                             source={{
-                            uri: 'https://cdn.videvo.net/videvo_files/video/premium/2021-04/large_watermarked/210329_09_Bali_4k_005_preview.mp4',
+                            uri: 'http://116.255.7.225:801/project.mp4',
                             }}
                             resizeMode="contain"
                             isLooping
