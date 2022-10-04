@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "839364181287",
+    "firebase_url": "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dentalapplication-11af7",
+    "storage_bucket": "dentalapplication-11af7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839364181287:android:6ab093380413400ce67d02",
+        "android_client_info": {
+          "package_name": "com.mattzuf.DentalProject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839364181287-9idhop7osm8a2p04mpieqevusi6v0ttt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mattzuf.DentalProject",
+            "certificate_hash": "9e9fe94e3bb161836f523e02c0c214eb32c37324"
+          }
+        },
+        {
+          "client_id": "839364181287-2bvd37h2g8tt010idkk7kl2tbedbu920.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUUBPogvy94MEuODdYT2Rt0fOPuzG-IJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839364181287-2bvd37h2g8tt010idkk7kl2tbedbu920.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

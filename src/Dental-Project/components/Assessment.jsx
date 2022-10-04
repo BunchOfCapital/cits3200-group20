@@ -1,123 +1,112 @@
-import {Component} from 'react';
-import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableOpacity,Button  } from 'react-native';
-import { Video, AVPlaybackStatus } from 'expo-av';
+import { Component } from 'react';
+import { ScrollView, Text, StyleSheet, SafeAreaView, ImageBackground, View, Pressable, Image, TouchableOpacity, Button } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import {CameraPage} from './camera.component';
-import {withNavigation} from 'react-navigation';
+import { CameraPage } from './camera.component';
+import { withNavigation } from 'react-navigation';
 
 class ToochPage extends Component {
-    
-    constructor (props) {
-        super(props)
-        this.style = StyleSheet.create({
-            container:{
-                flex:10,
-                width:"100%"
-            },
-            SCLView:{
-                backgroundColor:"rgba(0,0,0,0)",
-                paddingTop:300
-            },
-            title:{
-                fontSize: 25,
-                fontWeight: "bold",
-                paddingVertical:10,
-                width:"100%",
-                textAlign:"center"
 
-            },
-            Table:{
-                width:"100%",
-                backgroundColor:"#fff",
-                padding:10,
-                marginTop:-20,
-                paddingTop:20,
-                borderTopEndRadius:30,
-                borderTopStartRadius:30,
-                marginTop:10,
-                minHeight:1000
-            },
-            btn:{
+  constructor(props) {
+    super(props)
+    this.style = StyleSheet.create({
+      container: {
+        flex: 10,
+        width: "100%"
+      },
+      SCLView: {
+        backgroundColor: "rgba(0,0,0,0)",
+        paddingTop: 300
+      },
+      title: {
+        fontSize: 25,
+        fontWeight: "bold",
+        paddingVertical: 10,
+        width: "100%",
+        textAlign: "center"
 
-                borderRadius:100,
-                width:200,
-                alignItems:"center",
-                justifyContent:"center",
-                
-                color:"#2C468C",
-                zIndex:1
-                
-            },
-            tableItem:{
-                height:50,
-                borderWidth:1,
-                borderRadius:10,
-                borderColor:"#000",
-                padding:10,
-                flexDirection:"row",
-                marginTop:10,
-                justifyContent:"space-between"
-            },
-            tableItemText:{
-                height:50,
-                lineHeight:25
-            },
-            active:{
-                backgroundColor:"rgba(172,218,219,.9)"
-            },
-            noActive:{
-                backgroundColor:"#B8EAEB",
-            }
-                
-        });
-        this.titleColor = [128,128,128,0.7]
-        setInterval(()=>{
+      },
+      Table: {
+        width: "100%",
+        backgroundColor: "#fff",
+        padding: 10,
+        marginTop: -20,
+        paddingTop: 20,
+        borderTopEndRadius: 30,
+        borderTopStartRadius: 30,
+        marginTop: 10,
+        minHeight: 1000
+      },
+      btn: {
 
-            let data = [parseInt(Math.random() * 10),parseInt(Math.random() * 10),parseInt(Math.random() * 10)]
+        borderRadius: 100,
+        width: 200,
+        alignItems: "center",
+        justifyContent: "center",
 
-            this.titleColor[0] = this.titleColor[0]<data[0] ? (this.titleColor[0]+data[0]>255 ? this.titleColor[0]+data[0]*2 : this.titleColor[0]-data[0]) : (Math.random()<0.5 ? this.titleColor[0]+data[0]*2 : this.titleColor[0]-data[0]) ;
-            this.titleColor[1] = this.titleColor[1]<data[1] ? (this.titleColor[1]+data[1]>255 ? this.titleColor[1]+data[1] : this.titleColor[1]-data[1]*2) : (Math.random()<0.5 ? this.titleColor[1]+data[1] : this.titleColor[1]-data[1]*2) ;
-            this.titleColor[2] = this.titleColor[2]<data[2] ? (this.titleColor[2]+data[2]>255 ? this.titleColor[2]+data[2]*2 : this.titleColor[2]-data[2]) : (Math.random()<0.5 ? this.titleColor[2]+data[2] : this.titleColor[2]-data[2]*2) ;
+        color: "#2C468C",
+        zIndex: 1
 
-        }, 100);
-        this.state = {status:null,page:true}
-    }
+      },
+      tableItem: {
+        height: 50,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: "#000",
+        padding: 10,
+        flexDirection: "row",
+        marginTop: 10,
+        justifyContent: "space-between"
+      },
+      tableItemText: {
+        height: 50,
+        lineHeight: 25
+      },
+      active: {
+        backgroundColor: "rgba(172,218,219,.9)"
+      },
+      noActive: {
+        backgroundColor: "#B8EAEB",
+      }
 
-    render() {
-        return this.state.page ? <ImageBackground style={this.style.container} source={require('../assets/toochP.jpg')}>
-            <SafeAreaView >
-                <ScrollView style={this.style.SCLView}>
-                    <Text style={[this.style.title,,{color:"rgba("+this.titleColor[0]+","+this.titleColor[1]+","+this.titleColor[2]+","+this.titleColor[3]+")"}]}>Welcome to our{"\n"}AI-powered Check-Ups</Text>
-                    <View style={{alignItems:"center"}}>
-                        <Pressable
-                          onPress={() => this.props.navigation.navigate('Camera')}
-                            style={({ pressed })=>pressed ? [this.style.active,this.style.btn] : [this.style.btn,this.style.noActive]}
-                        >
-                            <Text style={{fontSize:18,padding:10,fontWeight:"bold",color:"#1C62DC"}}>Start Check-Up</Text>
-                        </Pressable>
-                    </View>
-                    <View style={this.style.Table}>
-                        <Video
-                            style={{width:"100%",height:300,borderColor:"#000",borderStyle:"solid",borderWidth:1,borderRadius:10}}
-                            source={{
-                            uri: 'https://cdn.videvo.net/videvo_files/video/premium/2021-04/large_watermarked/210329_09_Bali_4k_005_preview.mp4',
-                            }}
-                            resizeMode="contain"
-                            isLooping
-                            useNativeControls
-                            isMuted={true}
-                            onPlaybackStatusUpdate={status =>  this.setState({status:status})}
-                        />
-                        
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </ImageBackground>
-        : <App parent={this}></App>;
-    }
+    });
+    this.titleColor = [128, 128, 128, 0.7]
+    setInterval(() => {
+
+      let data = [parseInt(Math.random() * 10), parseInt(Math.random() * 10), parseInt(Math.random() * 10)]
+
+      this.titleColor[0] = this.titleColor[0] < data[0] ? (this.titleColor[0] + data[0] > 255 ? this.titleColor[0] + data[0] * 2 : this.titleColor[0] - data[0]) : (Math.random() < 0.5 ? this.titleColor[0] + data[0] * 2 : this.titleColor[0] - data[0]);
+      this.titleColor[1] = this.titleColor[1] < data[1] ? (this.titleColor[1] + data[1] > 255 ? this.titleColor[1] + data[1] : this.titleColor[1] - data[1] * 2) : (Math.random() < 0.5 ? this.titleColor[1] + data[1] : this.titleColor[1] - data[1] * 2);
+      this.titleColor[2] = this.titleColor[2] < data[2] ? (this.titleColor[2] + data[2] > 255 ? this.titleColor[2] + data[2] * 2 : this.titleColor[2] - data[2]) : (Math.random() < 0.5 ? this.titleColor[2] + data[2] : this.titleColor[2] - data[2] * 2);
+
+    }, 100);
+    this.state = { status: null, page: true }
+  }
+
+  render() {
+    return this.state.page ? <ImageBackground style={this.style.container} source={require('../assets/toochP.jpg')}>
+      <SafeAreaView >
+        <ScrollView style={this.style.SCLView}>
+          <Text style={[this.style.title, , { color: "rgba(" + this.titleColor[0] + "," + this.titleColor[1] + "," + this.titleColor[2] + "," + this.titleColor[3] + ")" }]}>Welcome to our{"\n"}AI-powered Check-Ups</Text>
+          <View style={{ alignItems: "center" }}>
+            <Pressable
+              onPress={() => this.props.navigation.navigate('Camera')}
+              style={({ pressed }) => pressed ? [this.style.active, this.style.btn] : [this.style.btn, this.style.noActive]}
+            >
+              <Text style={{ fontSize: 18, padding: 10, fontWeight: "bold", color: "#1C62DC" }}>Start Check-Up</Text>
+            </Pressable>
+          </View>
+          <View style={this.style.Table}>
+
+
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
+      : <App parent={this}></App>;
+  }
 
 }
 
