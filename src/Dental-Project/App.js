@@ -22,13 +22,13 @@ import { AppNavigator } from './components/navBar.component';
 // }
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBHd4DA8b9fyCgtTIML3E3KGFpZxmPzAB4",
-  authDomain: "dental-screening-db.firebaseapp.com",
-  databaseURL: "https://dental-screening-db-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "dental-screening-db",
-  storageBucket: "dental-screening-db.appspot.com",
-  messagingSenderId: "887300631897",
-  appId: "1:887300631897:web:cf8210aa92c684fca83048"
+  apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
+  authDomain: "dentalapplication-11af7.firebaseapp.com",
+  databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dentalapplication-11af7",
+  storageBucket: "dentalapplication-11af7.appspot.com",
+  messagingSenderId: "839364181287",
+  appId: "1:839364181287:web:cca52feaca16d7dce67d02"
 };
 
 
