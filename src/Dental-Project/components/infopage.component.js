@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal, Linking } from 'react-native';
+import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal, Linking, Platform, SafeAreaView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -126,14 +126,14 @@ export const InfoPage = ({ navigation }) => {
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
       {/*PAGE HEADER*/}
-        <Text style={{textAlign: 'center'}}>
+        <Text style={{textAlign: 'center', fontFamily:'Futura-Heavy-font', fontSize:26 }}>
           Welcome to the Info Page
         </Text>
       {/*MAIN BODY*/}
         <ScrollView style={{margin: 10, overflow: 'scroll'}} showsVerticalScrollIndicator={false}>
 
         {/*TOPIC 1*/}
-          <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight }}>
+          <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight}}>
               <TouchableWithoutFeedback onPress={() => {setMod1(true); swapsides();}}>
                   <Text style={styles.topicName}>
                     {topics[0]['name']}
@@ -301,7 +301,7 @@ export const InfoPage = ({ navigation }) => {
 
         {/*TOPIC 5*/}
           <ExpandingView style={{backgroundColor: '#FF4294', alignSelf: 'flex-end', marginBottom: 50, translateX: slideAnimRight}}>
-            <TouchableWithoutFeedback onPress={() => {setMod5(true); swapsides();}}>
+            <TouchableWithoutFeedback style={{alignItems: 'center'}} onPress={() => {setMod5(true); swapsides();}}>
               <Text style={styles.topicName}>
                 {topics[4]['name']}
               </Text>
@@ -337,6 +337,9 @@ export const InfoPage = ({ navigation }) => {
   );
 };
 
+/*  Available fonts:
+*   {'Sassoon-Primary', 'futura-medium-bt', 'Futura-Heavy-font', 'Futura-Book-font'}
+*/
 const styles = StyleSheet.create({
   container: {
     flex: 0.2,
@@ -360,15 +363,17 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: -30,
     width: 170,
-    height: 170
+    height: 170,
     // alignContents: 'centre',
   },
   topicName: {
-    textAlign: 'center', 
-    textAlignVertical: 'center', 
     flex: 1,
-    fontSize: 20,
-    color: '#3B3C3F'
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    paddingTop: Platform.OS === 'ios' ? 60 : 0,
+    fontSize: 24,
+    color: '#3B3C3F',
+    fontFamily: 'futura-medium-bt',
   },
   centeredContent: {
     flex: 1,
@@ -380,25 +385,30 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     margin: '5%',
+    marginTop: Platform.OS === 'ios' ? "10%": "-2%",
     padding: 10,
     borderWidth: 3,
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 10,
-    width: '90%',
+    width: '95.5%',
     justifyContent: 'space-between',
-
+    postion: 'relative',
+    left: "-3%",
+    bottom: Platform.OS === 'ios' ? "0%" : "-2%",
   },
   modalText: {
     textAlign: 'justify',
+    fontFamily: 'Futura-Book-font',
+    fontSize: 16,
   },
   topicTitle: {
-    fontSize: 25,
+    fontSize: 28,
     color: '#3B3C3F',
     marginBottom: 5,
     flexDirection: 'row',
-    fontFamily: 'sans-serif-light',
-    fontWeight: 'bold'
+    fontFamily: 'Futura-Heavy-font',
+    
   },
   linebreakImage: {
     height: '7%', 
@@ -409,11 +419,16 @@ const styles = StyleSheet.create({
   backButton: {
     justifyContent: 'flex-end',
     backgroundColor: '#FF47A6',
-    borderRadius: 20,
+    borderRadius: 15,
     textAlign: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
-    margin: 5
+    paddingHorizontal: 8,
+    paddingVertical: Platform.OS === 'ios' ? 4 : 3,
+    marginHorizontal: 15,
+    overflow: 'hidden',
+    fontSize: 16,
+    width: 70,
+    height: 28,
+    fontFamily: 'futura-medium-bt',
   }
 });
 

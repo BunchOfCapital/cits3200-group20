@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Text } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { HomeScreen } from './homepage.component';
 import { InfoPage } from './infopage.component';
 import { QuizScreen } from './quizpage.component';
@@ -13,7 +13,9 @@ import { QuizGame } from './quizgame.component';
 import { ProfilePage } from './profile.component';
 import Assessment from './Assessment';
 import { CameraPage } from './camera.component';
-
+/*  Available fonts:
+*   {'Sassoon-Primary', 'futura-medium-bt', 'Futura-Heavy-font', 'Futura-Book-font'}
+*/
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -49,9 +51,12 @@ const TopBar = () => {
   const renderMenuAction = () => (
     <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
   );
-
+    
   const [fontsLoaded] = useFonts({
     'Sassoon-Primary': require('../assets/fonts/Sassoon-Primary.otf'),
+    'futura-medium-bt': require('../assets/fonts/futura-medium-bt.ttf'),
+    'Futura-Heavy-font': require('../assets/fonts/Futura-Heavy-font.ttf'),
+    'Futura-Book-font' : require('../assets/fonts/Futura-Book-font.ttf')
   });
 
   useEffect(() => {
@@ -149,18 +154,23 @@ export const AppNavigator = () => (
   </NavigationContainer>
 );
 
+/*  Available fonts:
+*   {'Sassoon-Primary', 'futura-medium-bt', 'Futura-Heavy-font', 'Futura-Book-font'}
+*/
 const styles = StyleSheet.create({
   bottomNavigation: {
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
   topNav: {
     marginTop: "8%"
   },
   title: {
+    flex: 1,
+    width: Platform.OS === 'ios' ? 150:90,
     fontFamily: "Sassoon-Primary",
     fontSize: 24,
-    position: 'absolute',
-    right: '270%',
+    position: 'relative',
+    right: "5%",
   }
 })

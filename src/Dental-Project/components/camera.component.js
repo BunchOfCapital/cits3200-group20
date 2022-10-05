@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, Platform, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, Platform, Modal, SafeAreaView} from 'react-native';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Button, Icon } from '@ui-kitten/components';
@@ -90,14 +90,17 @@ export const CameraPage = ({ navigation }) => {
     };
     //Takes photo and set photo state.
     const takePic = async () => {
-        let options = {
+        const options = {
             quality: 1,
             base64: true,
             skipProcessing: true
         };
-
-        let newPhoto = await cameraRef.current.takePictureAsync(options);
-        setPhoto(newPhoto);
+        try{
+            const newPhoto = await cameraRef.current.takePictureAsync(options);
+            setPhoto(newPhoto);
+        } catch (e){
+            console.log(e)
+        }
     };
     //A dummy function that imitates the ai functionality.
     const assess = () => {
@@ -133,27 +136,29 @@ export const CameraPage = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.cameraContainer}>
+        <SafeAreaView style={styles.cameraContainer}>
             {isFocused ? (
                 <Camera style={[styles.camera]} ref={cameraRef} onCameraReady={setCameraReady} ratio={previewRatio} flashMode={flash}>
                     <Button style={styles.backButton} accessoryLeft={arrowBack} onPress={navToAssess}></Button>
-                    <Pressable style={[styles.cameraTouch]} onPress={takePic}></Pressable>
                     <Modal animationType='slide' transparent={true} visible={modalVisible}>
-                        <View style={[viewStyle, { borderColor: modalColor }]}>
+                        <SafeAreaView style={[viewStyle, { borderColor: modalColor }]}>
                             <Image style={imageStyle} source={{ uri: imageUri }} />
                             <Text style={introMsgStyle}>1. Find a mirror{'\n'}2. Open your mouth wide{'\n'}3. Look at the mirror and position your phone{'\n'}4. Make sure you can see your mouth clearly{'\n'}on screen{'\n'}5. Tap anywhere on screen to take an image!</Text>
                             <Pressable style={[buttStyle, { borderColor: modalColor }]} onPress={closeModal}>
                                 <Text style={buttTextStyle}>{buttTextMsg}</Text>
                             </Pressable>
-                        </View>
+                        </SafeAreaView>
                     </Modal>
-                </Camera>) : <View />}
-        </View>
+                    <Pressable style={[styles.cameraTouch]} onPress={takePic}></Pressable>
+                </Camera>) : <SafeAreaView />}
+        </SafeAreaView>
     )
 };
 
 export default CameraPage;
-
+/*  Available fonts:
+*   {'Sassoon-Primary', 'futura-medium-bt', 'Futura-Heavy-font', 'Futura-Book-font'}
+*/
 const styles = StyleSheet.create({
     camera: {
         alignItems: 'center',
@@ -172,8 +177,8 @@ const styles = StyleSheet.create({
     previewView: {
         flex: 1,
         borderWidth: 4,
-        marginTop: '15%',
-        marginBottom: '17.5%',
+        marginTop: Platform.OS === 'ios' ? '24%':'15%',
+        marginBottom: Platform.OS === 'ios' ? '15.5%':'17.5%',
         marginHorizontal: '1%',
         borderRadius: 10,
         alignItems: 'center',
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     previewButton: {
         borderWidth: 2,
         position: 'absolute',
-        bottom: "7.5%",
+        bottom: Platform.OS === 'ios' ? '6%':"7.5%",
         left: "-5%",
         alignItems: 'center',
         width: 100,
@@ -203,44 +208,45 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     backButton: {
-        width: 20,
-        height: 20,
+        width: "2%",
+        height: "2%",
         backgroundColor: 'rgb(128, 57, 69)',
         borderWidth: 0,
         borderRadius: 20,
-        position: 'absolute',
-        top: '1%',
-        left: '2%',
+        position: 'relative',
+        top: Platform.OS === 'ios' ? '3%':'2.5%',
+        right: Platform.OS === 'ios' ? '23%':'24%',
     },
     introView: {
         flex: 1,
         marginTop: '14%',
         marginBottom: '17.5%',
         marginHorizontal: '1%',
-        borderRadius: 10,
     },
     introMsg: {
         flex: 1,
-        width: '158%',
-        height: '62%',
+        width: Platform.OS === 'ios'? '180%':'159%',
+        height: Platform.OS === 'ios'? '53%':'62%',
         backgroundColor: "rgb(255, 209, 220)",
-        borderRadius: 10,
-        padding: "3%",
+        padding: Platform.OS === 'ios' ? "10%":"3%",
         transform: [{rotate:'90deg'}],
         position: 'absolute',
-        bottom: "18.5%",
-        right: "-29%",
-        fontFamily: 'futura-medium-bt',
+        bottom: Platform.OS === 'ios'? "20.3%":"18.6%",
+        left: Platform.OS === 'ios'? "-40%":"-29.5%",
+        fontFamily: 'Futura-Book-font',
+        alignSelf: 'stretch',
         fontSize: 24,
+        borderRadius: 10,
+        overflow: 'hidden',
     },
     introBtn: {
         backgroundColor: "rgb(255, 253, 217)",
-        width: "50%",
-        height: "7%",
+        width: 160,
+        height: 48,
         transform: [{rotate:'90deg'}],
         position: 'absolute',
-        bottom: "15%",
-        left: "-15%",
+        bottom: Platform.OS === 'ios'? "10%" : "13%",
+        left: Platform.OS === 'ios'? "-10%":"-12%",
         justifyContent: 'center',
         borderRadius: 10,
         borderWidth: 2,

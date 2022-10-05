@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, SafeAreaView, ImageBackground, View, Pressable, Image, TouchableOpacity, Button } from 'react-native';
+import { ScrollView, Text, StyleSheet, SafeAreaView, ImageBackground, View, Pressable, Image, TouchableOpacity, Button, Platform } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { withNavigation } from 'react-navigation';
 import * as Font from 'expo-font';
@@ -39,7 +39,7 @@ class ToochPage extends React.Component {
       title: {
         fontSize: 42,
         fontFamily: "Futura-Heavy-font",
-        paddingTop: 10,
+        paddingTop: Platform.OS === 'ios'? "7%":"4%",
         width: "100%",
         textAlign: "center",
         position: 'relative',
@@ -80,7 +80,7 @@ class ToochPage extends React.Component {
       return null;
     }
     return this.state.page ? <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalDog.jpg')}>
-      <View >
+      <SafeAreaView>
         <Text style={[this.style.title]}>Welcome to your{"\n"}Check Up</Text>
         <ScrollView style={this.style.SCLView}>
           <View style={{ alignItems: "center" }}>
@@ -103,7 +103,7 @@ class ToochPage extends React.Component {
 
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     </ImageBackground>
       : <App parent={this}></App>;
   }
