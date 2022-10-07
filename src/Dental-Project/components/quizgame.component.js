@@ -10,7 +10,7 @@ import fallflat from "../assets/fallflat.png"
 import React, {useCallback, useRef } from "react";
 
 export const QuizGame = () =>{
-    const [questions, setQuestions] = useState(quizData.memeQuiz);
+    const [questions, setQuestions] = useState(getDailyQuiz());
     const nav = useNavigation()
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
@@ -57,11 +57,11 @@ export const QuizGame = () =>{
                                 <Text style={{fontSize:20, textAlign:"center"}}>{"\t" + option}</Text>
                                 {
                                     option==correctOption?(
-                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#baffc9",justifyContent:'center', alignContent:'center'}}>
+                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:colCorrect, justifyContent:'center', alignContent:'center'}}>
                                             <Icon name="checkmark-outline" fill ="#fff"/>
                                         </Layout>
                                     ):option == currentOptionSelected?(
-                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:"#ffb3ba",justifyContent:'center', alignContent:'center'}}>
+                                        <Layout style={{width:30,height:30,borderRadius:30/2,backgroundColor:colIncorrect, justifyContent:'center', alignContent:'center'}}>
                                             <Icon name="close-outline" fill ="#fff"/>
                                         </Layout>
                                     ):(null)
@@ -101,25 +101,25 @@ export const QuizGame = () =>{
 return(
     <Layout style={{flex: 1, backgroundColor: "#FFFFF5",alignItems:"center"}}>
         {renderQuestion()}
-        <Layout style={{position:"absolute", bottom:"55%", flexDirection:"row", alignContent:"space-between"}}>
-            <Image source={isOptionsDisabled ? (currentOptionSelected==correctOption?happy:fallflat):neutral} style={{width:150,height:150}}></Image>
+        <Layout style={{position:"absolute", bottom:"55%", flexDirection:"row", alignContent:"space-between", backgroundColor:"transparent"}}>
+            <Image source={isOptionsDisabled ? (currentOptionSelected==correctOption?happy:fallflat):neutral} style={{width:150,height:150, backgroundColor:"transparent"}}></Image>
             <Text style={{fontSize:30, opacity:0.6, textAlign:"center", marginTop:50, marginLeft:10}}>{currentQuestionIndex + 1}/{questions.length}</Text>
         </Layout>
-        <Layout style={{position:"absolute", alignSelf:"center", bottom:160, left:0, right:0, height:"25%", backgroundColor:"transparent"}}>
+        <Layout style={{position:"absolute", alignSelf:"center", bottom:170, left:0, right:0, height:"25%", backgroundColor:"transparent"}}>
             {renderOptions()}
         </Layout>
             {renderNextButton()}
         <Modal animationType="slide" transparent ={true} visible ={showModal}>
             <Layout style={{flex:1,backgroundColor:'#C1E8E0',alignItems:"center",justifyContent:"center"}}>
                 <Layout style={{backgroundColor:'#F5D6CB',width:'90%',borderRadius:10,padding:20,alignItems:"center"}}>
-                    <Text style={{fontSize:30,fontWeight:"bold"}}>{score>(questions.length/2)? 'Congratulations':'Oops!'}</Text>
+                    <Text style={{fontSize:30,fontWeight:"bold"}}>{score>(questions.length/2)? 'Congratulations':'Ouch!'}</Text>
                     <Layout style={{flexDirection:"row",justifyContent:"flex-start",alignItems:"center",marginVertical:10,backgroundColor:"transparent"}}>
                         <Text style={{fontSize:30,fontWeight:"bold", color:score>(questions.length/2)?'#008b46':'#8b0000'}}>{score}</Text>
                         <Text style={{fontSize:20,fontWeight:"bold"}}>/{questions.length}</Text>
                         
                     </Layout>
-                    <Text style={{fontSize:20,fontWeight:"bold",textAlign:"center"}}>{score>(questions.length/2)? 'LET\'S GO.\n Keep this up new quiz tomorrow':'DON\'T FEEL DISHEARTENED.\n We go again tomorrow'}</Text>
-                    <Button onPress={()=>nav.navigate('Home')} style={{fontSize:20,fontWeight:"bold",textAlign:"center",width:200,marginTop:10,backgroundColor:'#C1E8E0'}}>Home</Button>
+                    <Text style={{fontSize:20,fontWeight:"bold",textAlign:"center"}}>{score>(questions.length/2)? "Nice job! Try again tomorrow for a new quiz!":"Can you do better tomorrow?"}</Text>
+                    <Button onPress={()=>{setShowModal(false); nav.navigate('Home') }} style={{fontSize:20,fontWeight:"bold",textAlign:"center",width:200,marginTop:10,backgroundColor:'#C1E8E0'}}>Home</Button>
                 </Layout>
 
                 
@@ -133,6 +133,9 @@ return(
 
 const buttonHeight = "50%";
 const buttonMarginX = 10;
+
+const colCorrect = "#baffc9";
+const colIncorrect = '#ffb3ba';
 const styles = StyleSheet.create({
     quizheader:{
         fontSize:20,
@@ -140,15 +143,15 @@ const styles = StyleSheet.create({
         marginRight:2
     },
     correctButton:{
-        backgroundColor: "#baffc9",
-        borderColor:'#baffc9',
+        backgroundColor: colCorrect,
+        borderColor: colCorrect,
         borderWidth:3,
         alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
         borderRadius:5, height:buttonHeight,flexDirection:"row",
     },
     incorrectButton:{
-        backgroundColor:'#ffb3ba',
-        borderColor:'#ffb3ba',
+        backgroundColor: colIncorrect,
+        borderColor: colIncorrect,
         borderWidth:3,
         alignItems:"center",justifyContent:"space-between",marginHorizontal:buttonMarginX, marginVertical:7,
         borderRadius:5, height:buttonHeight,flexDirection:"row",
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     nextButton: {
        width:300,backgroundColor:'#E6D1F2',
        padding:20,borderRadius: 5,alignSelf:"center",
-       position:"absolute", bottom:60
+       position:"absolute", bottom:60, height:"10%"
     },
     disabledNextButton: {
        width:300,backgroundColor:'#dcccdc',
