@@ -136,7 +136,7 @@ export const ProfilePage = () =>{
                 <Image source={profBanner} style={{width:"100%", height:100, borderBottomWidth:3, borderColor:"#000000"}}/>
                 <Image source={profIcon} style={{position: "absolute", width:100, height:100, top:50}}/>
             </Layout >
-            <Layout style = {{zIndex: -1}} >
+            <Layout style = {{zIndex: -1, paddingBottom:70}} >
                 <Layout style ={{marginHorizontal:30, backgroundColor:"transparent"}}>
                     <Layout style={styles.container}>
                         <Text>Name: </Text>
@@ -200,6 +200,6 @@ const styles = StyleSheet.create({
         margin: 2,
       },
     container:{
-        marginTop:30
+        marginTop:20
     },
 })
