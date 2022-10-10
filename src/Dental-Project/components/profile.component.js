@@ -6,6 +6,8 @@ import userData from '../Data/userData';
 import profIcon from '../assets/profileIcon.png'
 import profBanner from '../assets/profileBanner.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {GoogleAuthButton} from './GoogleAuth.component'
+
 
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
@@ -143,6 +145,7 @@ export const ProfilePage = () =>{
                     </Layout>
                 </Layout>
                 {renderButton()}
+                <GoogleAuthButton/>
             </Layout>
             </KeyboardAwareScrollView>
         </Layout>
