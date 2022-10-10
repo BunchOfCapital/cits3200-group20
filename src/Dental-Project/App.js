@@ -27,15 +27,15 @@ export default () => (
 );
 
 // import * as React from 'react';
-// import * as WebBrowser from 'expo-web-browser';
-// import { ResponseType } from 'expo-auth-session';
-// import * as Google from 'expo-auth-session/providers/google';
-// import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-// import { Button } from 'react-native';
-// import { TouchableHighlight } from 'react-native-gesture-handler';
-// import * as firebase from "firebase/app";
-// import { initializeApp, getApp, getApps } from 'firebase/app';
-// import { getDatabase } from "firebase/database";
+import * as WebBrowser from 'expo-web-browser';
+import { ResponseType } from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import { Button } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import * as firebase from "firebase/app";
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import { getDatabase } from "firebase/database";
 
 // // // Initialize Firebase
 // // initializeApp({
@@ -80,17 +80,17 @@ export default () => (
 // }
 
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
-//   authDomain: "dentalapplication-11af7.firebaseapp.com",
-//   databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
-//   projectId: "dentalapplication-11af7",
-//   storageBucket: "dentalapplication-11af7.appspot.com",
-//   messagingSenderId: "839364181287",
-//   appId: "1:839364181287:web:cca52feaca16d7dce67d02",
-//   measurementId: "G-MKDS3KPF3N"
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
+  authDomain: "dentalapplication-11af7.firebaseapp.com",
+  databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "dentalapplication-11af7",
+  storageBucket: "dentalapplication-11af7.appspot.com",
+  messagingSenderId: "839364181287",
+  appId: "1:839364181287:web:cca52feaca16d7dce67d02",
+  measurementId: "G-MKDS3KPF3N"
+};
 
 
-// const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-// const database = getDatabase(app);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const database = getDatabase(app);
