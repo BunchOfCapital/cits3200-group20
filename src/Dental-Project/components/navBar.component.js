@@ -78,7 +78,7 @@ const Navbar = ({ navigation, state }) => {
   );
 
   const BookingIcon = (props) => (
-    <Icon {...props} name={state.index == 2 ? 'video' : 'video-outline'} fill={state.index == 2 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 2 ? 'book' : 'book-outline'} fill={state.index == 2 ? '#5DB782' : '#CBFFD1'} />
   )
 
   const InfoIcon = (props) => (
