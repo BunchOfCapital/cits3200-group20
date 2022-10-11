@@ -143,7 +143,7 @@ export const CameraPage = ({ navigation }) => {
                     <Modal animationType='slide' transparent={true} visible={modalVisible}>
                         <SafeAreaView style={[viewStyle, { borderColor: modalColor }]}>
                             <Image style={imageStyle} source={{ uri: imageUri }} />
-                            <Text style={introMsgStyle}>1. Find a mirror{'\n'}2. Open your mouth wide{'\n'}3. Look at the mirror and position your phone{'\n'}4. Make sure you can see your mouth clearly{'\n'}on screen{'\n'}5. Tap anywhere on screen to take an image!</Text>
+                            <Text style={introMsgStyle}>How to take a photo with a mirror:{'\n'}{'\n'}1. Open your mouth wide{'\n'}2. Look at the mirror and position your phone{'\n'}3. Make sure you can see your mouth clearly{'\n'}on screen{'\n'}4. Tap anywhere on screen to take an image!</Text>
                             <Pressable style={[buttStyle, { borderColor: modalColor }]} onPress={closeModal}>
                                 <Text style={buttTextStyle}>{buttTextMsg}</Text>
                             </Pressable>
