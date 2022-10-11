@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Layout, Text } from '@ui-kitten/components';
-import { Image, StyleSheet, View } from 'react-native';
+import { Alert, Image, StyleSheet, View, Parse } from 'react-native';
 import { Button, Input, Datepicker, Pressable } from '@ui-kitten/components';
 import userData from '../Data/userData';
 import profIcon from '../assets/profileIcon.png'
@@ -13,12 +13,16 @@ import * as Google from 'expo-auth-session/providers/google';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import * as firebase from 'firebase/app';
 import { GoogleIcon } from '../assets/GoogleIcon.png'
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import AsyncStorage, { AsyncStorageStatic } from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 import { getDatabase, ref, onValue, set } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential, signOut } from "firebase/auth";
 import { buildCodeAsync } from 'expo-auth-session/build/PKCE';
+import { parse } from 'react-native-svg';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -30,6 +34,7 @@ export const ProfilePage = () => {
     const [date, setDate] = React.useState(userData.dob);
     const [age, setAge] = React.useState(userData.age)
     const [visibility, setVisible] = React.useState(true)
+    const [visibility1, setVisible1] = React.useState(true)
 
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
         {
@@ -40,6 +45,7 @@ export const ProfilePage = () => {
         },
     );
 
+    const navigation = useNavigation();
 
     React.useEffect(() => {
         if (response?.type === 'success') {
@@ -47,10 +53,58 @@ export const ProfilePage = () => {
             const auth = getAuth();
             const credential = GoogleAuthProvider.credential(id_token);
             signInWithCredential(auth, credential);
+
         }
     }, [response]);
 
 
+    // This function doesn't work properly as of yet - probably need to clear async storage
+    const doUserLogOut = () => {
+        if (response?.type === 'success') {
+            const { id_token } = response.params;
+            const auth = getAuth();
+            const credential = GoogleAuthProvider.credential(id_token);
+            signOut(auth, credential);
+        }
+    };
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
+        authDomain: "dentalapplication-11af7.firebaseapp.com",
+        databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
+        projectId: "dentalapplication-11af7",
+        storageBucket: "dentalapplication-11af7.appspot.com",
+        messagingSenderId: "839364181287",
+        appId: "1:839364181287:web:cca52feaca16d7dce67d02",
+        measurementId: "G-MKDS3KPF3N"
+    };
+
+
+    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+    const database = getDatabase(app);
+
+
+
+
+
+    // const doUserLogOut = async function () {
+    //     return await Parse.User.logOut()
+    //         .then(async () => {
+    //             // To verify that current user is now empty, currentAsync can be used
+    //             const currentUser = await Parse.User.currentAsync();
+    //             if (currentUser === null) {
+    //                 Alert.alert('Success!', 'No user is logged in anymore!');
+    //             }
+    //             // Navigation dispatch calls a navigation action, and popToTop will take
+    //             // the user back to the very first screen of the stack
+    //             navigation.dispatch(StackActions.popToTop());
+    //             return true;
+    //         })
+    //         .catch((error) => {
+    //             Alert.alert('Error!', error.message);
+    //             return false;
+    //         });
+    // };
 
 
     const confirmEdit = () => {
@@ -93,6 +147,61 @@ export const ProfilePage = () => {
         alert("Changes have been saved");
     }
 
+    const clearAsyncStorage = async () => {
+        AsyncStorage.clear();
+    }
+
+
+    const signinMode = () => {
+        setVisible1(!visibility1)
+
+    }
+
+    const signoutMode = () => {
+        setVisible1(!visibility1)
+    }
+
+    const renderGoogleButton = () => {
+        if (visibility1) {
+            return (
+                <Layout style={styles.signinView}>
+                    <Image
+                        source={require('../assets/GoogleIcon.png')}
+                        style={{
+                            height: 43, width: 43, borderColor: 'black', borderWidth: 2, backgroundColor: '#0000ff', justifyContent: 'center'
+                        }} />
+                    <Button
+
+                        style={styles.googlebutton}
+                        disabled={!request}
+                        onPress={() => {
+                            promptAsync(); signoutMode();
+                        }} >
+
+
+                        <Text style={styles.googlebuttontext}>{"Google Sign-in"}</Text>
+                    </Button>
+                </Layout>
+            )
+        } else {
+            return (
+                <View style={styles.login_wrapper}>
+                    <View style={styles.form}>
+                        <Button style={{ justifyContent: 'center', width: 200, alignSelf: 'center', backgroundColor: '#0000ff' }}
+                            onPress={() => { doUserLogOut(); signinMode(); clearAsyncStorage() }}>
+                            <View style={styles.buttonLogout}>
+                                <Text style={styles.button_label}>{'Logout'}</Text>
+                            </View>
+                        </Button>
+                    </View>
+                </View>
+            )
+        }
+    }
+
+
+
+
     const edittingMode = () => {
         setDisability(false)
         setVisible(!visibility)
@@ -107,7 +216,7 @@ export const ProfilePage = () => {
     const renderButton = () => {
         if (visibility) {
             return (
-                <Button style={{ justifyContent: 'center', width: 200, alignSelf: 'center', marginTop: 40 }} status='info' onPress={edittingMode}>
+                <Button style={{ justifyContent: 'center', width: 200, alignSelf: 'center', marginTop: 30 }} status='info' onPress={edittingMode}>
                     Edit Profile
                 </Button>
             )
@@ -175,19 +284,7 @@ export const ProfilePage = () => {
                         </Layout>
                     </Layout>
                     {renderButton()}
-                    <Button
-
-                        style={styles.googlebutton}
-                        disabled={!request}
-                        onPress={() => {
-                            promptAsync();
-                        }} >
-                        <Image
-                            source={require('../assets/GoogleIcon.png')}
-                            style={styles.ImageIconStyle} />
-                        <Text style={styles.googlebuttontext}>{"Signin with Google"}</Text>
-                    </Button>
-
+                    {renderGoogleButton()}
                 </Layout>
 
             </KeyboardAwareScrollView >
@@ -216,11 +313,10 @@ const styles = StyleSheet.create({
     },
     googlebutton: {
         backgroundColor: '#0000ff',
-        paddingHorizontal: 10,
-        justifyContent: 'center',
-        width: 200,
-        alignSelf: 'center',
-        marginTop: 17
+        width: 160,
+        borderWidth: 2,
+        paddingVertical: 10
+
     },
     googlebuttontext: {
         fontSize: 14,
@@ -228,10 +324,36 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontWeight: 'bold'
     },
-    ImageIconStyle: {
-        height: 40,
-        width: 40,
-        resizeMode: 'stretch'
-    }
+    signinView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 45
+    },
+    login_wrapper: {
+        flex: 1,
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+    },
+    form: {
+        width: '100%',
+        maxWidth: 280,
+    },
+    button_label: {
+        color: '#fff',
+        fontSize: 15,
+    },
+    buttonLogout: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 44,
+        backgroundColor: '#0000FF',
+        fontSize: 14,
+    },
+
+
 })
 
