@@ -66,7 +66,7 @@ class ToochPage extends React.Component {
       },
       instructions: {
         fontFamily: "Futura-Book-font",
-        fontSize: 17,
+        fontSize: 16,
         color: 'rgb(128, 57, 69)',
         borderWidth: 2,
         borderColor: 'rgb(128, 57, 69)',
@@ -74,12 +74,13 @@ class ToochPage extends React.Component {
         padding: 10,
         position: 'relative',
         bottom: "-20%",
-        paddingTop: "6%"
+        paddingTop: "3%",
+        width: "98%",
       },
       intructImage: {
           flex: 1,
-          width: 12,
-          height: 12,
+          width: 14,
+          height: 14,
           resizeMode: 'contain'
       }
     });
@@ -100,7 +101,8 @@ class ToochPage extends React.Component {
             </Pressable>
             <Text style={[this.style.instructions]}>
               <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> You will need take a photo of your mouth{"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find parents, siblings, friends or a mirror{"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Get help from parents, siblings or friends {"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Or you can take a photo with a mirror{"\n"}
               <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find a well-lit room{"\n"}
               <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Start your check up with the button above{"\n"}
               <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Have fun!
