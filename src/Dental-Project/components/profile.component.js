@@ -1,19 +1,26 @@
 import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
-import { Image, StyleSheet } from 'react-native';
-import { Button, Input, Datepicker } from '@ui-kitten/components';
+import { Image, StyleSheet, View } from 'react-native';
+import { Button, Input, Datepicker, Pressable } from '@ui-kitten/components';
 import userData from '../Data/userData';
 import profIcon from '../assets/profileIcon.png'
 import profBanner from '../assets/profileBanner.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { GoogleAuthButton } from './GoogleAuth.component'
+import * as WebBrowser from 'expo-web-browser';
+import { ResponseType } from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import * as firebase from 'firebase/app';
+import { GoogleIcon } from '../assets/GoogleIcon.png'
 
 
 
 import { getDatabase, ref, onValue, set } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import { buildCodeAsync } from 'expo-auth-session/build/PKCE';
 
-
+WebBrowser.maybeCompleteAuthSession();
 
 export const ProfilePage = () => {
     const [name, setName] = React.useState(userData.name)
@@ -23,6 +30,28 @@ export const ProfilePage = () => {
     const [date, setDate] = React.useState(userData.dob);
     const [age, setAge] = React.useState(userData.age)
     const [visibility, setVisible] = React.useState(true)
+
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
+        {
+            expoClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+            iosClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+            androidClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+            webClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+        },
+    );
+
+
+    React.useEffect(() => {
+        if (response?.type === 'success') {
+            const { id_token } = response.params;
+            const auth = getAuth();
+            const credential = GoogleAuthProvider.credential(id_token);
+            signInWithCredential(auth, credential);
+        }
+    }, [response]);
+
+
+
 
     const confirmEdit = () => {
         setVisible(true)
@@ -146,12 +175,24 @@ export const ProfilePage = () => {
                         </Layout>
                     </Layout>
                     {renderButton()}
-                    <GoogleAuthButton />
+                    <Button
+
+                        style={styles.googlebutton}
+                        disabled={!request}
+                        onPress={() => {
+                            promptAsync();
+                        }} >
+                        <Image
+                            source={require('../assets/GoogleIcon.png')}
+                            style={styles.ImageIconStyle} />
+                        <Text style={styles.googlebuttontext}>{"Signin with Google"}</Text>
+                    </Button>
+
                 </Layout>
 
-            </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView >
 
-        </Layout>
+        </Layout >
 
     )
 }
@@ -173,4 +214,24 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 30
     },
+    googlebutton: {
+        backgroundColor: '#0000ff',
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        width: 200,
+        alignSelf: 'center',
+        marginTop: 17
+    },
+    googlebuttontext: {
+        fontSize: 14,
+        color: 'white',
+        marginLeft: 20,
+        fontWeight: 'bold'
+    },
+    ImageIconStyle: {
+        height: 40,
+        width: 40,
+        resizeMode: 'stretch'
+    }
 })
+

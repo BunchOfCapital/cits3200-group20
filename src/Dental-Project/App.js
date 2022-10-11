@@ -80,17 +80,17 @@ import { getDatabase } from "firebase/database";
 // }
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
-  authDomain: "dentalapplication-11af7.firebaseapp.com",
-  databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  projectId: "dentalapplication-11af7",
-  storageBucket: "dentalapplication-11af7.appspot.com",
-  messagingSenderId: "839364181287",
-  appId: "1:839364181287:web:cca52feaca16d7dce67d02",
-  measurementId: "G-MKDS3KPF3N"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
+//   authDomain: "dentalapplication-11af7.firebaseapp.com",
+//   databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
+//   projectId: "dentalapplication-11af7",
+//   storageBucket: "dentalapplication-11af7.appspot.com",
+//   messagingSenderId: "839364181287",
+//   appId: "1:839364181287:web:cca52feaca16d7dce67d02",
+//   measurementId: "G-MKDS3KPF3N"
+// };
 
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-const database = getDatabase(app);
+// const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+// const database = getDatabase(app);
