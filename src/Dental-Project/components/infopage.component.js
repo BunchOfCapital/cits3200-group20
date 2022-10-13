@@ -100,11 +100,40 @@ const ExpandingView = ( props, navigation ) => {
 
 
 export const InfoPage = ({ navigation }) => {
-  const [modal1Visible, setModal1Visible] = useState(false);
-  const slideAnim = useRef(new Animated.Value(0)).current;
+
+  // VARIABLES TO CONTROL MODAL LOCATIONS, A NEW ONE IS NEEDED FOR EACH TOPIC
+  const [mod1, setMod1] = useState(false);
+  const [mod2, setMod2] = useState(false);
+  const [mod3, setMod3] = useState(false);
+  const [mod4, setMod4] = useState(false);
+  const [mod5, setMod5] = useState(false);
+
+  const slideAnimRight = useRef(new Animated.Value(0)).current;
+  const slideAnimLeft = useRef(new Animated.Value(0)).current;
+
   const onscreen = useRef(true);
 
-  const Slide = (props) => {
+
+  // ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
+  const _slideoff = () => {
+    onscreen.current = false;
+    Animated.parallel([
+      Animated.timing(
+      slideAnimRight,
+      {
+        toValue: width*2,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(
+      slideAnimLeft,
+      {
+        toValue: width*-2,
+        duration: 250,
+        useNativeDriver: true,
+      })
+      ]).start();
+  };
 
     const _slideright = () => {
     onscreen.current = false;
@@ -132,7 +161,7 @@ export const InfoPage = ({ navigation }) => {
 
     const swapsides = () => {
       {onscreen.current ? _slideright() : _slideleft()}
-    }
+    };
 
     return (
       <Animated.View
@@ -146,7 +175,6 @@ export const InfoPage = ({ navigation }) => {
           {props.children}
       </Animated.View>
     );
-  };
 
 
 
