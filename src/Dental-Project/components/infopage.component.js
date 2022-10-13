@@ -1,24 +1,20 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text,Card } from '@ui-kitten/components';
 import { useIsFocused } from '@react-navigation/native';
 import { Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView, View, TouchableWithoutFeedback, Animated, Pressable, Modal, Linking, Platform, SafeAreaView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { default as theme } from '../custom-theme.json';
+import YoutubePlayer from "react-native-youtube-iframe";
 
+import infoData, {getInfoData} from "../Data/infoData";
+
+// ANIMATION ON PAGE FOCUS TO GROW TOPIC SQUARES
 const ExpandingView = ( props, navigation ) => {
   const sizeAnim = useRef(new Animated.Value(2)).current;
-  const locationAnim = useRef(new Animated.Value(0)).current;
   const isFocused = useIsFocused();
 
-  const xmov = useRef(30);
-  const sizeval = useRef(3);
-
-  const opened = useRef(true);
-  const alignment = useRef(-20);
-
   const _grow = () => {
-    opened.current = true;
     Animated.timing(
       sizeAnim,
       {
@@ -30,7 +26,6 @@ const ExpandingView = ( props, navigation ) => {
   };
 
   const _shrink = () => {
-    opened.current = false;
     Animated.timing(
       sizeAnim,
       {
@@ -41,43 +36,8 @@ const ExpandingView = ( props, navigation ) => {
     ).start();
   }
 
-  const _expand = () => {
-    if (opened.current) {
-      opened.current = false;
-      xmov.current = -30;
-      sizeval.current = 3;
-    } else {
-      opened.current = true;
-      xmov.current = 30;
-      sizeval.current = 1;
-    }
-    
-    Animated.sequence( [
-      Animated.timing(
-        locationAnim, {
-          toValue: xmov.current,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-      Animated.timing(
-        sizeAnim, {
-          toValue: sizeval.current,
-          duration: 800,
-          useNativeDriver: true,
-        })
-      ]).start();
-  }
-
-
   if (isFocused) {_grow()}
   if (!isFocused) {_shrink()}
-
-  const scalingY = sizeAnim;
-  const scalingX = sizeAnim;
-
-  const swap = () => {
-    {opened.current ? _expand() : _grow() }
-  }
 
   return (
     <Animated.View
@@ -88,12 +48,10 @@ const ExpandingView = ( props, navigation ) => {
           width: 170,
         },
         {
-          transform: [ {scaleY: scalingY}, {scaleX: scalingX}, {translateX: locationAnim}],
+          transform: [ {scaleY: sizeAnim}, {scaleX: sizeAnim}],
         }
       ]}> 
-      <TouchableWithoutFeedback onPress={() => _expand()}>
         {props.children}
-      </TouchableWithoutFeedback>
       </Animated.View>
     );
 }
@@ -112,71 +70,60 @@ export const InfoPage = ({ navigation }) => {
   const slideAnimLeft = useRef(new Animated.Value(0)).current;
 
   const onscreen = useRef(true);
+  const {height, width} = useWindowDimensions();
 
-
-  // ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
+// ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
   const _slideoff = () => {
-    onscreen.current = false;
+  onscreen.current = false;
+  Animated.parallel([
+    Animated.timing(
+    slideAnimRight,
+    {
+      toValue: width*2,
+      duration: 250,
+      useNativeDriver: true,
+    }),
+    Animated.timing(
+    slideAnimLeft,
+    {
+      toValue: width*-2,
+      duration: 250,
+      useNativeDriver: true,
+    })
+    ]).start();
+  };
+
+  const _slideback = () => {
+    onscreen.current = true;
     Animated.parallel([
       Animated.timing(
       slideAnimRight,
       {
-        toValue: width*2,
+        toValue: 0,
         duration: 250,
         useNativeDriver: true,
       }),
       Animated.timing(
-      slideAnimLeft,
-      {
-        toValue: width*-2,
-        duration: 250,
-        useNativeDriver: true,
-      })
-      ]).start();
-  };
-
-    const _slideright = () => {
-    onscreen.current = false;
-    Animated.timing(
-      slideAnim,
-      {
-        toValue: 200,
-        duration: 20,
-        useNativeDriver: true,
-      }
-      ).start();
-    };
-
-    const _slideleft = () => {
-      onscreen.current = true;
-      Animated.timing(
-        slideAnim,
+        slideAnimLeft,
         {
-          toValue: -200,
-          duration: 20,
+          toValue: 0,
+          duration: 250,
           useNativeDriver: true,
-        }
-      ).start();
-      };
-
-    const swapsides = () => {
-      {onscreen.current ? _slideright() : _slideleft()}
+        })
+      ]).start();
     };
 
-    return (
-      <Animated.View
-        style = {[
-          {
-            ...props.style,
-          },
-          {
-            transform: [{translateX: slideAnim}],
-          }]}> 
-          {props.children}
-      </Animated.View>
-    );
+  const swapsides = () => {
+    {onscreen.current ? _slideoff() : _slideback()}
+  }
 
+  // IMPORT INFO TEXT INTO ARRAY
+  const [topics, topicNum] = useState(getInfoData());
 
+  // VARIABLES TO SUPPORT VIDEO PLAYER
+  const [playing, setPlaying] = useState(false);
+  const onStateChange = useCallback((state) => {    if (state === "ended") {      setPlaying(false);      Alert.alert("video has finished playing!");    }  }, []);
+  const togglePlaying = useCallback(() => {    setPlaying((prev) => !prev);  }, []);
 
   return ( 
       <Layout style={{flex: 1, backgroundColor: "#FFFFF5"}}>
@@ -184,13 +131,14 @@ export const InfoPage = ({ navigation }) => {
         <Text style={{textAlign: 'center', fontFamily:'Futura-Heavy-font', fontSize:26 }}>
           Welcome to the Info Page
         </Text>
+      {/*MAIN BODY*/}
         <ScrollView style={{margin: 10, overflow: 'scroll'}} showsVerticalScrollIndicator={false}>
 
         {/*TOPIC 1*/}
           <ExpandingView style={{backgroundColor: '#ABEC7E', alignSelf: 'flex-end', translateX: slideAnimRight}}>
               <TouchableWithoutFeedback onPress={() => {setMod1(true); swapsides();}}>
                   <Text style={styles.topicName}>
-                    Gum Diseases
+                    {topics[0]['name']}
                   </Text>
               </TouchableWithoutFeedback >
           </ExpandingView>
@@ -459,7 +407,7 @@ const styles = StyleSheet.create({
   topicTitle: {
     fontSize: 28,
     color: '#3B3C3F',
-    flex: 1,
+    marginBottom: 5,
     flexDirection: 'row',
     fontFamily: 'Futura-Heavy-font',
     
