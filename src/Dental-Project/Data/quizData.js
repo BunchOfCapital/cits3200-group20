@@ -84,3 +84,10 @@ export function getDailyQuiz() {
 
     return quizzes;
 }
+
+export function getQuiz(name) {
+    let quizzes = [];
+    quizzes.push(...quizdata[name])
+    return quizzes;
+
+}

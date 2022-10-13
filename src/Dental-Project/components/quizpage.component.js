@@ -3,15 +3,7 @@ import { Layout, Text, } from '@ui-kitten/components';
 import { StyleSheet, ScrollView, View, ImageBackground, Pressable } from 'react-native';
 import wallpaper from '../assets/7284061(1).png'
 import cloud from '../assets/cloud.png';
-
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { HygieneScreen } from './hygienequiz.component';
-
-
-const buttonPressed = () => {
-    console.log("Quiz Button Was Pressed!")
-}
-
+import { useNavigation } from '@react-navigation/native';
 
 
 export const QuizScreen = () => {
@@ -29,14 +21,14 @@ export const QuizScreen = () => {
                 <ScrollView style={{ margin: 10 }}>
                     <Text>A range of quizzes that can be taken to enhance your knowledge! Awards are earnt for their completion and progression is tracked. </Text>
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('HygieneScreen')} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'Hygiene' })} >
                             <Text style={[styles.buttontext]}>Hygiene Tips</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > This is a basic hygiene knowledge test</Text>
                     </View>
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#bac2ff' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#bac2ff' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'DailyQuiz' })}>
                             <Text style={[styles.buttontext]}>Daily Quiz</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > Questions randomly selected from a larger pool</Text>
@@ -44,7 +36,7 @@ export const QuizScreen = () => {
 
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffeedf' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffeedf' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'ToothHealth' })}>
                             <Text style={[styles.buttontext]}>Tooth Health</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > How well do you know your teeth?</Text>
@@ -52,28 +44,28 @@ export const QuizScreen = () => {
 
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#dae1f7' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#dae1f7' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'GumHealth' })}>
                             <Text style={[styles.buttontext]}>Gum Health</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > Are your gums sore?</Text>
                     </View>
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#feb3df' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#feb3df' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'ToothDecay' })}>
                             <Text style={[styles.buttontext]}>Tooth Decay</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > How to prevent tooth decay</Text>
                     </View>
 
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'HowToFloss' })}>
                             <Text style={[styles.buttontext]}>How to floss</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > Are you flossing correctly?</Text>
                     </View>
 
                     <View style={[styles.quizview, { paddingBottom: 60 }]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#c7dfff' }]} >
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#c7dfff' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'BrushingTeeth' })}>
                             <Text style={[styles.buttontext]}>Brushing Teeth</Text>
                         </Pressable>
                         <Text style={[styles.descriptiontext]} > Learn how to brush your teeth correctly with this quiz!</Text>
