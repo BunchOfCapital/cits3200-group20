@@ -7,6 +7,7 @@ import { QuizScreen } from './quizpage.component';
 import Assessment from './Assessment';
 import {CameraPage} from './camera.component';
 import {QuizGame} from './quizgame.component';
+import Booking from './booking';
 import {HygieneScreen} from './hygienequiz.component';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -15,6 +16,7 @@ const HomeNavigator = () => (
   <Navigator screenOptions={{ headerShown: false }}>
     <Screen name='Home' component={HomeScreen} />
     <Screen name='Assessment' component={Assessment} />
+    <Screen name='Booking' component={Booking} />
     <Screen name='Info' component={InfoPage} />
     <Screen name='Quiz' component={QuizScreen} />
     <Screen name='QuizGame' component={QuizGame} />
