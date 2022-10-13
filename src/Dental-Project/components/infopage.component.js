@@ -58,6 +58,8 @@ const ExpandingView = ( props, navigation ) => {
 
 
 export const InfoPage = ({ navigation }) => {
+
+  // VARIABLES TO CONTROL MODAL LOCATIONS, A NEW ONE IS NEEDED FOR EACH TOPIC
   const [mod1, setMod1] = useState(false);
   const [mod2, setMod2] = useState(false);
   const [mod3, setMod3] = useState(false);
@@ -69,6 +71,7 @@ export const InfoPage = ({ navigation }) => {
 
   const onscreen = useRef(true);
   const {height, width} = useWindowDimensions();
+
 
 // ANIMATION TO SLIDE TOPIC SQUARES AS MODAL IS OPENED
   const _slideoff = () => {
