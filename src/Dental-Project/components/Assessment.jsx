@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, Text, StyleSheet, SafeAreaView, ImageBackground, View, Pressable, Image, TouchableOpacity, Button, Platform } from 'react-native';
-import { Video, AVPlaybackStatus } from 'expo-av';
 import { withNavigation } from 'react-navigation';
+import {Icon } from '@ui-kitten/components';
 import * as Font from 'expo-font';
 
 let customFonts = {
@@ -34,7 +34,7 @@ class ToochPage extends React.Component {
         paddingTop: 60,
       },
       SCLView: {
-        paddingTop: 190,
+        paddingTop: 150,
       },
       title: {
         fontSize: 42,
@@ -43,33 +43,45 @@ class ToochPage extends React.Component {
         width: "100%",
         textAlign: "center",
         position: 'relative',
-        bottom: "10%",
+        bottom: "16%",
         color: "rgb(128, 57, 69)"
-      },
-      Table: {
-        width: "100%",
-        backgroundColor: "#fff",
-        paddingTop: 5,
-        marginBottom: 70,
-        borderTopEndRadius: 5,
-        borderTopStartRadius: 5,
-        minHeight: 600
       },
       assessBtn: {
         borderRadius: 40,
         backgroundColor: "rgb(255, 253, 217)",
         marginBottom: 10,
-        width: "50%",
+        width: "60%",
         textAlign: 'center',
-        borderColor: 'white',
+        borderColor: 'rgb(128, 57, 69)',
         borderWidth: 2,
+        position: 'relative',
+        bottom: "-22%"
       },
       btnText: {
-        fontSize: 28,
+        fontSize: 32,
         fontFamily: "futura-medium-bt",
         color: "rgb(128, 57, 69)",
         paddingVertical: 4,
         alignSelf: 'center',
+      },
+      instructions: {
+        fontFamily: "Futura-Book-font",
+        fontSize: 16,
+        color: 'rgb(128, 57, 69)',
+        borderWidth: 2,
+        borderColor: 'rgb(128, 57, 69)',
+        borderRadius: 10,
+        padding: 10,
+        position: 'relative',
+        bottom: "-20%",
+        paddingTop: "3%",
+        width: "98%",
+      },
+      intructImage: {
+          flex: 1,
+          width: 14,
+          height: 14,
+          resizeMode: 'contain'
       }
     });
     this.state = { status: null, page: true }
@@ -79,30 +91,24 @@ class ToochPage extends React.Component {
     if (!this.state.fontsLoaded) {
       return null;
     }
-    return this.state.page ? <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalDog.jpg')}>
+    return this.state.page ? <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalAssessMas.jpg')}>
       <SafeAreaView>
         <Text style={[this.style.title]}>Welcome to your{"\n"}Check Up</Text>
-        <ScrollView style={this.style.SCLView}>
+        <View style={this.style.SCLView}>
           <View style={{ alignItems: "center" }}>
             <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
               <Text style={this.style.btnText}>Start Here</Text>
             </Pressable>
+            <Text style={[this.style.instructions]}>
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> You will need take a photo of your mouth{"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Get help from parents, siblings or friends {"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Or you can take a photo with a mirror{"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find a well-lit room{"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Start your check up with the button above{"\n"}
+              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Have fun!
+            </Text>
           </View>
-          <View style={this.style.Table}>
-            <Video
-              style={{ width: "100%", height: 300, borderColor: "pink", borderStyle: "solid", borderWidth: 1, borderRadius: 5 }}
-              source={{
-                uri: 'https://cdn.videvo.net/videvo_files/video/premium/2021-04/large_watermarked/210329_09_Bali_4k_005_preview.mp4',
-              }}
-              resizeMode="contain"
-              isLooping
-              useNativeControls
-              isMuted={true}
-              onPlaybackStatusUpdate={status => this.setState({ status: status })}
-            />
-
-          </View>
-        </ScrollView>
+        </View>
       </SafeAreaView>
     </ImageBackground>
       : <App parent={this}></App>;
