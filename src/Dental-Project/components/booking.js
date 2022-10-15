@@ -1,8 +1,8 @@
 import {Component} from 'react';
 import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableHighlight } from 'react-native';
+import { Layout } from '@ui-kitten/components';
 
-
-const dataLayer = require("../map.json")
+const dataLayer = require("../Data/map.json")
 
 
 export default class ToochPage extends Component {
@@ -36,7 +36,7 @@ export default class ToochPage extends Component {
             width:"98%",
             marginTop:10,
             marginLeft:"1%",
-            backgroundColor:"#fff",
+            backgroundColor:"#F5FFFF",
             borderRadius:10,
             padding:10,
             shadowColor: "#000",
@@ -51,7 +51,7 @@ export default class ToochPage extends Component {
           }
         })
 
-        dataLayer.forEach(d => {
+        dataLayer.map(d => {
           this.items.push(<TouchableHighlight key={d.id} underlayColor="#DDDDDD" onPress={()=>{}}   style={this.style.item}>
           <>
           <Text style={{fontWeight:"bold",marginBottom:10}}>{d.name}</Text>
@@ -65,9 +65,11 @@ export default class ToochPage extends Component {
 
 
     render() {
-        return  <SafeAreaView style={{flex:1,}}><ScrollView style={{flex:1,display:"flex",flexDirection:"column"}}>
-            {this.items}
-        </ScrollView></SafeAreaView>;
+        return  <Layout style={{flex:1,backgroundColor:"#FFFFF5",marginBottom:50}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1,display:"flex",flexDirection:"column", backgroundColor:"#FFFFF5"}}>
+              {this.items}
+          </ScrollView>
+        </Layout>;
     }
 
 }
