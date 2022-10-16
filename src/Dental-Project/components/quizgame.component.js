@@ -15,19 +15,12 @@ import userData from "../Data/userData";
 export const QuizGame = ({ route }) => {
 
 
-    console.log("How many times is this printed")
     var { QuizName } = route.params;
-    var [questions, setQuestions] = useState([]);
-    if (QuizName == 'DailyQuiz') {
-        [questions, setQuestions] = useState(getDailyQuiz());
-        console.log("Daily Quiz Questions")
-        console.log(questions)
-    }
-    if (QuizName != 'DailyQuiz') {
-        [questions, setQuestions] = useState(getQuiz(QuizName));
-        console.log(QuizName, " Questions")
-        console.log(questions)
-    }
+    var [questions, setQuestions] = useState(QuizName == 'DailyQuiz' ? getDailyQuiz() : getQuiz(QuizName))
+    console.log("  ")
+    console.log("  ")
+    console.log("  ")
+    console.log(questions)
 
     const nav = useNavigation()
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
@@ -40,12 +33,13 @@ export const QuizGame = ({ route }) => {
     const [quizDone, setQuizDone] = useState(false)
 
     const resetQuiz = () => {
-        // setQuestions([])
+        //setQuestions([])
         setQuizDone(false)
         setCurrentQuestionIndex(0)
         setScore(0)
         setIsOptionsDisabled(false)
         setIsNextDisabled(true)
+        setQuizDone(false)
     }
 
 
@@ -73,7 +67,6 @@ export const QuizGame = ({ route }) => {
         }
     }
     const renderOptions = () => {
-        console.log("This should not be printed")
         let options = questions[currentQuestionIndex]?.options;
         let topRow = [options[0], options[1]];
         let bottomRow = [options[2], options[3]];
@@ -166,7 +159,6 @@ export const QuizGame = ({ route }) => {
                                     }
                                 }
                                 userData.lastQuizDay = new Date();
-                                console.log("Print every time this is called. Should just be once at the end.")
                                 nav.navigate('Home');
                                 resetQuiz();
 
