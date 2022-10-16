@@ -1,7 +1,7 @@
 import React, { useRef, useState, FC, ReactElement } from 'react';
 import { Layout, Text } from '@ui-kitten/components';
 import { Alert, Image, StyleSheet, KeyboardAvoidingView, ScrollView, View, Parse } from 'react-native';
-import { Button ,Input, Datepicker, Pressable} from '@ui-kitten/components';
+import { Button, Input, Datepicker, Pressable } from '@ui-kitten/components';
 
 import userData from '../Data/userData';
 import profIcon from '../assets/profileIcon.png'
@@ -31,7 +31,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 
 
-export const ProfilePage = () =>{
+export const ProfilePage = () => {
     const [name, setName] = React.useState(userData.name)
     const [email, setEmail] = React.useState(userData.email)
     const [location, setLocation] = React.useState(userData.location)
@@ -48,33 +48,33 @@ export const ProfilePage = () =>{
         try {
             const interim = await AsyncStorage.getItem('UID');
             if (interim !== null) {
-              //Unique user ID retrieved successfully 
-              console.debug("retrieved user ID:\n " + interim);
-              userID.current = interim;
+                //Unique user ID retrieved successfully 
+                console.debug("retrieved user ID:\n " + interim);
+                userID.current = interim;
             } else {
                 console.debug("Can't find user ID, creating new ID...");
-                userID.current =  uuid.v4();
+                userID.current = uuid.v4();
                 _storeData('UID');
             }
-        } 
+        }
         catch (error) {
             alert("Error while checking ID:\n " + error);
-        
 
-      }
+
+        }
     }
 
 
     const _storeData = async (storage_key) => {
-      try {
-        await AsyncStorage.setItem(
-          storage_key,
-          userID.current,
-        );
-        console.debug("beep boop writing UID " + userID.current);
-      } catch (error) {
-        alert("Storage failed, returned error:\n " + error)
-      }
+        try {
+            await AsyncStorage.setItem(
+                storage_key,
+                userID.current,
+            );
+            console.debug("beep boop writing UID " + userID.current);
+        } catch (error) {
+            alert("Storage failed, returned error:\n " + error)
+        }
     };
 
     //runs in the background whenever page is loaded, makes sure userID is always initialised
@@ -85,10 +85,10 @@ export const ProfilePage = () =>{
 
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
         {
-            expoClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            iosClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            androidClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            webClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+            expoClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            iosClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            androidClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            webClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
         },
     );
 
@@ -232,25 +232,25 @@ export const ProfilePage = () =>{
         setVisible(!visibility)
     }
 
-    const renderButton = () =>{
-        if(visibility){
-            return(
-            <Button style= {{justifyContent:'center', width: 200, alignSelf:'center', marginTop:40, marginBottom: 50}}status='info' onPress={edittingMode}>
-                Edit Profile
-            </Button>
+    const renderButton = () => {
+        if (visibility) {
+            return (
+                <Button style={{ justifyContent: 'center', width: 200, alignSelf: 'center', marginTop: 40, marginBottom: 50 }} status='info' onPress={edittingMode}>
+                    Edit Profile
+                </Button>
             )
-        }else{
-            return(
-            <Layout style={{flexDirection:'row',marginTop:40}}>
-                <View style={{flexDirection: 'row', flex: 1}}>
-                     <Button style= {{flex: 1, justifyContent:'center', width: "40%", alignSelf:'center', marginBottom:50 ,marginLeft:10, marginRight:10}}status='danger' onPress={() => cancelEditMode()}>
-                         Exit
-                    </Button>
-                     <Button style= {{flex: 1, justifyContent:'center', width: "40%", alignSelf:'center', marginBottom:50 ,marginLeft:10, marginRight:10}}status='success' onPress={() => confirmEdit()}>
-                         Confirm
-                    </Button>
-                </View>
-            </Layout>
+        } else {
+            return (
+                <Layout style={{ flexDirection: 'row', marginTop: 40 }}>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Button style={{ flex: 1, justifyContent: 'center', width: "40%", alignSelf: 'center', marginBottom: 50, marginLeft: 10, marginRight: 10 }} status='danger' onPress={() => cancelEditMode()}>
+                            Exit
+                        </Button>
+                        <Button style={{ flex: 1, justifyContent: 'center', width: "40%", alignSelf: 'center', marginBottom: 50, marginLeft: 10, marginRight: 10 }} status='success' onPress={() => confirmEdit()}>
+                            Confirm
+                        </Button>
+                    </View>
+                </Layout>
             )
         }
     }

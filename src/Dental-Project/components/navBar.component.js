@@ -80,7 +80,7 @@ const TopBar = () => {
 
   return (
     <React.Fragment>
-      <Text style={styles.title}>Dental App</Text>
+      <Text style={styles.title}>OralCompass</Text>
       <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} onLayout={onLayoutRootView} />
       {/* <OverflowMenu
           anchor={renderMenuAction}
