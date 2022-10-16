@@ -72,7 +72,7 @@ function shuffleArray(array) {
 }
 
 export function getDailyQuiz() {
-    const QUIZ_SIZE = 4;
+    const QUIZ_SIZE = 8;
 
     let quizzes = [];
     // Get each question an put it in quizzes

@@ -109,7 +109,7 @@ export const ProfilePage = () =>{
     const renderButton = () =>{
         if(visibility){
             return(
-            <Button style= {{justifyContent:'center', width: 200, alignSelf:'center', marginTop:40}}status='info' onPress={edittingMode}>
+            <Button style= {{justifyContent:'center', width: 200, alignSelf:'center', marginTop:40, marginBottom: 50}}status='info' onPress={edittingMode}>
                 Edit Profile
             </Button>
             )
@@ -132,11 +132,11 @@ export const ProfilePage = () =>{
     return(
         <Layout style={{flex: 1, backgroundColor: "#FFF",flexDirection:"column"}}>  
             <KeyboardAwareScrollView extraHeight={120}>
-            <Layout style ={{alignItems:'center',marginVertical:20}}>
+            <Layout style ={{alignItems:'center',marginVertical:10}}>
                 <Image source={profBanner} style={{width:"100%", height:100, borderBottomWidth:3, borderColor:"#000000"}}/>
                 <Image source={profIcon} style={{position: "absolute", width:100, height:100, top:50}}/>
             </Layout >
-            <Layout style = {{zIndex: -1}} >
+            <Layout style = {{zIndex: -1, paddingBottom:70}} >
                 <Layout style ={{marginHorizontal:30, backgroundColor:"transparent"}}>
                     <Layout style={styles.container}>
                         <Text>Name: </Text>
@@ -200,6 +200,6 @@ const styles = StyleSheet.create({
         margin: 2,
       },
     container:{
-        marginTop:30
+        marginTop:20
     },
 })
