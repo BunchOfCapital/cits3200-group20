@@ -26,6 +26,8 @@ import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential, signOut } from "firebase/auth";
 import { buildCodeAsync } from 'expo-auth-session/build/PKCE';
 import { parse } from 'react-native-svg';
+import { useEffect } from 'react/cjs/react.production.min';
+import { async } from '@firebase/util';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -36,13 +38,60 @@ export const ProfilePage = () => {
     const [email, setEmail] = React.useState(userData.email)
     const [location, setLocation] = React.useState(userData.location)
     const [boolDisabled, setDisability] = React.useState(true)
-    const [date, setDate] = React.useState(userData.dob);
-    const [age, setAge] = React.useState(userData.age)
+    const [date, setDate] = React.useState(new Date());
     const [visibility, setVisible] = React.useState(true)
     const [visibility1, setVisible1] = React.useState(true)
 
     const userID = useRef("0");
 
+    const storeAsyncJSON = async (storage_key, value) => {
+        try {
+          const jsonValue = JSON.stringify(value);
+          await AsyncStorage.setItem(
+              storage_key,
+              jsonValue, // error
+          );
+          console.debug("beep boop writing " + value + " to "+ storage_key);
+        } catch (error) {
+              alert("Storage failed, returned error:\n " + error)
+              return null;
+        }
+      };
+  
+      const getAsync = async (storage_key) => {
+          try {
+            const jsonvalue = await AsyncStorage.getItem(storage_key)
+            return jsonvalue != null ? JSON.parse(jsonvalue) : null;
+          } catch(e) {
+              alert("storage retrieval failed, returned error:\n " + e);
+              return null;
+          }
+    }
+
+    function getAge(){
+        const today = new Date();
+        const calAge = today.getFullYear() - date.getFullYear();
+        const m = today.getMonth() - date.getMonth();
+        if (m === 0 && today.getDate < date.getDate()) {
+            calAge--
+        };
+        return calAge;
+    };
+
+    React.useEffect(()=>{
+        getAsync("name").then(
+            (data) => (data != null) ? setName(data) : void 0
+        );
+        getAsync("email").then(
+            (data) => (data != null) ? setEmail(data) : void 0
+        );
+        getAsync("location").then(
+            (data) => (data != null) ? setLocation(data) : void 0
+        );
+        getAsync("date").then(
+            (data) => (data != null) ? setDate(new Date(data)) : void 0
+        );
+    }, []);
 
     const _checkExistingID = async () => {
         try {
@@ -76,6 +125,7 @@ export const ProfilePage = () => {
             alert("Storage failed, returned error:\n " + error)
         }
     };
+
 
     //runs in the background whenever page is loaded, makes sure userID is always initialised
     _checkExistingID();
@@ -143,17 +193,12 @@ export const ProfilePage = () => {
     const confirmEdit = () => {
         setVisible(true)
         setDisability(true)
-        const today = new Date()
-        const calAge = today.getFullYear() - date.getFullYear()
-        const m = today.getMonth() - date.getMonth()
-        if (m === 0 && today.getDate < date.getDate()) {
-            calAge--
-        }
-        setAge(calAge)
-        userData.age = calAge
-        userData.name = name;
-        userData.location = location;
-        userData.email = email;
+
+        const calAge = getAge();
+        storeAsyncJSON("name", name);
+        storeAsyncJSON("location", location);
+        storeAsyncJSON("email", email);
+        storeAsyncJSON("date", date.toDateString());
 
         //When user confirms details, write them to the firebase RTDB
         const database = getDatabase();
@@ -283,7 +328,7 @@ export const ProfilePage = () => {
                                 onChangeText={nextValue => setEmail(nextValue)} />
                         </Layout>
                         <Layout style={{ marginTop: 20, }}>
-                            <Text>Age: {age.toLocaleString()}</Text>
+                            <Text>Age: {getAge().toLocaleString()}</Text>
                             <Datepicker
                                 min={new Date(1900, 0, 0)}
                                 max={new Date()}
