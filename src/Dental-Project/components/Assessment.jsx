@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Pressable, Image, Platform } from 'react-native';
+import { Text, StyleSheet, View, Pressable, Image, Platform, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Icon, Layout } from '@ui-kitten/components';
 import * as Font from 'expo-font';
@@ -87,37 +87,39 @@ class ToochPage extends React.Component {
 
     }
     return this.state.page ?
-      <View style={[this.style.background]}>
-        <Text style={[this.style.title]}>Welcome to your checkup</Text>
-        <Image style={[this.style.mainimage]} source={require('../assets/neutral.png')} />
-        <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
-          <Text style={this.style.btnText}>Start Here</Text>
-        </Pressable>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> You will need take a photo of your mouth</Text>
+      <ScrollView>
+        <View style={[this.style.background]}>
+          <Text style={[this.style.title]}>Welcome to your checkup</Text>
+          <Image style={[this.style.mainimage]} source={require('../assets/neutral.png')} />
+          <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
+            <Text style={this.style.btnText}>Start Here</Text>
+          </Pressable>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> You will need take a photo of your mouth</Text>
+          </View>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> Get help from parents, siblings or friends</Text>
+          </View>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> Or you can take a photo with a mirror</Text>
+          </View>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> Find a well-lit room</Text>
+          </View>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> Start your check up with the button above</Text>
+          </View>
+          <View style={[this.style.bottomView]}>
+            <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+            <Text style={[this.style.smallText]}> Have fun!</Text>
+          </View>
         </View>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> Get help from parents, siblings or friends</Text>
-        </View>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> Or you can take a photo with a mirror</Text>
-        </View>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> Find a well-lit room</Text>
-        </View>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> Start your check up with the button above</Text>
-        </View>
-        <View style={[this.style.bottomView]}>
-          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
-          <Text style={[this.style.smallText]}> Have fun!</Text>
-        </View>
-      </View>
+      </ScrollView>
 
       : <App parent={this}></App>;
   }
