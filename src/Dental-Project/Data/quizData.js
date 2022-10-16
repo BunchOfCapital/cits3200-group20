@@ -1,3 +1,5 @@
+import react, { useState } from "react";
+
 export default quizdata = {
     Hygiene: [
         {
@@ -12,45 +14,97 @@ export default quizdata = {
         },
         {
             question: "How often should you floss?",
-            options: ["Once a month", "Every day", "2-3 Time a week", "Never"],
-            correct_option: "2 -3 Times a week"
-        }
-    ],
-    BrushingTeeth: [
-        {
-            question: "Test Question for brushing teeth",
-            options: ["1", "2", "3", "4"],
-            correct_option: "3"
+            options: ["Once a month", "Every day", "Once a week", "Never"],
+            correct_option: "Every day"
         },
-    ],
-    ToothHealth: [
         {
-            question: "Test question for ToothHealth",
-            options: ["1", "3", "63", "4"],
-            correct_option: "63"
-        }
-    ],
-    GumHealth: [
+            question: "How many times a day should you brush your teeth?",
+            options: ["One time", "Four times", "Two times", "Zero times"],
+            correct_option: "Two times"
+        },
         {
-            question: "Test question for GumHealth",
-            options: ["21", "32", "73", "24"],
-            correct_option: "24"
-        }
+            question: "A child should be seen by a dentist at what age?",
+            options: ["7 years old", "3 years old", "5 years old", "1 year old"],
+            correct_option: "1 year old"
+        },
+        {
+            question: "Toothbrushes should be replaced every: ",
+            options: ["2-3 Months", "1-2 Weeks", "4-6 Months", "1-2 Years"],
+            correct_option: "2-3 Months"
+        },
     ],
     ToothDecay: [
         {
-            question: "Test question for ToothDecay",
-            options: ["11", "33", "3", "52"],
-            correct_option: "11"
+            question: "What causes tooth decay?",
+            options: ["Acid", "Age", "Cavities", "Caffeine"],
+            correct_option: "Acid"
+        },
+        {
+            question: "What drinks are acidic and can cause tooth decay?",
+            options: ["Beer", "Soft drinks", "Water", "Sparkling Water"],
+            correct_option: "Soft drinks"
+        },
+        {
+            question: "What is a symptom of tooth decay?",
+            options: ["Black/Brown stains on the tooth surface", "Tooth becoming loose", "Nose bleeds", "Sore tongue"],
+            correct_option: "Black/Brown stains on the tooth surface"
+        },
+        {
+            question: "What is the best way to avoid tooth decay?",
+            options: ["Eating sugar filled food/drinks", "Avoid sharing eating utensils", "Having a healthy, balanced diet", "Using more force when brushing your teeth"],
+            correct_option: "Having a healthy, balanced diet"
         }
     ],
     HowToFloss: [
         {
-            question: "Test question for HowToFloss",
-            options: ["111", "43", "33", "1"],
-            correct_option: "111"
-        }
-    ]
+            question: "About how much flossing wire should you use?",
+            options: ["30cm", "100cm", "10cm", "5cm"],
+            correct_option: "30cm"
+        },
+        {
+            question: "How should you clean your teeth with flossing wire?",
+            options: ["Press the wire between teeth and into the gum", "Guide the wire gently between your teeth", "Clean the front of your teeth", "Scrape your tongue with the flossing wire"],
+            correct_option: "Guide the wire gently between your teeth"
+        },
+        {
+            question: "Should you reuse your flossing wire?",
+            options: ["Yes its better for the environment", "No", "You can use it more than once", "It's cost effective to keep it"],
+            correct_option: "No"
+        },
+
+    ],
+
+    BrushingTeeth: [
+        {
+            question: "What is the correct amount of toothpaste to use?",
+            options: ["The size of a grain of rice", "The size of a pea", "The full brush length", "A huge dollop"],
+            correct_option: "The size of a pea"
+        },
+        {
+            question: "How hard should the bristles be?",
+            options: ["Soft", "Medium", "Hard", "It doesn't matter"],
+            correct_option: "Soft"
+        },
+        {
+            question: "Is it ok to share a toothbrush?",
+            options: ["It's always ok", "Yes its fine", "Yes, but only if you know them", "No, bacteria could be shared"],
+            correct_option: "No, bacteria could be shared"
+        },
+        {
+            question: "How should you brush your teeth?",
+            options: ["Powerful strokes, side to side", "Short/light strokes, up and down", "Light strokes, side to side", "Powerful strokes, up and down"],
+            correct_option: "Short/light strokes, up and down"
+        },
+        {
+            question: "Where should you leave your toothbrush when your finished?",
+            options: ["Leave it on the bathroom bench", "Place it in a travel bag", "Let it air-dry whilst upright", "Soak it in water"],
+            correct_option: "Let it air-dry whilst upright"
+        },
+
+    ],
+
+
+
 
 
 };
@@ -72,6 +126,7 @@ function shuffleArray(array) {
 }
 
 export function getDailyQuiz() {
+
     const QUIZ_SIZE = 8;
 
     let quizzes = [];
@@ -81,6 +136,12 @@ export function getDailyQuiz() {
         quizzes.splice(Math.floor(Math.random() * quizzes.length), 1);
     }
     quizzes = shuffleArray(quizzes);
-
     return quizzes;
+}
+
+export function getQuiz(name) {
+    let quizzes = [];
+    quizzes.push(...quizdata[name])
+    return quizzes;
+
 }
