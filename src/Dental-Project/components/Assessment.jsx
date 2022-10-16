@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native';
+import { Text, StyleSheet, View, Pressable, Image, Platform } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Icon, Layout } from '@ui-kitten/components';
 import * as Font from 'expo-font';
@@ -35,7 +35,8 @@ class ToochPage extends React.Component {
         fontSize: 42,
         fontFamily: "Futura-Heavy-font",
         textAlign: 'center',
-        color: "rgb(128, 57, 69)"
+        color: "rgb(128, 57, 69)",
+        marginTop: 15
       },
       mainimage: {
         height: '60%',
@@ -52,8 +53,8 @@ class ToochPage extends React.Component {
         alignSelf: 'center',
         borderColor: 'rgb(128, 57, 69)',
         borderWidth: 2,
-        marginTop: '15%',
-        marginBottom: 15
+        marginTop: '13%',
+        marginBottom: Platform.OS == 'ios' ? 40 : 20
       },
       btnText: {
         fontSize: 32,
