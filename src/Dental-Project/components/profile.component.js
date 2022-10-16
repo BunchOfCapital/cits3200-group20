@@ -38,10 +38,10 @@ export const ProfilePage = () => {
 
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
         {
-            expoClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            iosClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            androidClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-            webClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
+            expoClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            iosClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            androidClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
+            webClientId: '793240191476-5eul11850sscqn3o2foupt75e8grj7pv.apps.googleusercontent.com',
         },
     );
 
