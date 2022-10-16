@@ -10,11 +10,12 @@ import neutral from "../assets/neutral.png"
 import fallflat from "../assets/fallflat.png"
 import userData from "../Data/userData";
 
-var counter = 0;
 
 
 export const QuizGame = ({ route }) => {
 
+
+    console.log("How many times is this printed")
     var { QuizName } = route.params;
     var [questions, setQuestions] = useState([]);
     if (QuizName == 'DailyQuiz') {
@@ -38,18 +39,13 @@ export const QuizGame = ({ route }) => {
     const [showModal, setShowModal] = useState(false)
     const [quizDone, setQuizDone] = useState(false)
 
-
-
     const resetQuiz = () => {
-        setQuestions([])
+        // setQuestions([])
         setQuizDone(false)
         setCurrentQuestionIndex(0)
         setScore(0)
-        setcurrentOptionSelected(null)
         setIsOptionsDisabled(false)
         setIsNextDisabled(true)
-
-
     }
 
 
@@ -76,8 +72,8 @@ export const QuizGame = ({ route }) => {
             setIsNextDisabled(true)
         }
     }
-
     const renderOptions = () => {
+        console.log("This should not be printed")
         let options = questions[currentQuestionIndex]?.options;
         let topRow = [options[0], options[1]];
         let bottomRow = [options[2], options[3]];
@@ -108,6 +104,8 @@ export const QuizGame = ({ route }) => {
                     {bottomRow.map(optionMap)}
                 </Layout>
             </Layout>)
+
+
     }
 
     const renderNextButton = () => {
@@ -153,6 +151,7 @@ export const QuizGame = ({ route }) => {
                         <Button
                             onPress={() => {
                                 setShowModal(false);
+                                // resetQuiz();
                                 if (userData.lastQuizDay != null) {
                                     let today = new Date();
                                     let old = userData.lastQuizDay;
@@ -167,9 +166,11 @@ export const QuizGame = ({ route }) => {
                                     }
                                 }
                                 userData.lastQuizDay = new Date();
-
+                                console.log("Print every time this is called. Should just be once at the end.")
                                 nav.navigate('Home');
                                 resetQuiz();
+
+
 
                             }}
                             style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", width: 200, marginTop: 10, backgroundColor: '#C1E8E0' }}
@@ -178,6 +179,7 @@ export const QuizGame = ({ route }) => {
                     </Layout>
                 </Layout>
             </Modal>
+
         </Layout>
     )
 
