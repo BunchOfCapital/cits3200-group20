@@ -1,31 +1,55 @@
 import react, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Layout, View, Alert, Icon } from "@ui-kitten/components";
-import { ImageBackground, StatusBar, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
+import { Image, ImageBackground, StatusBar, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import quizData, { getDailyQuiz, getQuiz } from "../Data/quizData";
 import wallpaper from "../assets/7284061(1).png"
 import React, { useCallback, useRef } from "react";
+import happy from "../assets/happy.png"
+import neutral from "../assets/neutral.png"
+import fallflat from "../assets/fallflat.png"
+import userData from "../Data/userData";
+
+var counter = 0;
 
 
 export const QuizGame = ({ route }) => {
-    const nav = useNavigation()
+
     var { QuizName } = route.params;
     var [questions, setQuestions] = useState([]);
     if (QuizName == 'DailyQuiz') {
         [questions, setQuestions] = useState(getDailyQuiz());
+        console.log("Daily Quiz Questions")
+        console.log(questions)
     }
-    else {
+    if (QuizName != 'DailyQuiz') {
         [questions, setQuestions] = useState(getQuiz(QuizName));
+        console.log(QuizName, " Questions")
+        console.log(questions)
     }
 
+    const nav = useNavigation()
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [correctOption, setCorrectOption] = useState(null)
     const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
     const [score, setScore] = useState(0)
-    const [showNextButton, setShowNextButton] = useState(false)
+    const [isNextDisabled, setIsNextDisabled] = useState(true)
     const [showModal, setShowModal] = useState(false)
     const [quizDone, setQuizDone] = useState(false)
+
+
+
+    const resetQuiz = () => {
+        setCurrentQuestionIndex(0)
+        setScore(0)
+        setQuizDone(false)
+        setcurrentOptionSelected(null)
+        setIsOptionsDisabled(false)
+        setIsNextDisabled(true)
+        // setQuestions([])
+
+    }
 
 
     const validateAns = (selectedOption) => {
@@ -142,16 +166,22 @@ export const QuizGame = ({ route }) => {
                                     }
                                 }
                                 userData.lastQuizDay = new Date();
+
                                 nav.navigate('Home');
+                                resetQuiz();
+
                             }}
                             style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", width: 200, marginTop: 10, backgroundColor: '#C1E8E0' }}
                         >Home</Button>
+
                     </Layout>
                 </Layout>
             </Modal>
         </Layout>
     )
+
 }
+
 
 const buttonHeight = "50%";
 const buttonMarginX = 10;

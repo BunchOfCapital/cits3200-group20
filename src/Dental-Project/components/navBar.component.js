@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Text } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
@@ -22,7 +22,7 @@ const Stack = createStackNavigator();
 
 const TopBar = () => {
   const AwardIcon = (props) => (
-    <Icon {...props} name='award' fill ="#D4AF37"/>
+    <Icon {...props} name='award' fill="#D4AF37" />
   );
 
   const LogoutIcon = (props) => (
@@ -30,8 +30,8 @@ const TopBar = () => {
   );
 
   const MenuIcon = (props) => (
-  <Icon {...props} name='more-vertical'/>
-);
+    <Icon {...props} name='more-vertical' />
+  );
 
   const PersonIcon = (props) => (
     <Icon {...props} name='person-outline' />
@@ -52,19 +52,19 @@ const TopBar = () => {
   const renderMenuAction = () => (
     <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
   );
-    
+
   const [fontsLoaded] = useFonts({
     'Sassoon-Primary': require('../assets/fonts/Sassoon-Primary.otf'),
     'futura-medium-bt': require('../assets/fonts/futura-medium-bt.ttf'),
     'Futura-Heavy-font': require('../assets/fonts/Futura-Heavy-font.ttf'),
-    'Futura-Book-font' : require('../assets/fonts/Futura-Book-font.ttf')
+    'Futura-Book-font': require('../assets/fonts/Futura-Book-font.ttf')
   });
 
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
-    
+
     prepare();
   }, []);
 
@@ -73,22 +73,22 @@ const TopBar = () => {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-  
+
   if (!fontsLoaded) {
     return null;
   }
 
-  return(
-      <React.Fragment>
-        <Text style={styles.title}>Dental App</Text>
-        <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} onLayout={onLayoutRootView}/>
-        {/* <OverflowMenu
+  return (
+    <React.Fragment>
+      <Text style={styles.title}>Dental App</Text>
+      <TopNavigationAction icon={AwardIcon} onPress={navigateAchievements} onLayout={onLayoutRootView} />
+      {/* <OverflowMenu
           anchor={renderMenuAction}
           visible={menuVisible}
           onBackdropPress={toggleMenu}>
           <MenuItem accessoryLeft={PersonIcon} title='Profile'/>
         </OverflowMenu> */}
-        <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements}/>
+      <TopNavigationAction icon={PersonIcon} onPress={navigateAchievements} />
     </React.Fragment>
   );
 };
@@ -140,11 +140,11 @@ const TabNavigator = () => (
     <Screen name='Assessment' component={Assessment} />
     <Screen name='Booking' component={ToochPage} />
     <Screen name='Info' component={InfoPage} />
-    <Screen name ='Daily' component ={QuizGame}/>
+    <Screen name='Daily' component={QuizGame} initialParams={{ QuizName: 'Daily Quiz' }} />
     <Screen name='Quiz' component={QuizScreen} />
-    <Screen name = 'Profile' component={ProfilePage}/>
-    
-    <Screen name='Camera' component={CameraPage}/>
+    <Screen name='Profile' component={ProfilePage} />
+
+    <Screen name='Camera' component={CameraPage} />
   </Navigator>
 );
 
@@ -154,7 +154,7 @@ export const AppNavigator = () => (
     <Layout style={styles.topNav} level='1'>
       <TopNavigation
         accessoryRight={TopBar}
-        style={[{fontSize: 24}]}
+        style={[{ fontSize: 24 }]}
       />
     </Layout>
     <TabNavigator />
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    width: Platform.OS === 'ios' ? 150:90,
+    width: Platform.OS === 'ios' ? 150 : 90,
     fontFamily: "Sassoon-Primary",
     fontSize: 24,
     position: 'relative',
