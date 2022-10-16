@@ -11,64 +11,48 @@ export const QuizScreen = () => {
     return (
         <Layout style={{ flex: 1, backgroundColor: "#FFFFF5" }}>
             <ImageBackground source={wallpaper} resizeMode="cover" style={{ flex: 1 }}>
-                <Layout style={{ paddingBottom: 30, backgroundColor: "transparent", alignItems: "center", paddingTop: 10 }}>
-                    <ImageBackground source={cloud} resizeMode="cover" style={{ width: '100%', height: undefined, alignSelf: "center" }}>
+                <Layout style={{ paddingBottom: 0, backgroundColor: "transparent", alignItems: "center", paddingTop: 10 }}>
+                    <ImageBackground source={cloud} resizeMode="cover" style={{ width: '100%', height: 100, alignSelf: "center" }}>
                         <Text level='1' style={{ justifyContent: "center", alignItems: "center", textAlign: 'center', lineHeight: 100, color: 'white', fontSize: 30, textShadowColor: "#333333", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 1 }}>Take a Quiz!</Text>
                     </ImageBackground>
                 </Layout>
 
 
                 <ScrollView style={{ margin: 10 }}>
-                    <Text>A range of quizzes that can be taken to enhance your knowledge! Awards are earnt for their completion and progression is tracked. </Text>
-                    <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'Hygiene' })} >
-                            <Text style={[styles.buttontext]}>Hygiene Tips</Text>
-                        </Pressable>
-                        <Text style={[styles.descriptiontext]} > This is a basic hygiene knowledge test</Text>
-                    </View>
+                    <Text>A range of quizzes that can be taken to enhance your knowledge! Each quiz has an assigned difficulty from 1-3. A level 1 quiz would indicate that it is suitable for a child and level 3 is suitable for an adult. </Text>
 
                     <View style={[styles.quizview]}>
                         <Pressable style={[styles.quizbutton, { backgroundColor: '#bac2ff' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'DailyQuiz' })}>
                             <Text style={[styles.buttontext]}>Daily Quiz</Text>
                         </Pressable>
-                        <Text style={[styles.descriptiontext]} > Questions randomly selected from a larger pool</Text>
+                        <Text style={[styles.descriptiontext]} > Varying level Quiz. Questions are randomly selected from all the quizzes</Text>
                     </View>
-
-
                     <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffeedf' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'ToothHealth' })}>
-                            <Text style={[styles.buttontext]}>Tooth Health</Text>
+                        <Pressable style={[styles.quizbutton, { backgroundColor: '#ffd7d1' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'Hygiene' })} >
+                            <Text style={[styles.buttontext]}>Hygiene Quiz</Text>
                         </Pressable>
-                        <Text style={[styles.descriptiontext]} > How well do you know your teeth?</Text>
-                    </View>
-
-
-                    <View style={[styles.quizview]}>
-                        <Pressable style={[styles.quizbutton, { backgroundColor: '#dae1f7' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'GumHealth' })}>
-                            <Text style={[styles.buttontext]}>Gum Health</Text>
-                        </Pressable>
-                        <Text style={[styles.descriptiontext]} > Are your gums sore?</Text>
+                        <Text style={[styles.descriptiontext]} > Level 1 Quiz. Assesses your knowledge basic hygiene practices</Text>
                     </View>
 
                     <View style={[styles.quizview]}>
                         <Pressable style={[styles.quizbutton, { backgroundColor: '#feb3df' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'ToothDecay' })}>
                             <Text style={[styles.buttontext]}>Tooth Decay</Text>
                         </Pressable>
-                        <Text style={[styles.descriptiontext]} > How to prevent tooth decay</Text>
+                        <Text style={[styles.descriptiontext]} > Level 3 Quiz. Questions are related to what tooth decay is, possible causes and how to prevent it. </Text>
                     </View>
 
                     <View style={[styles.quizview]}>
                         <Pressable style={[styles.quizbutton, { backgroundColor: '#f6e0e2' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'HowToFloss' })}>
                             <Text style={[styles.buttontext]}>How to floss</Text>
                         </Pressable>
-                        <Text style={[styles.descriptiontext]} > Are you flossing correctly?</Text>
+                        <Text style={[styles.descriptiontext]} > Level 2 Quiz. This quiz will quiz you on appropriate flossing practices.</Text>
                     </View>
 
                     <View style={[styles.quizview, { paddingBottom: 60 }]}>
                         <Pressable style={[styles.quizbutton, { backgroundColor: '#c7dfff' }]} onPress={() => navigation.navigate('Daily', { QuizName: 'BrushingTeeth' })}>
                             <Text style={[styles.buttontext]}>Brushing Teeth</Text>
                         </Pressable>
-                        <Text style={[styles.descriptiontext]} > Learn how to brush your teeth correctly with this quiz!</Text>
+                        <Text style={[styles.descriptiontext]} > Level 1 Quiz. This quiz will quiz you on appropriate brushing practices.</Text>
                     </View>
 
                 </ScrollView>
