@@ -80,7 +80,6 @@ class ToochPage extends React.Component {
         width: "98%",
       },
       intructImage: {
-          flex: 1,
           width: 14,
           height: 14,
           resizeMode: 'contain'
