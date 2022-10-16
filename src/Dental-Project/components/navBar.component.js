@@ -96,27 +96,27 @@ const TopBar = () => {
 
 const Navbar = ({ navigation, state }) => {
   const HomeIcon = (props) => (
-    <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 0 ? 'home' : 'home-outline'} fill={state.index == 0 ? '#BFFCC6' : '#AFF8D8'} />
   );
 
   const AssessmentIcon = (props) => (
-    <Icon {...props} name={state.index == 1 ? 'video' : 'video-outline'} fill={state.index == 1 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 1 ? 'video' : 'video-outline'} fill={state.index == 1 ? '#85E3FF' : '#6EB5FF'} />
   );
 
   const BookingIcon = (props) => (
-    <Icon {...props} name={state.index == 2 ? 'book' : 'book-outline'} fill={state.index == 2 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 2 ? 'book' : 'book-outline'} fill={state.index == 2 ? '#FFCBC1' : '#FFABAB'} />
   );
 
   const InfoIcon = (props) => (
-    <Icon {...props} name={state.index == 3 ? 'info' : 'info-outline'} fill={state.index == 3 ? '#5DB782' : '#CBFFD1'} />
+    <Icon {...props} name={state.index == 3 ? 'info' : 'info-outline'} fill={state.index == 3 ? '#D5AAFF' : '#B28DFF'} />
   );
 
   const QuizIcon = (props) => (
-    <Icon {...props} name={state.index == 4 ? 'question-mark-circle' : 'question-mark-circle-outline'} fill={state.index == 4 ? '#F40000' : '#DFF400'} />
+    <Icon {...props} name={state.index == 4 ? 'question-mark-circle' : 'question-mark-circle-outline'} fill={state.index == 4 ? '#FFB5E8' : '#FF9CEE'} />
   );
 
   const QuizIcon2 = (props) => (
-    <Icon {...props} name={state.index == 5 ? 'menu' : 'menu-outline'} fill={state.index == 5 ? '#F40000' : '#DFF400'} />
+    <Icon {...props} name={state.index == 5 ? 'menu' : 'menu-outline'} fill={state.index == 5 ? '#FFB480' : '#FFA071'} />
   );
 
   return (
