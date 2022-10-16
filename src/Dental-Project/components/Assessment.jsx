@@ -1,13 +1,13 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, SafeAreaView, ImageBackground, View, Pressable, Image, TouchableOpacity, Button, Platform } from 'react-native';
+import { Text, StyleSheet, View, Pressable, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import {Icon } from '@ui-kitten/components';
+import { Icon, Layout } from '@ui-kitten/components';
 import * as Font from 'expo-font';
 
 let customFonts = {
   'futura-medium-bt': require('../assets/fonts/futura-medium-bt.ttf'),
   'Futura-Heavy-font': require('../assets/fonts/Futura-Heavy-font.ttf'),
-  'Futura-Book-font' : require('../assets/fonts/Futura-Book-font.ttf')
+  'Futura-Book-font': require('../assets/fonts/Futura-Book-font.ttf')
 }
 
 class ToochPage extends React.Component {
@@ -27,63 +27,55 @@ class ToochPage extends React.Component {
   constructor(props) {
     super(props)
     this.style = StyleSheet.create({
-      imageContainer: {
-        flex: 1,
-        width: "100%",
-        height: "100%",
-        paddingTop: 60,
-      },
-      SCLView: {
-        paddingTop: 150,
+      background: {
+        backgroundColor: '#FFE3E1',
+        paddingBottom: 100
       },
       title: {
         fontSize: 42,
         fontFamily: "Futura-Heavy-font",
-        paddingTop: Platform.OS === 'ios'? "7%":"4%",
-        marginTop: "5%",
-        width: "100%",
-        textAlign: "center",
-        position: 'relative',
-        bottom: "16%",
+        textAlign: 'center',
         color: "rgb(128, 57, 69)"
+      },
+      mainimage: {
+        height: '60%',
+        width: '60%',
+        flex: 1,
+        paddingTop: 230,
+        alignSelf: 'center',
+        marginTop: '6%'
       },
       assessBtn: {
         borderRadius: 40,
         backgroundColor: "rgb(255, 253, 217)",
-        marginBottom: 10,
         width: "60%",
-        textAlign: 'center',
+        alignSelf: 'center',
         borderColor: 'rgb(128, 57, 69)',
         borderWidth: 2,
-        position: 'relative',
-        bottom: "-22%"
+        marginTop: '15%',
+        marginBottom: 15
       },
       btnText: {
         fontSize: 32,
         fontFamily: "futura-medium-bt",
         color: "rgb(128, 57, 69)",
-        paddingVertical: 4,
         alignSelf: 'center',
       },
-      instructions: {
+      bottomView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: '8%',
+      },
+      smallImage: {
+        height: 24,
+        width: 24,
+      },
+      smallText: {
         fontFamily: "Futura-Book-font",
         fontSize: 16,
         color: 'rgb(128, 57, 69)',
-        borderWidth: 2,
-        borderColor: 'rgb(128, 57, 69)',
-        borderRadius: 10,
-        padding: 10,
-        position: 'relative',
-        bottom: "-20%",
-        paddingTop: "3%",
-        marginBottom: "40%",
-        width: "98%",
-      },
-      intructImage: {
-          width: 14,
-          height: 14,
-          resizeMode: 'contain'
       }
+
     });
     this.state = { status: null, page: true }
   }
@@ -91,30 +83,41 @@ class ToochPage extends React.Component {
   render() {
     if (!this.state.fontsLoaded) {
       return null;
+
     }
-    return this.state.page ? 
-    <ScrollView>
-      <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalAssessMas.jpg')}>
-        <SafeAreaView>
-          <Text style={[this.style.title]}>Welcome to your{"\n"}Check Up</Text>
-          <View style={this.style.SCLView}>
-            <View style={{ alignItems: "center" }}>
-              <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
-                <Text style={this.style.btnText}>Start Here</Text>
-              </Pressable>
-              <Text style={[this.style.instructions]}>
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> You will need take a photo of your mouth{"\n"}
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Get help from parents, siblings or friends {"\n"}
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Or you can take a photo with a mirror{"\n"}
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find a well-lit room{"\n"}
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Start your check up with the button above{"\n"}
-                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Have fun!
-              </Text>
-            </View>
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
-    </ScrollView>
+    return this.state.page ?
+      <View style={[this.style.background]}>
+        <Text style={[this.style.title]}>Welcome to your checkup</Text>
+        <Image style={[this.style.mainimage]} source={require('../assets/neutral.png')} />
+        <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
+          <Text style={this.style.btnText}>Start Here</Text>
+        </Pressable>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> You will need take a photo of your mouth</Text>
+        </View>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> Get help from parents, siblings or friends</Text>
+        </View>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> Or you can take a photo with a mirror</Text>
+        </View>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> Find a well-lit room</Text>
+        </View>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> Start your check up with the button above</Text>
+        </View>
+        <View style={[this.style.bottomView]}>
+          <Image style={[this.style.smallImage]} source={require('../assets/TinyMas.png')} />
+          <Text style={[this.style.smallText]}> Have fun!</Text>
+        </View>
+      </View>
+
       : <App parent={this}></App>;
   }
 
