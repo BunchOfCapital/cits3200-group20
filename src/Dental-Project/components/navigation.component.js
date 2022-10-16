@@ -18,7 +18,7 @@ const HomeNavigator = () => (
     <Screen name='Booking' component={Booking} />
     <Screen name='Info' component={InfoPage} />
     <Screen name='Quiz' component={QuizScreen} />
-    <Screen name='QuizGame' component={QuizGame} initialParams={{ QuizName: 'Daily Quiz' }} />
+    <Screen name='QuizGame' component={QuizGame} />
     <Screen name='Camera' component={CameraPage} />
   </Navigator>
 );

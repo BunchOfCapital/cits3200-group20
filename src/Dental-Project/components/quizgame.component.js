@@ -41,13 +41,14 @@ export const QuizGame = ({ route }) => {
 
 
     const resetQuiz = () => {
+        setQuestions([])
+        setQuizDone(false)
         setCurrentQuestionIndex(0)
         setScore(0)
-        setQuizDone(false)
         setcurrentOptionSelected(null)
         setIsOptionsDisabled(false)
         setIsNextDisabled(true)
-        // setQuestions([])
+
 
     }
 

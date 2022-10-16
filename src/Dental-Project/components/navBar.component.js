@@ -123,7 +123,7 @@ const Navbar = ({ navigation, state }) => {
     <BottomNavigation
       style={styles.bottomNavigation}
       selectedIndex={state.index}
-      onSelect={index => navigation.navigate(state.routeNames[index])}>
+      onSelect={index => navigation.navigate(state.routeNames[index], { QuizName: 'DailyQuiz' })}>
       <BottomNavigationTab icon={HomeIcon} />
       <BottomNavigationTab icon={AssessmentIcon} />
       <BottomNavigationTab icon={BookingIcon} />
@@ -140,7 +140,7 @@ const TabNavigator = () => (
     <Screen name='Assessment' component={Assessment} />
     <Screen name='Booking' component={ToochPage} />
     <Screen name='Info' component={InfoPage} />
-    <Screen name='Daily' component={QuizGame} initialParams={{ QuizName: 'Daily Quiz' }} />
+    <Screen name='Daily' component={QuizGame} r />
     <Screen name='Quiz' component={QuizScreen} />
     <Screen name='Profile' component={ProfilePage} />
 
