@@ -15,7 +15,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import * as firebase from 'firebase/app';
 import { GoogleIcon } from '../assets/GoogleIcon.png'
 import { initializeApp, getApp, getApps } from 'firebase/app';
-import AsyncStorage, { AsyncStorageStatic } from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -273,7 +272,7 @@ export const ProfilePage = () =>{
     return (
         <Layout style={{ flex: 1, backgroundColor: "#FFF", flexDirection: "column" }}>
             <KeyboardAwareScrollView extraHeight={120}>
-                <Layout style={{ alignItems: 'center', marginVertical: 20 }}>
+                <Layout style={{ alignItems: 'center', marginVertical: 10 }}>
                     <Image source={profBanner} style={{ width: "100%", height: 100, borderBottomWidth: 3, borderColor: "#000000" }} />
                     <Image source={profIcon} style={{ position: "absolute", width: 100, height: 100, top: 50 }} />
                 </Layout >
@@ -363,7 +362,8 @@ const styles = StyleSheet.create({
     signinView: {
         flexDirection: 'row',
         justifyContent: 'center',
-        height: 45
+        height: 45,
+        marginBottom: 50
     },
     login_wrapper: {
         flex: 1,
@@ -373,6 +373,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 12,
         backgroundColor: '#fff',
         alignItems: 'center',
+        marginBottom: 50
     },
     form: {
         width: '100%',
