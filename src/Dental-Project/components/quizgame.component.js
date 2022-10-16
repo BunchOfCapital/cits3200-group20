@@ -14,15 +14,12 @@ import userData from "../Data/userData";
 
 export const QuizGame = ({ route }) => {
 
-
     var { QuizName } = route.params;
-    var [questions, setQuestions] = useState(QuizName == 'DailyQuiz' ? getDailyQuiz() : getQuiz(QuizName))
-    console.log("  ")
-    console.log("  ")
-    console.log("  ")
-    console.log(questions)
-
     const nav = useNavigation()
+    const [dailyquestions, setDailyquestion] = useState(getDailyQuiz())
+
+
+    var questions = (QuizName == 'DailyQuiz' ? dailyquestions : getQuiz(QuizName));
     const [currentOptionSelected, setcurrentOptionSelected] = useState(null)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [correctOption, setCorrectOption] = useState(null)
@@ -32,18 +29,23 @@ export const QuizGame = ({ route }) => {
     const [showModal, setShowModal] = useState(false)
     const [quizDone, setQuizDone] = useState(false)
 
+
     const resetQuiz = () => {
-        //setQuestions([])
         setQuizDone(false)
         setCurrentQuestionIndex(0)
         setScore(0)
         setIsOptionsDisabled(false)
         setIsNextDisabled(true)
         setQuizDone(false)
+        setcurrentOptionSelected(null)
+        setCorrectOption(null)
+        setShowModal(false)
+
     }
 
 
     const validateAns = (selectedOption) => {
+
         let correct_option = questions[currentQuestionIndex]['correct_option']
         setcurrentOptionSelected(selectedOption)
         setCorrectOption(correct_option)
@@ -144,7 +146,7 @@ export const QuizGame = ({ route }) => {
                         <Button
                             onPress={() => {
                                 setShowModal(false);
-                                // resetQuiz();
+
                                 if (userData.lastQuizDay != null) {
                                     let today = new Date();
                                     let old = userData.lastQuizDay;

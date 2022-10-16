@@ -1,3 +1,5 @@
+import react, { useState } from "react";
+
 export default quizdata = {
     Hygiene: [
         {
@@ -124,6 +126,7 @@ function shuffleArray(array) {
 }
 
 export function getDailyQuiz() {
+
     const QUIZ_SIZE = 8;
 
     let quizzes = [];
@@ -133,7 +136,6 @@ export function getDailyQuiz() {
         quizzes.splice(Math.floor(Math.random() * quizzes.length), 1);
     }
     quizzes = shuffleArray(quizzes);
-
     return quizzes;
 }
 
