@@ -7,15 +7,6 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 import { AppNavigator } from './components/navBar.component';
 
-// import { AppNavigator } from './components/navigation.component';
-
-
-// export function App() {
-//   const [fontsLoaded] = useFonts({
-//     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-//   });
-// }
-
 
 export default () => (
   <>
@@ -25,6 +16,29 @@ export default () => (
     </ApplicationProvider>
   </>
 );
+
+import { REACT_APP_FIREBASE_API_KEY, 
+  REACT_APP_FIREBASE_AUTH_DOMAIN, 
+  REACT_APP_FIREBASE_DATABASE_URL, 
+  REACT_APP_FIREBASE_PROJECT_ID, 
+  REACT_APP_FIREBASE_STORAGE_BUCKET, 
+  REACT_APP_FIREBASE_MESSAGING_SENDER_ID, 
+  REACT_APP_FIREBASE_APP_ID} from '@env'
+
+
+const firebaseConfig = {
+  apiKey: REACT_APP_FIREBASE_API_KEY,
+  authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: REACT_APP_FIREBASE_APP_ID
+};
+
+//const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
 // import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
@@ -37,60 +51,4 @@ import * as firebase from "firebase/app";
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 
-// // // Initialize Firebase
-// // initializeApp({
-// //   /* Config */
 
-// // });
-
-// WebBrowser.maybeCompleteAuthSession();
-
-// export default function App() {
-
-//   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
-//     {
-//       expoClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-//       iosClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-//       androidClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-//       webClientId: '793240191476-ofejd502i32tp7vhkci5pkmkgahm6rrb.apps.googleusercontent.com',
-//     },
-//   );
-
-
-//   React.useEffect(() => {
-//     if (response?.type === 'success') {
-//       const { id_token } = response.params;
-//       const auth = getAuth();
-//       const credential = GoogleAuthProvider.credential(id_token);
-//       signInWithCredential(auth, credential);
-//     }
-//   }, [response]);
-
-//   return (
-//     <TouchableHighlight style={{ paddingTop: 100 }}>
-//       <Button
-//         disabled={!request}
-//         title="Login"
-//         onPress={() => {
-//           promptAsync();
-//         }}
-//       />
-//     </TouchableHighlight>
-//   );
-// }
-
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCP-sKoDDZ7Lt5fEsyEgK4pHPoH5WmaT50",
-//   authDomain: "dentalapplication-11af7.firebaseapp.com",
-//   databaseURL: "https://dentalapplication-11af7-default-rtdb.asia-southeast1.firebasedatabase.app/",
-//   projectId: "dentalapplication-11af7",
-//   storageBucket: "dentalapplication-11af7.appspot.com",
-//   messagingSenderId: "839364181287",
-//   appId: "1:839364181287:web:cca52feaca16d7dce67d02",
-//   measurementId: "G-MKDS3KPF3N"
-// };
-
-
-// const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-// const database = getDatabase(app);
