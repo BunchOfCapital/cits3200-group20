@@ -1,13 +1,23 @@
 import {Component} from 'react';
-import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableHighlight } from 'react-native';
+import {  ScrollView,Text, StyleSheet,SafeAreaView,ImageBackground, View,Pressable,Image,TouchableHighlight, Linking, Platform } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 
 const dataLayer = require("../Data/map.json")
 
 
 export default class ToochPage extends Component {
+
+  
     
     constructor (props) {
+        //taken from https://stackoverflow.com/questions/51545064/how-to-make-phone-call-in-react-native 
+        const dialCall = (number) => {
+          let phoneNum = '';
+          if (Platform.OS === 'android') { phoneNum = `tel:${number}`; }
+          else {phoneNum = `telprompt:${number}`; }
+          Linking.openURL(phoneNum);
+        };
+
         super(props)
         this.post_url = "https://www.dentist.com.au/index.php/ajax/processing_module"
         this.post_form = {
@@ -52,7 +62,7 @@ export default class ToochPage extends Component {
         })
 
         dataLayer.forEach(d => {
-          this.items.push(<TouchableHighlight key={d.id} underlayColor="#DDDDDD" onPress={()=>{}}   style={this.style.item}>
+          this.items.push(<TouchableHighlight key={d.id} underlayColor="#DDDDDD" onPress={()=>{dialCall(d.tel)}}   style={this.style.item}>
           <>
           <Text style={{fontWeight:"bold",marginBottom:10}}>{d.name}</Text>
           <Text style={{marginBottom:10}}>{d.address}</Text>
