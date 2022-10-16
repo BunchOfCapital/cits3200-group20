@@ -40,6 +40,7 @@ class ToochPage extends React.Component {
         fontSize: 42,
         fontFamily: "Futura-Heavy-font",
         paddingTop: Platform.OS === 'ios'? "7%":"4%",
+        marginTop: "5%",
         width: "100%",
         textAlign: "center",
         position: 'relative',
@@ -75,6 +76,7 @@ class ToochPage extends React.Component {
         position: 'relative',
         bottom: "-20%",
         paddingTop: "3%",
+        marginBottom: "40%",
         width: "98%",
       },
       intructImage: {
@@ -91,26 +93,29 @@ class ToochPage extends React.Component {
     if (!this.state.fontsLoaded) {
       return null;
     }
-    return this.state.page ? <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalAssessMas.jpg')}>
-      <SafeAreaView>
-        <Text style={[this.style.title]}>Welcome to your{"\n"}Check Up</Text>
-        <View style={this.style.SCLView}>
-          <View style={{ alignItems: "center" }}>
-            <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
-              <Text style={this.style.btnText}>Start Here</Text>
-            </Pressable>
-            <Text style={[this.style.instructions]}>
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> You will need take a photo of your mouth{"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Get help from parents, siblings or friends {"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Or you can take a photo with a mirror{"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find a well-lit room{"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Start your check up with the button above{"\n"}
-              <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Have fun!
-            </Text>
+    return this.state.page ? 
+    <ScrollView>
+      <ImageBackground style={this.style.imageContainer} source={require('../assets/DentalAssessMas.jpg')}>
+        <SafeAreaView>
+          <Text style={[this.style.title]}>Welcome to your{"\n"}Check Up</Text>
+          <View style={this.style.SCLView}>
+            <View style={{ alignItems: "center" }}>
+              <Pressable style={[this.style.assessBtn]} onPress={() => this.props.navigation.navigate('Camera')}>
+                <Text style={this.style.btnText}>Start Here</Text>
+              </Pressable>
+              <Text style={[this.style.instructions]}>
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> You will need take a photo of your mouth{"\n"}
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Get help from parents, siblings or friends {"\n"}
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Or you can take a photo with a mirror{"\n"}
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Find a well-lit room{"\n"}
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Start your check up with the button above{"\n"}
+                <Image style={[this.style.intructImage]} source={require('../assets/TinyMas.png')}/> Have fun!
+              </Text>
+            </View>
           </View>
-        </View>
-      </SafeAreaView>
-    </ImageBackground>
+        </SafeAreaView>
+      </ImageBackground>
+    </ScrollView>
       : <App parent={this}></App>;
   }
 
