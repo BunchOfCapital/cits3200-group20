@@ -51,7 +51,7 @@ export default class ToochPage extends Component {
           }
         })
 
-        dataLayer.map(d => {
+        dataLayer.forEach(d => {
           this.items.push(<TouchableHighlight key={d.id} underlayColor="#DDDDDD" onPress={()=>{}}   style={this.style.item}>
           <>
           <Text style={{fontWeight:"bold",marginBottom:10}}>{d.name}</Text>
