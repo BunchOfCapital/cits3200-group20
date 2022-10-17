@@ -34,7 +34,7 @@ export const HomeScreen = () => {
     <Layout style={{ backgroundColor: "#fff",alignItems:"center", flexBasis:"auto",borderRadius:25,overflow:"hidden",height:200, marginVertical:10}}>
         <ImageBackground source={cloud} resizeMode="cover" style={{width:"100%",height:"100%"}}>
           <Text level='1'  style={{justifyContent:"center", alignItems:"center", textAlign:'center',  color:'white', fontSize:30, textShadowColor: "#333333", textShadowOffset: {width:1,height:1}, textShadowRadius: 1}}>
-            {"\n"}Welcome Back {"\n" + username}!
+            {"\n"}Welcome Back {username != null ? "\n" + username:""}!
             </Text>
         </ImageBackground>
     </Layout>

@@ -5,6 +5,7 @@ import { Button, Input, Datepicker, Pressable } from '@ui-kitten/components';
 
 import userData from '../Data/userData';
 import profIcon from '../assets/profileIcon.png'
+import profIconRibbon from '../assets/profileIconBow.png'
 import profBanner from '../assets/profileBanner.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { GoogleAuthButton } from './GoogleAuth.component'
@@ -34,13 +35,14 @@ WebBrowser.maybeCompleteAuthSession();
 
 
 export const ProfilePage = () => {
-    const [name, setName] = React.useState(userData.name)
-    const [email, setEmail] = React.useState(userData.email)
-    const [location, setLocation] = React.useState(userData.location)
-    const [boolDisabled, setDisability] = React.useState(true)
+    const [name, setName] = React.useState(userData.name);
+    const [email, setEmail] = React.useState(userData.email);
+    const [location, setLocation] = React.useState(userData.location);
+    const [boolDisabled, setDisability] = React.useState(true);
     const [date, setDate] = React.useState(new Date());
-    const [visibility, setVisible] = React.useState(true)
-    const [visibility1, setVisible1] = React.useState(true)
+    const [visibility, setVisible] = React.useState(true);
+    const [visibility1, setVisible1] = React.useState(true);
+    const [hasRibbon, setHasRibbon] = React.useState(false);
 
     const userID = useRef("0");
 
@@ -90,6 +92,9 @@ export const ProfilePage = () => {
         );
         getAsync("date").then(
             (data) => (data != null) ? setDate(new Date(data)) : void 0
+        );
+        getAsync("hasRibbon").then(
+            (data) => (data != null) ? setHasRibbon(data) : void 0
         );
     }, []);
 
@@ -305,7 +310,13 @@ export const ProfilePage = () => {
             <KeyboardAwareScrollView extraHeight={120}>
                 <Layout style={{ alignItems: 'center', marginVertical: 10 }}>
                     <Image source={profBanner} style={{ width: "100%", height: 100, borderBottomWidth: 3, borderColor: "#000000" }} />
-                    <Image source={profIcon} style={{ position: "absolute", width: 100, height: 100, top: 50 }} />
+                    <Image onClick={()=>{
+                        storeAsyncJSON("hasRibbon", hasRibbon);
+                        setHasRibbon(!hasRibbon);
+                        }}
+                        source={hasRibbon? profIconRibbon : profIcon}
+                        style={{ position: "absolute", width: 100, height: 100, top: 50 }}
+                    />
                 </Layout >
                 <Layout style={{ zIndex: -1 }} >
                     <Layout style={{ marginHorizontal: 30, backgroundColor: "transparent" }}>
